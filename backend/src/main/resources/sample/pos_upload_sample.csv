@@ -1,0 +1,11 @@
+sku_code,product_name,category,unit_price,quantity,transaction_date,customer_name,customer_phone,payment_method
+UPLOAD-001,Imported Nails 2in,Hardware,3500,10,2026-06-20T09:15:00,Test Customer A,+250788111111,mobile_money
+UPLOAD-002,Imported Wire Mesh,Construction,15000,5,2026-06-20T09:30:00,Test Customer A,+250788111111,card
+UPLOAD-003,Imported Door Hinge,Hardware,4500,8,2026-06-20T10:00:00,Test Customer B,+250788222222,cash
+UPLOAD-004,Imported PVC Elbow,Plumbing,6500,12,2026-06-20T10:45:00,Test Customer C,+250788333333,mobile_money
+UPLOAD-005,Imported LED Bulb Pack,Electrical,2500,20,2026-06-20T11:00:00,Test Customer D,+250788444444,credit
+UPLOAD-006,Imported Paint Roller,Paint,3200,6,2026-06-20T11:30:00,Test Customer E,+250788555555,cash
+UPLOAD-007,Imported Measuring Tape,Hand Tools,3500,4,2026-06-20T12:00:00,Test Customer F,+250788666666,mobile_money
+UPLOAD-008,Imported Roofing Nails,Fasteners,3800,15,2026-06-20T13:15:00,Test Customer G,+250788777777,bank_transfer
+UPLOAD-009,Imported Cement Bag,Building Materials,13500,8,2026-06-20T14:00:00,Test Customer H,+250788888888,card
+UPLOAD-010,Imported Drill Bits Set,Power Tools,12000,3,2026-06-20T15:30:00,Test Customer I,+250788999999,mobile_money

@@ -1,0 +1,37 @@
+export const ROUTES = {
+  LOGIN: '/login',
+  FORGOT_PASSWORD: '/forgot-password',
+  DASHBOARD: '/dashboard',
+  AI_PREDICTIVE: '/dashboard/ai-predictive',
+  SALES: '/dashboard/sales',
+  INVENTORY: '/dashboard/inventory',
+  PRODUCTS: '/dashboard/products',
+  CUSTOMERS: '/dashboard/customers',
+  CUSTOMERS_ALL: '/dashboard/customers/all',
+  CUSTOMER: (id: string) => `/dashboard/customers/${id}`,
+  RECOMMENDATIONS: '/dashboard/recommendations',
+  DATA_COLLECTION: '/dashboard/data-collection',
+  REPORTS: '/dashboard/reports',
+  ALERTS: '/dashboard/alerts',
+  ADMIN: '/dashboard/admin',
+  PROFILE: '/dashboard/profile',
+  PROFILE_SECURITY: '/dashboard/profile?tab=security',
+} as const
+
+/** Legacy paths → dashboard paths (for redirects) */
+export const LEGACY_REDIRECTS: Record<string, string> = {
+  '/': ROUTES.DASHBOARD,
+  '/ai-analytics': ROUTES.AI_PREDICTIVE,
+  '/antigravity': ROUTES.AI_PREDICTIVE,
+  '/sales': ROUTES.SALES,
+  '/inventory': ROUTES.INVENTORY,
+  '/customers': ROUTES.CUSTOMERS,
+  '/recommendations': ROUTES.RECOMMENDATIONS,
+  '/data-collection': ROUTES.DATA_COLLECTION,
+  '/reports': ROUTES.REPORTS,
+  '/alerts': ROUTES.ALERTS,
+  '/stores': ROUTES.DASHBOARD,
+  '/strategic': ROUTES.DASHBOARD,
+  '/admin': ROUTES.ADMIN,
+  '/profile': ROUTES.PROFILE,
+}

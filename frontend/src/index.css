@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-charcoal-50: #f5f3f0;
+  --color-charcoal-100: #edeae4;
+  --color-charcoal-200: #d9d4cb;
+  --color-charcoal-300: #b8b0a3;
+  --color-charcoal-400: #8a8278;
+  --color-charcoal-500: #6b645c;
+  --color-charcoal-600: #524c46;
+  --color-charcoal-700: #3d3833;
+  --color-charcoal-800: #2c2a28;
+  --color-charcoal-900: #1a1917;
+  --color-charcoal: #2c2a28;
+  --color-copper: #b87333;
+  --color-copper-light: #d4956a;
+  --color-copper-dark: #8f5a28;
+  --color-bronze: #a67c52;
+  --color-gold-muted: #c4a962;
+  --color-terracotta: #9b4d32;
+  --color-ochre: #c9952a;
+  --color-olive: #6b705c;
+  --color-limestone: #e8e4dc;
+  --color-steel: #5a7289;
+  --color-steel-light: #7a94a8;
+  --color-steel-dark: #455a6e;
+  --color-rust: #c2410c;
+  --color-rust-light: #e05a24;
+  --color-forest: #2d5a45;
+  --color-forest-light: #3d7a5c;
+  --color-on-glass: #f5f3f0;
+  --color-on-glass-muted: #d9d4cb;
+  --color-on-glass-subtle: #b8b0a3;
+  --color-chart-tick: rgba(245, 243, 240, 0.88);
+}
+
+@layer base {
+  html { @apply scroll-smooth antialiased; }
+  body {
+    @apply font-sans text-on-glass;
+    -webkit-tap-highlight-color: transparent;
+    background: linear-gradient(145deg, #1a1917 0%, #2c2a28 30%, #3d3833 55%, #524c46 80%, #2c2a28 100%);
+    background-attachment: fixed;
+    min-height: 100dvh;
+  }
+  #root { @apply min-h-dvh; }
+}
+
+@layer utilities {
+  .app-bg-pattern {
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(90, 114, 137, 0.1) 0%, transparent 50%),
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  }
+
+  .glass {
+    background: rgba(44, 42, 40, 0.72);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(44, 42, 40, 0.85);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-subtle {
+    background: rgba(44, 42, 40, 0.55);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .glass-hover {
+    transition: transform 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .glass-hover:hover {
+    transform: scale(1.01);
+    background: rgba(44, 42, 40, 0.88);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  }
+
+  .glass-sidebar {
+    background: rgba(26, 25, 23, 0.92);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-input {
+    background: rgba(26, 25, 23, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #f5f3f0;
+  }
+  .glass-input::placeholder { color: #b8b0a3; }
+  .glass-input:focus {
+    outline: none;
+    border-color: rgba(184, 115, 51, 0.7);
+    box-shadow: 0 0 0 2px rgba(184, 115, 51, 0.25);
+  }
+
+  select.glass-input option,
+  .glass-input option,
+  select option {
+    background-color: #1a1917;
+    color: #f5f3f0;
+  }
+
+  .text-on-glass { color: #f5f3f0; }
+  .text-on-glass-muted { color: #d9d4cb; }
+  .text-on-glass-subtle { color: #b8b0a3; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Hide number input spinners for clean glassmorphism inputs */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}

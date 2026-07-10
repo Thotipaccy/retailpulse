@@ -1,0 +1,1925 @@
+transaction_date,sku_code,product_name,category,quantity,unit_price,total_amount,payment_method,customer_name,customer_phone
+22/03/2025,EL-002,LED Bulb 12W,Electrical,7,2500,15750,mobile_money,Jean de Dieu Habimana,788123456
+22/03/2025,-RF3,Gutter 3m PVC,Roofing,16,9500,152000,cash,Dativa Mukandekezi,788222223
+22/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,cash,Pacifique Niyonzima,788111112
+22/03/2025,PL-003,Toilet Seat Cover,Plumbing,5,18000,90000,cash,Beatrice Mukamisha,787888888
+22/03/2025,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,cash,Consolee Mukamana,788234567
+22/03/2025,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,cash,Chantal Uwimana,787000000
+22/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,15,13500,202500,mobile_money,Patrick Nshimiyimana,788345678
+22/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,2,2000,3600,cash,David Niyonzima,788901234
+22/03/2025,PT-002,Oil Paint Gloss 4L,Paint,16,13000,197600,mobile_money,Dativa Mukandekezi,788222223
+22/03/2025,HD-001,Door Lock Set,Hardware,6,12000,64800,card,Dativa Mukandekezi,788222223
+22/03/2025,HT-004,Pliers Set 3pc,Hand Tools,19,8500,161500,cash,Leoncie Uwimana,788000001
+22/03/2025,HD-003,Padlock 50mm,Hardware,5,4000,20000,card,Jean Baptiste Ndayisaba,788789012
+22/03/2025,PL-002,Water Tap Brass,Plumbing,3,9500,28500,mobile_money,Jean Baptiste Ndayisaba,788789012
+22/03/2025,PW-001,Electric Drill 650W,Power Tools,8,65000,520000,card,Sylvie Mutoni,787666666
+22/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,cash,Claude Twagirayezu,787777777
+22/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1800,mobile_money,Dativa Mukandekezi,788222223
+22/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Robert Ngabo,787555555
+22/03/2025,PW-001,Electric Drill 650W,Power Tools,2,65000,117000,mobile_money,Fidele Habiyaremye,788444445
+22/03/2025,HD-003,Padlock 50mm,Hardware,3,4000,12000,cash,Consolee Mukamana,788234567
+22/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,5,12000,57000,cash,Chantal Uwimana,787000000
+22/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,16,55000,880000,mobile_money,Dativa Mukandekezi,788222223
+22/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,3,12000,36000,credit,Jean de Dieu Habimana,788123456
+22/03/2025,PL-003,Toilet Seat Cover,Plumbing,12,18000,216000,cash,Jacques Nzeyimana,788888889
+22/03/2025,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,cash,Aline Ingabire,788890123
+22/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,mobile_money,Samuel Habimana,787111111
+22/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,cash,Patrick Nshimiyimana,788345678
+22/03/2025,BM-004,River Sand (ton),Building Materials,11,22000,217800,cash,Robert Ngabo,787555555
+22/03/2025,BM-004,River Sand (ton),Building Materials,2,22000,44000,cash,Innocent Niyibizi,787999999
+22/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,16,120000,1920000,mobile_money,Alice Uwera,787444444
+22/03/2025,LB-001,Timber 2x4 12ft,Lumber,2,6500,11700,mobile_money,Fidele Habiyaremye,788444445
+22/03/2025,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,cash,Robert Ngabo,787555555
+22/03/2025,LB-002,Plywood 4x8 12mm,Lumber,17,30000,484500,mobile_money,Samuel Habimana,787111111
+22/03/2025,HT-001,Hammer 2kg,Hand Tools,2,5500,11000,cash,Jacques Nzeyimana,788888889
+22/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,1,2000,1800,card,Innocent Niyibizi,787999999
+22/03/2025,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,cash,Robert Ngabo,787555555
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2400,mobile_money,David Niyonzima,788901234
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,mobile_money,Diane Mukasine,787222222
+24/03/2025,EL-002,LED Bulb 12W,Electrical,5,2500,12500,card,Grace Uwimana,788012345
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,cash,Robert Ngabo,787555555
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,cash,Marie Rose Uwase,788678901
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,20,18000,360000,mobile_money,Emmanuel Tuyishime,788567890
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Marie Rose Uwase,788678901
+24/03/2025,PL-002,Water Tap Brass,Plumbing,1,9500,9500,cash,Immaculee Uwimana,788777778
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,11,6500,71500,mobile_money,Patrick Nshimiyimana,788345678
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,cash,Alice Uwera,787444444
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,-RF2,Ridge Cap,Roofing,2,5000,10000,credit,Consolee Mukamana,788234567
+24/03/2025,BM-004,River Sand (ton),Building Materials,3,22000,66000,cash,Innocent Niyibizi,787999999
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,card,Innocent Niyibizi,787999999
+24/03/2025,-RF2,Ridge Cap,Roofing,12,5000,60000,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,2,18000,36000,cash,Marie Rose Uwase,788678901
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,card,Leoncie Uwimana,788000001
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,17,13500,218025,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,card,Aimee Uwineza,788333334
+24/03/2025,-RF2,Ridge Cap,Roofing,5,5000,23750,card,Jean de Dieu Habimana,788123456
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,2,12000,21600,cash,Hassan Niyomugabo,788666667
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,10000,mobile_money,Samuel Habimana,787111111
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,17100,cash,Pacifique Niyonzima,788111112
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,72000,cash,Chantal Uwimana,787000000
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,18,25000,405000,card,Leoncie Uwimana,788000001
+24/03/2025,PT-003,"Paint Brush 4""",Paint,5,2500,12500,card,Pacifique Niyonzima,788111112
+24/03/2025,HD-003,Padlock 50mm,Hardware,5,4000,19000,cash,Pacifique Niyonzima,788111112
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,HD-001,Door Lock Set,Hardware,10,12000,120000,mobile_money,Fidele Habiyaremye,788444445
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,mobile_money,Leoncie Uwimana,788000001
+24/03/2025,LB-003,Door Frame Set,Lumber,2,22000,44000,card,Claude Twagirayezu,787777777
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,15,9500,142500,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,BM-004,River Sand (ton),Building Materials,2,22000,44000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,11,25000,275000,cash,Samuel Habimana,787111111
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,mobile_money,Goretti Mukamusoni,788555556
+24/03/2025,PL-002,Water Tap Brass,Plumbing,16,9500,152000,cash,Claude Twagirayezu,787777777
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,credit,Patrick Nshimiyimana,788345678
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,43200,cash,Grace Uwimana,788012345
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,10,3800,36100,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,card,Grace Uwimana,788012345
+24/03/2025,PL-002,Water Tap Brass,Plumbing,2,9500,19000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Samuel Habimana,787111111
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,14,3800,47880,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,2,5500,9900,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2400,cash,Grace Uwimana,788012345
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,57000,mobile_money,Alice Uwera,787444444
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,cash,Claude Twagirayezu,787777777
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,5,18000,81000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,209000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,5,30000,135000,card,Aimee Uwineza,788333334
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,9500,mobile_money,Consolee Mukamana,788234567
+24/03/2025,HD-003,Padlock 50mm,Hardware,1,4000,4000,mobile_money,Esperance Uwimana,788456789
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Consolee Mukamana,788234567
+24/03/2025,PT-003,"Paint Brush 4""",Paint,3,2500,6750,mobile_money,Chantal Uwimana,787000000
+24/03/2025,LB-003,Door Frame Set,Lumber,2,22000,39600,cash,Alice Uwera,787444444
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,54000,cash,Kevine Mukarwego,788999990
+24/03/2025,-RF2,Ridge Cap,Roofing,4,5000,20000,credit,Dativa Mukandekezi,788222223
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,2000,card,Sylvie Mutoni,787666666
+24/03/2025,PL-002,Water Tap Brass,Plumbing,5,9500,47500,card,Alice Uwera,787444444
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,6000,cash,Alice Uwera,787444444
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,18,7500,135000,card,Jean Baptiste Ndayisaba,788789012
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,1,18000,16200,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,mobile_money,Robert Ngabo,787555555
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,card,David Niyonzima,788901234
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,13,8500,110500,card,Claude Twagirayezu,787777777
+24/03/2025,-RF2,Ridge Cap,Roofing,3,5000,15000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,10000,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,HD-001,Door Lock Set,Hardware,1,12000,12000,card,Goretti Mukamusoni,788555556
+24/03/2025,EL-002,LED Bulb 12W,Electrical,5,2500,11250,cash,Diane Mukasine,787222222
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,card,Marie Rose Uwase,788678901
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,mobile_money,Alice Uwera,787444444
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,cash,Pacifique Niyonzima,788111112
+24/03/2025,-RF2,Ridge Cap,Roofing,5,5000,25000,cash,Consolee Mukamana,788234567
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,157500,cash,Alice Uwera,787444444
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,15,3800,57000,cash,Samuel Habimana,787111111
+24/03/2025,PL-004,Shower Head,Plumbing,3,11000,33000,cash,Leoncie Uwimana,788000001
+24/03/2025,BM-004,River Sand (ton),Building Materials,3,22000,66000,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,2,18000,34200,mobile_money,Chantal Uwimana,787000000
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,card,Pacifique Niyonzima,788111112
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,cash,Goretti Mukamusoni,788555556
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,157500,mobile_money,Consolee Mukamana,788234567
+24/03/2025,LB-003,Door Frame Set,Lumber,2,22000,44000,cash,Kevine Mukarwego,788999990
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,18,2000,34200,cash,Esperance Uwimana,788456789
+24/03/2025,LB-003,Door Frame Set,Lumber,4,22000,83600,cash,Jean de Dieu Habimana,788123456
+24/03/2025,HD-001,Door Lock Set,Hardware,17,12000,204000,cash,Chantal Uwimana,787000000
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,13500,mobile_money,Consolee Mukamana,788234567
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,58500,mobile_money,David Niyonzima,788901234
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3150,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,PL-004,Shower Head,Plumbing,11,11000,114950,mobile_money,Esperance Uwimana,788456789
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,23750,cash,David Niyonzima,788901234
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Alice Uwera,787444444
+24/03/2025,PT-003,"Paint Brush 4""",Paint,19,2500,47500,cash,Aline Ingabire,788890123
+24/03/2025,PT-003,"Paint Brush 4""",Paint,3,2500,7500,mobile_money,Leoncie Uwimana,788000001
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,13,30000,370500,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,5850,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,2,42000,75600,mobile_money,Aline Ingabire,788890123
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,15,120000,1620000,cash,Esperance Uwimana,788456789
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,61750,cash,Aimee Uwineza,788333334
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,1,35000,35000,mobile_money,Goretti Mukamusoni,788555556
+24/03/2025,PL-004,Shower Head,Plumbing,2,11000,20900,mobile_money,Alice Uwera,787444444
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,49400,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,BM-004,River Sand (ton),Building Materials,5,22000,99000,mobile_money,Samuel Habimana,787111111
+24/03/2025,BM-004,River Sand (ton),Building Materials,15,22000,313500,card,Alice Uwera,787444444
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,David Niyonzima,788901234
+24/03/2025,EL-002,LED Bulb 12W,Electrical,2,2500,5000,mobile_money,Patrick Nshimiyimana,788345678
+24/03/2025,PL-002,Water Tap Brass,Plumbing,5,9500,47500,cash,Consolee Mukamana,788234567
+24/03/2025,-RF2,Ridge Cap,Roofing,20,5000,95000,credit,Alice Uwera,787444444
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,38250,mobile_money,Emmanuel Tuyishime,788567890
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,card,Pacifique Niyonzima,788111112
+24/03/2025,EL-002,LED Bulb 12W,Electrical,10,2500,25000,cash,Aline Ingabire,788890123
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,45600,card,Kevine Mukarwego,788999990
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,3,18000,54000,card,Leoncie Uwimana,788000001
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Marie Rose Uwase,788678901
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,57000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,198000,cash,Emmanuel Tuyishime,788567890
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Immaculee Uwimana,788777778
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,9000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,-RF2,Ridge Cap,Roofing,13,5000,65000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,2,12000,24000,mobile_money,Leoncie Uwimana,788000001
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,64800,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,3,9500,28500,card,Leoncie Uwimana,788000001
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,19,18000,324900,card,Peter Nshuti,787333333
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,11,2000,22000,cash,Fidele Habiyaremye,788444445
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,19,120000,2280000,cash,Pacifique Niyonzima,788111112
+24/03/2025,HD-003,Padlock 50mm,Hardware,8,4000,32000,credit,Aline Ingabire,788890123
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,mobile_money,Diane Mukasine,787222222
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,cash,Aline Ingabire,788890123
+24/03/2025,LB-003,Door Frame Set,Lumber,1,22000,22000,mobile_money,Alice Uwera,787444444
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,18525,card,David Niyonzima,788901234
+24/03/2025,EL-004,Socket Outlet Double,Electrical,1,5000,5000,credit,Aline Ingabire,788890123
+24/03/2025,LB-003,Door Frame Set,Lumber,5,22000,99000,cash,Fidele Habiyaremye,788444445
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,13,18000,210600,card,Goretti Mukamusoni,788555556
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,10,5500,55000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,EL-004,Socket Outlet Double,Electrical,3,5000,15000,cash,David Niyonzima,788901234
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,EL-004,Socket Outlet Double,Electrical,4,5000,20000,cash,Esperance Uwimana,788456789
+24/03/2025,PL-004,Shower Head,Plumbing,3,11000,33000,mobile_money,David Niyonzima,788901234
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,cash,Pacifique Niyonzima,788111112
+24/03/2025,HD-001,Door Lock Set,Hardware,1,12000,12000,card,Robert Ngabo,787555555
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,54000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,1,2000,1800,cash,Marie Rose Uwase,788678901
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,cash,Marie Rose Uwase,788678901
+24/03/2025,HD-003,Padlock 50mm,Hardware,11,4000,44000,cash,Kevine Mukarwego,788999990
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,2,18000,36000,cash,Fidele Habiyaremye,788444445
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,3,13000,39000,mobile_money,Robert Ngabo,787555555
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,card,Jean de Dieu Habimana,788123456
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,5,5500,24750,cash,Aline Ingabire,788890123
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,1,5500,4950,cash,Robert Ngabo,787555555
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,cash,Immaculee Uwimana,788777778
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,6,35000,210000,credit,Goretti Mukamusoni,788555556
+24/03/2025,PT-003,"Paint Brush 4""",Paint,2,2500,5000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,BM-004,River Sand (ton),Building Materials,5,22000,110000,cash,Robert Ngabo,787555555
+24/03/2025,-RF2,Ridge Cap,Roofing,4,5000,19000,cash,Kevine Mukarwego,788999990
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,16,3500,53200,mobile_money,Peter Nshuti,787333333
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,49400,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,40375,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,cash,Esperance Uwimana,788456789
+24/03/2025,EL-004,Socket Outlet Double,Electrical,5,5000,25000,mobile_money,Fidele Habiyaremye,788444445
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,cash,Grace Uwimana,788012345
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,5850,cash,Beatrice Mukamisha,787888888
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,2,9500,19000,cash,Leoncie Uwimana,788000001
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,14,55000,770000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,4,35000,140000,cash,Robert Ngabo,787555555
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,credit,Alice Uwera,787444444
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,1,18000,18000,cash,Peter Nshuti,787333333
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,48000,card,Immaculee Uwimana,788777778
+24/03/2025,LB-003,Door Frame Set,Lumber,2,22000,41800,card,Grace Uwimana,788012345
+24/03/2025,PT-003,"Paint Brush 4""",Paint,3,2500,7500,cash,Peter Nshuti,787333333
+24/03/2025,-RF2,Ridge Cap,Roofing,9,5000,45000,mobile_money,Diane Mukasine,787222222
+24/03/2025,-RF2,Ridge Cap,Roofing,4,5000,20000,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,1,18000,18000,mobile_money,Grace Uwimana,788012345
+24/03/2025,PL-004,Shower Head,Plumbing,3,11000,31350,cash,Fidele Habiyaremye,788444445
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,4,8500,32300,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,5,18000,81000,mobile_money,Emmanuel Tuyishime,788567890
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,mobile_money,Claude Twagirayezu,787777777
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,3,18000,54000,card,Chantal Uwimana,787000000
+24/03/2025,HD-001,Door Lock Set,Hardware,3,12000,32400,cash,Innocent Niyibizi,787999999
+24/03/2025,BM-004,River Sand (ton),Building Materials,4,22000,88000,mobile_money,David Niyonzima,788901234
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3600,cash,Hassan Niyomugabo,788666667
+24/03/2025,HD-003,Padlock 50mm,Hardware,3,4000,10800,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,EL-004,Socket Outlet Double,Electrical,12,5000,60000,cash,Sylvie Mutoni,787666666
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,3,18000,54000,cash,Hassan Niyomugabo,788666667
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7125,mobile_money,Aimee Uwineza,788333334
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,-RF2,Ridge Cap,Roofing,2,5000,10000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Pacifique Niyonzima,788111112
+24/03/2025,EL-004,Socket Outlet Double,Electrical,1,5000,5000,cash,Alice Uwera,787444444
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,David Niyonzima,788901234
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,cash,Aline Ingabire,788890123
+24/03/2025,PL-002,Water Tap Brass,Plumbing,2,9500,19000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,HD-003,Padlock 50mm,Hardware,5,4000,20000,cash,Innocent Niyibizi,787999999
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,card,Diane Mukasine,787222222
+24/03/2025,EL-002,LED Bulb 12W,Electrical,19,2500,47500,mobile_money,Consolee Mukamana,788234567
+24/03/2025,HD-001,Door Lock Set,Hardware,19,12000,228000,cash,Beatrice Mukamisha,787888888
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,9,42000,378000,mobile_money,Esperance Uwimana,788456789
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,16,6500,104000,mobile_money,Patrick Nshimiyimana,788345678
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,5,6500,32500,mobile_money,Samuel Habimana,787111111
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,cash,Alice Uwera,787444444
+24/03/2025,HD-001,Door Lock Set,Hardware,4,12000,48000,cash,Robert Ngabo,787555555
+24/03/2025,HD-001,Door Lock Set,Hardware,3,12000,34200,card,Esperance Uwimana,788456789
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,cash,Goretti Mukamusoni,788555556
+24/03/2025,EL-004,Socket Outlet Double,Electrical,2,5000,10000,mobile_money,Peter Nshuti,787333333
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,cash,Aline Ingabire,788890123
+24/03/2025,PL-004,Shower Head,Plumbing,17,11000,187000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,mobile_money,Leoncie Uwimana,788000001
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,cash,Peter Nshuti,787333333
+24/03/2025,HD-001,Door Lock Set,Hardware,2,12000,22800,mobile_money,Hassan Niyomugabo,788666667
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,3,2000,6000,cash,Emmanuel Tuyishime,788567890
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,209000,mobile_money,Peter Nshuti,787333333
+24/03/2025,-RF2,Ridge Cap,Roofing,4,5000,20000,cash,Chantal Uwimana,787000000
+24/03/2025,HD-001,Door Lock Set,Hardware,5,12000,57000,mobile_money,Emmanuel Tuyishime,788567890
+24/03/2025,PT-003,"Paint Brush 4""",Paint,6,2500,14250,card,Esperance Uwimana,788456789
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,8,2000,16000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,3,3500,9450,cash,Jean de Dieu Habimana,788123456
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,cash,Esperance Uwimana,788456789
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,5,12000,54000,card,Chantal Uwimana,787000000
+24/03/2025,EL-002,LED Bulb 12W,Electrical,5,2500,11250,cash,Patrick Nshimiyimana,788345678
+24/03/2025,EL-004,Socket Outlet Double,Electrical,11,5000,55000,cash,Beatrice Mukamisha,787888888
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,13,12000,156000,cash,Fidele Habiyaremye,788444445
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,3,13000,35100,card,David Niyonzima,788901234
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,7,9500,63175,cash,Esperance Uwimana,788456789
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,mobile_money,David Niyonzima,788901234
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,cash,Dativa Mukandekezi,788222223
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,11,13500,148500,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,PL-002,Water Tap Brass,Plumbing,2,9500,19000,card,Robert Ngabo,787555555
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,156750,cash,David Niyonzima,788901234
+24/03/2025,PT-003,"Paint Brush 4""",Paint,11,2500,27500,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,2,8500,17000,cash,Chantal Uwimana,787000000
+24/03/2025,LB-003,Door Frame Set,Lumber,4,22000,83600,cash,Innocent Niyibizi,787999999
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,7200,mobile_money,Fidele Habiyaremye,788444445
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,9,3800,34200,mobile_money,Claude Twagirayezu,787777777
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,mobile_money,Peter Nshuti,787333333
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,4,6500,26000,mobile_money,Sylvie Mutoni,787666666
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,card,Immaculee Uwimana,788777778
+24/03/2025,-RF2,Ridge Cap,Roofing,1,5000,5000,mobile_money,Chantal Uwimana,787000000
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Consolee Mukamana,788234567
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,1,35000,35000,cash,Hassan Niyomugabo,788666667
+24/03/2025,PT-003,"Paint Brush 4""",Paint,2,2500,5000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,9500,cash,Robert Ngabo,787555555
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,cash,Claude Twagirayezu,787777777
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,72000,cash,Kevine Mukarwego,788999990
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8075,card,Emmanuel Tuyishime,788567890
+24/03/2025,BM-004,River Sand (ton),Building Materials,14,22000,277200,cash,Immaculee Uwimana,788777778
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,40375,cash,Patrick Nshimiyimana,788345678
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,68400,cash,Samuel Habimana,787111111
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,14,800,11200,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,9,65000,585000,cash,David Niyonzima,788901234
+24/03/2025,-RF2,Ridge Cap,Roofing,5,5000,25000,mobile_money,Hassan Niyomugabo,788666667
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,33750,mobile_money,Consolee Mukamana,788234567
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,20,65000,1300000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,LB-003,Door Frame Set,Lumber,17,22000,374000,cash,Aimee Uwineza,788333334
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,4,6500,26000,credit,Dativa Mukandekezi,788222223
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,1,2000,2000,cash,Grace Uwimana,788012345
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,mobile_money,Goretti Mukamusoni,788555556
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,HD-001,Door Lock Set,Hardware,10,12000,120000,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,10,42000,399000,cash,Goretti Mukamusoni,788555556
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,card,Goretti Mukamusoni,788555556
+24/03/2025,BM-004,River Sand (ton),Building Materials,1,22000,22000,credit,Jean de Dieu Habimana,788123456
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,mobile_money,Patrick Nshimiyimana,788345678
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,18,12000,194400,card,Hassan Niyomugabo,788666667
+24/03/2025,HD-003,Padlock 50mm,Hardware,3,4000,12000,card,Robert Ngabo,787555555
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,4,42000,159600,cash,Innocent Niyibizi,787999999
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,54000,mobile_money,Claude Twagirayezu,787777777
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,3,35000,105000,cash,Claude Twagirayezu,787777777
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,PT-003,"Paint Brush 4""",Paint,4,2500,10000,card,Robert Ngabo,787555555
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,3,12000,36000,cash,Leoncie Uwimana,788000001
+24/03/2025,PL-004,Shower Head,Plumbing,2,11000,22000,cash,David Niyonzima,788901234
+24/03/2025,PL-004,Shower Head,Plumbing,11,11000,114950,cash,Claude Twagirayezu,787777777
+24/03/2025,-RF2,Ridge Cap,Roofing,3,5000,15000,mobile_money,Sylvie Mutoni,787666666
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,4,5500,20900,mobile_money,David Niyonzima,788901234
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,16,7500,120000,cash,Robert Ngabo,787555555
+24/03/2025,PT-003,"Paint Brush 4""",Paint,2,2500,5000,cash,Immaculee Uwimana,788777778
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,48000,cash,Samuel Habimana,787111111
+24/03/2025,BM-004,River Sand (ton),Building Materials,19,22000,397100,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,5,18000,90000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,cash,Innocent Niyibizi,787999999
+24/03/2025,PL-002,Water Tap Brass,Plumbing,1,9500,8550,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3800,cash,Diane Mukasine,787222222
+24/03/2025,EL-002,LED Bulb 12W,Electrical,2,2500,5000,cash,Sylvie Mutoni,787666666
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,18,13000,234000,card,Consolee Mukamana,788234567
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,18,9500,171000,mobile_money,Aimee Uwineza,788333334
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,51300,cash,Patrick Nshimiyimana,788345678
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,216000,mobile_money,Samuel Habimana,787111111
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,7200,mobile_money,Aline Ingabire,788890123
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,2,65000,123500,credit,Jean Baptiste Ndayisaba,788789012
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,cash,David Niyonzima,788901234
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,mobile_money,Robert Ngabo,787555555
+24/03/2025,PT-003,"Paint Brush 4""",Paint,9,2500,22500,cash,Sylvie Mutoni,787666666
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,9,120000,1026000,cash,Immaculee Uwimana,788777778
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,mobile_money,Pacifique Niyonzima,788111112
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,19,120000,2280000,cash,Goretti Mukamusoni,788555556
+24/03/2025,PL-002,Water Tap Brass,Plumbing,5,9500,47500,cash,Fidele Habiyaremye,788444445
+24/03/2025,PL-002,Water Tap Brass,Plumbing,3,9500,28500,card,Aline Ingabire,788890123
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,3,18000,54000,cash,Jacques Nzeyimana,788888889
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,432000,card,David Niyonzima,788901234
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,20,18000,360000,cash,Jacques Nzeyimana,788888889
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,42500,mobile_money,Peter Nshuti,787333333
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,cash,Diane Mukasine,787222222
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,9500,card,Dativa Mukandekezi,788222223
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,52000,cash,Aimee Uwineza,788333334
+24/03/2025,LB-003,Door Frame Set,Lumber,5,22000,99000,cash,Leoncie Uwimana,788000001
+24/03/2025,-RF2,Ridge Cap,Roofing,3,5000,14250,cash,Sylvie Mutoni,787666666
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,2000,mobile_money,Robert Ngabo,787555555
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,20,6500,130000,cash,Kevine Mukarwego,788999990
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,2,8500,17000,mobile_money,Hassan Niyomugabo,788666667
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,mobile_money,Grace Uwimana,788012345
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,14250,cash,Robert Ngabo,787555555
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,4,5500,20900,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,3,12000,36000,credit,Leoncie Uwimana,788000001
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,28500,card,Patrick Nshimiyimana,788345678
+24/03/2025,PL-004,Shower Head,Plumbing,4,11000,44000,cash,Marie Rose Uwase,788678901
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,42500,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,card,Diane Mukasine,787222222
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,3,12000,36000,card,Innocent Niyibizi,787999999
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,12,120000,1440000,card,Pacifique Niyonzima,788111112
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,cash,Pacifique Niyonzima,788111112
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,4,8500,30600,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,20,5500,110000,cash,Immaculee Uwimana,788777778
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,54000,cash,Chantal Uwimana,787000000
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,cash,Pacifique Niyonzima,788111112
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,8,3500,26600,mobile_money,Dativa Mukandekezi,788222223
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,10,12000,120000,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,HD-001,Door Lock Set,Hardware,4,12000,48000,credit,Aimee Uwineza,788333334
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,cash,Alice Uwera,787444444
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,8,65000,494000,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,HD-001,Door Lock Set,Hardware,5,12000,57000,mobile_money,Alice Uwera,787444444
+24/03/2025,HD-003,Padlock 50mm,Hardware,4,4000,16000,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,48000,card,Immaculee Uwimana,788777778
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,17,9500,161500,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,19,65000,1111500,cash,Leoncie Uwimana,788000001
+24/03/2025,PL-004,Shower Head,Plumbing,3,11000,33000,mobile_money,Aline Ingabire,788890123
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,2,18000,36000,cash,Goretti Mukamusoni,788555556
+24/03/2025,HD-001,Door Lock Set,Hardware,3,12000,36000,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,17,8500,137275,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,10,3500,35000,mobile_money,Grace Uwimana,788012345
+24/03/2025,HD-003,Padlock 50mm,Hardware,4,4000,15200,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,5,42000,210000,cash,Emmanuel Tuyishime,788567890
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,mobile_money,Peter Nshuti,787333333
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,cash,Jacques Nzeyimana,788888889
+24/03/2025,-RF2,Ridge Cap,Roofing,13,5000,65000,mobile_money,David Niyonzima,788901234
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,6,6500,37050,cash,Grace Uwimana,788012345
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Kevine Mukarwego,788999990
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,10,6500,65000,mobile_money,Robert Ngabo,787555555
+24/03/2025,BM-004,River Sand (ton),Building Materials,5,22000,110000,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Jean de Dieu Habimana,788123456
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,10,25000,225000,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,mobile_money,Fidele Habiyaremye,788444445
+24/03/2025,LB-003,Door Frame Set,Lumber,1,22000,22000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,mobile_money,Aimee Uwineza,788333334
+24/03/2025,PL-002,Water Tap Brass,Plumbing,2,9500,19000,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,cash,Aline Ingabire,788890123
+24/03/2025,LB-003,Door Frame Set,Lumber,4,22000,88000,cash,Hassan Niyomugabo,788666667
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,9,800,6480,card,Samuel Habimana,787111111
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,7,800,5600,cash,Pacifique Niyonzima,788111112
+24/03/2025,HD-003,Padlock 50mm,Hardware,3,4000,12000,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,3,5500,15675,cash,Beatrice Mukamisha,787888888
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,6750,cash,Esperance Uwimana,788456789
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8500,card,Goretti Mukamusoni,788555556
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,49500,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,12,800,9600,card,Aline Ingabire,788890123
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,16,18000,273600,cash,Chantal Uwimana,787000000
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,Diane Mukasine,787222222
+24/03/2025,HD-001,Door Lock Set,Hardware,4,12000,48000,card,Immaculee Uwimana,788777778
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,11,42000,462000,cash,Jacques Nzeyimana,788888889
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,5,6500,32500,cash,Alice Uwera,787444444
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,mobile_money,Emmanuel Tuyishime,788567890
+24/03/2025,PL-002,Water Tap Brass,Plumbing,1,9500,9500,mobile_money,Beatrice Mukamisha,787888888
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,18,25000,450000,cash,Peter Nshuti,787333333
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,Diane Mukasine,787222222
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,3,13000,39000,cash,Kevine Mukarwego,788999990
+24/03/2025,HD-003,Padlock 50mm,Hardware,4,4000,16000,cash,Leoncie Uwimana,788000001
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,19,3500,63175,cash,Immaculee Uwimana,788777778
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,cash,Jean de Dieu Habimana,788123456
+24/03/2025,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,cash,Dativa Mukandekezi,788222223
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,mobile_money,Robert Ngabo,787555555
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,cash,Aimee Uwineza,788333334
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,10,2000,18000,cash,Diane Mukasine,787222222
+24/03/2025,LB-003,Door Frame Set,Lumber,15,22000,313500,card,Marie Rose Uwase,788678901
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,3,18000,54000,cash,Peter Nshuti,787333333
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,mobile_money,Robert Ngabo,787555555
+24/03/2025,PT-003,"Paint Brush 4""",Paint,3,2500,7500,cash,Chantal Uwimana,787000000
+24/03/2025,HD-003,Padlock 50mm,Hardware,5,4000,19000,cash,Alice Uwera,787444444
+24/03/2025,BM-004,River Sand (ton),Building Materials,2,22000,44000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,PT-003,"Paint Brush 4""",Paint,20,2500,45000,cash,Sylvie Mutoni,787666666
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Grace Uwimana,788012345
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,card,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,6,2000,11400,cash,Grace Uwimana,788012345
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,220000,mobile_money,Leoncie Uwimana,788000001
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,10000,card,Hassan Niyomugabo,788666667
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,Marie Rose Uwase,788678901
+24/03/2025,HD-003,Padlock 50mm,Hardware,15,4000,60000,mobile_money,Robert Ngabo,787555555
+24/03/2025,LB-003,Door Frame Set,Lumber,5,22000,110000,mobile_money,Grace Uwimana,788012345
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,22500,mobile_money,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,10000,mobile_money,Aline Ingabire,788890123
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,7,3800,26600,cash,Beatrice Mukamisha,787888888
+24/03/2025,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,mobile_money,Marie Rose Uwase,788678901
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,mobile_money,Jean de Dieu Habimana,788123456
+24/03/2025,PT-003,"Paint Brush 4""",Paint,12,2500,30000,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,HD-001,Door Lock Set,Hardware,5,12000,60000,mobile_money,Innocent Niyibizi,787999999
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,5,18000,90000,card,Pacifique Niyonzima,788111112
+24/03/2025,BM-004,River Sand (ton),Building Materials,5,22000,110000,credit,Jean de Dieu Habimana,788123456
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,20,42000,840000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,12,6500,74100,cash,Marie Rose Uwase,788678901
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,6,42000,252000,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,-RF1,Roofing Tiles (bundle),Roofing,4,18000,72000,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,mobile_money,Consolee Mukamana,788234567
+24/03/2025,PL-002,Water Tap Brass,Plumbing,14,9500,133000,card,Hassan Niyomugabo,788666667
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,cash,Jean de Dieu Habimana,788123456
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,13,3500,45500,mobile_money,Esperance Uwimana,788456789
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,8,55000,440000,mobile_money,Patrick Nshimiyimana,788345678
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,1,42000,42000,mobile_money,Jacques Nzeyimana,788888889
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,cash,Sylvie Mutoni,787666666
+24/03/2025,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,David Niyonzima,788901234
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,2,35000,63000,cash,Aimee Uwineza,788333334
+24/03/2025,BM-004,River Sand (ton),Building Materials,11,22000,242000,mobile_money,Grace Uwimana,788012345
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,157500,cash,Dativa Mukandekezi,788222223
+24/03/2025,EL-002,LED Bulb 12W,Electrical,4,2500,10000,cash,Jacques Nzeyimana,788888889
+24/03/2025,BM-004,River Sand (ton),Building Materials,2,22000,44000,cash,Consolee Mukamana,788234567
+24/03/2025,PL-003,Toilet Seat Cover,Plumbing,3,18000,51300,mobile_money,Peter Nshuti,787333333
+24/03/2025,EL-004,Socket Outlet Double,Electrical,3,5000,14250,cash,Chantal Uwimana,787000000
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,10,3800,34200,card,Sylvie Mutoni,787666666
+24/03/2025,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8500,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,HT-002,Screwdriver Set 6pc,Hand Tools,8,7500,60000,mobile_money,Diane Mukasine,787222222
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,52000,cash,David Niyonzima,788901234
+24/03/2025,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,2000,mobile_money,Fidele Habiyaremye,788444445
+24/03/2025,HD-003,Padlock 50mm,Hardware,14,4000,50400,credit,Jean de Dieu Habimana,788123456
+24/03/2025,EL-002,LED Bulb 12W,Electrical,5,2500,11875,card,Dativa Mukandekezi,788222223
+24/03/2025,FT-002,"Nails 4"" 1kg",Fasteners,18,3800,68400,cash,Beatrice Mukamisha,787888888
+24/03/2025,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,71250,cash,Leoncie Uwimana,788000001
+24/03/2025,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,Fidele Habiyaremye,788444445
+24/03/2025,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,10000,card,Jean Baptiste Ndayisaba,788789012
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,4,5500,19800,card,Jean de Dieu Habimana,788123456
+24/03/2025,HD-001,Door Lock Set,Hardware,12,12000,144000,card,Diane Mukasine,787222222
+24/03/2025,PL-002,Water Tap Brass,Plumbing,2,9500,19000,mobile_money,Alice Uwera,787444444
+24/03/2025,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,mobile_money,Kevine Mukarwego,788999990
+24/03/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,mobile_money,Diane Mukasine,787222222
+24/03/2025,HD-003,Padlock 50mm,Hardware,1,4000,3600,cash,Kevine Mukarwego,788999990
+24/03/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Goretti Mukamusoni,788555556
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,card,Aline Ingabire,788890123
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,10000,cash,Claude Twagirayezu,787777777
+24/03/2025,HT-001,Hammer 2kg,Hand Tools,6,5500,33000,mobile_money,Robert Ngabo,787555555
+24/03/2025,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,40500,mobile_money,David Niyonzima,788901234
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,9500,cash,Consolee Mukamana,788234567
+24/03/2025,HT-003,Measuring Tape 5m,Hand Tools,14,3500,49000,card,Aline Ingabire,788890123
+24/03/2025,PT-001,Emulsion Paint White 20L,Paint,3,42000,126000,mobile_money,Grace Uwimana,788012345
+24/03/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,18525,mobile_money,Alice Uwera,787444444
+24/03/2025,PL-004,Shower Head,Plumbing,3,11000,29700,card,David Niyonzima,788901234
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,15,30000,427500,cash,Fidele Habiyaremye,788444445
+24/03/2025,EL-002,LED Bulb 12W,Electrical,2,2500,5000,cash,Esperance Uwimana,788456789
+24/03/2025,PT-002,Oil Paint Gloss 4L,Paint,12,13000,156000,cash,Patrick Nshimiyimana,788345678
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,cash,Jean de Dieu Habimana,788123456
+24/03/2025,BM-004,River Sand (ton),Building Materials,2,22000,41800,mobile_money,Claude Twagirayezu,787777777
+24/03/2025,HD-002,"Hinges 4"" (pair)",Hardware,2,2000,4000,mobile_money,Samuel Habimana,787111111
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,mobile_money,Immaculee Uwimana,788777778
+24/03/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,2,12000,24000,cash,Grace Uwimana,788012345
+24/03/2025,PT-003,"Paint Brush 4""",Paint,8,2500,20000,card,Robert Ngabo,787555555
+24/03/2025,LB-002,Plywood 4x8 12mm,Lumber,20,30000,600000,mobile_money,Innocent Niyibizi,787999999
+21/04/2025,EL-002,LED Bulb 12W,Electrical,19,2500,47500,cash,Beatrice Mukamisha,787888888
+21/04/2025,-RF2,Ridge Cap,Roofing,5,5000,23750,card,Fidele Habiyaremye,788444445
+21/04/2025,-RF1,Roofing Tiles (bundle),Roofing,1,18000,16200,cash,Sylvie Mutoni,787666666
+21/04/2025,-RF2,Ridge Cap,Roofing,14,5000,70000,card,Jean de Dieu Habimana,788123456
+21/04/2025,PT-003,"Paint Brush 4""",Paint,4,2500,10000,cash,Fidele Habiyaremye,788444445
+21/04/2025,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,cash,Jacques Nzeyimana,788888889
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,5,8500,42500,cash,Immaculee Uwimana,788777778
+21/04/2025,PL-004,Shower Head,Plumbing,5,11000,55000,card,Alice Uwera,787444444
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,9,42000,359100,cash,Samuel Habimana,787111111
+21/04/2025,HD-001,Door Lock Set,Hardware,4,12000,48000,cash,Samuel Habimana,787111111
+21/04/2025,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2400,mobile_money,Aline Ingabire,788890123
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,19,120000,2166000,cash,Pacifique Niyonzima,788111112
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,card,Sylvie Mutoni,787666666
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,3,13000,39000,credit,Grace Uwimana,788012345
+21/04/2025,EL-004,Socket Outlet Double,Electrical,6,5000,30000,mobile_money,Samuel Habimana,787111111
+21/04/2025,BM-001,Cement Cimerwa 50kg,Building Materials,17,13500,218025,mobile_money,Aline Ingabire,788890123
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,49400,cash,Robert Ngabo,787555555
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Peter Nshuti,787333333
+21/04/2025,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,mobile_money,Innocent Niyibizi,787999999
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,2,5500,11000,card,Leoncie Uwimana,788000001
+21/04/2025,BM-001,Cement Cimerwa 50kg,Building Materials,15,13500,202500,mobile_money,Alice Uwera,787444444
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,72000,mobile_money,Innocent Niyibizi,787999999
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,mobile_money,Fidele Habiyaremye,788444445
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,324000,mobile_money,Claude Twagirayezu,787777777
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,10,6500,65000,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/04/2025,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,card,Innocent Niyibizi,787999999
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,cash,Pacifique Niyonzima,788111112
+21/04/2025,HD-003,Padlock 50mm,Hardware,2,4000,8000,mobile_money,Fidele Habiyaremye,788444445
+21/04/2025,LB-002,Plywood 4x8 12mm,Lumber,3,30000,81000,cash,Sylvie Mutoni,787666666
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,10,55000,550000,cash,Claude Twagirayezu,787777777
+21/04/2025,PT-003,"Paint Brush 4""",Paint,5,2500,12500,mobile_money,Jean de Dieu Habimana,788123456
+21/04/2025,PL-004,Shower Head,Plumbing,4,11000,44000,cash,Alice Uwera,787444444
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,216000,cash,Goretti Mukamusoni,788555556
+21/04/2025,LB-003,Door Frame Set,Lumber,3,22000,66000,credit,Dativa Mukandekezi,788222223
+21/04/2025,-RF3,Gutter 3m PVC,Roofing,4,9500,36100,cash,Aline Ingabire,788890123
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,9,7500,64125,cash,Claude Twagirayezu,787777777
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,7200,cash,Sylvie Mutoni,787666666
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,card,Jean Baptiste Ndayisaba,788789012
+21/04/2025,EL-002,LED Bulb 12W,Electrical,2,2500,4750,cash,Leoncie Uwimana,788000001
+21/04/2025,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12150,cash,Claude Twagirayezu,787777777
+21/04/2025,-RF1,Roofing Tiles (bundle),Roofing,6,18000,108000,mobile_money,Leoncie Uwimana,788000001
+21/04/2025,EL-002,LED Bulb 12W,Electrical,1,2500,2250,cash,Jean Baptiste Ndayisaba,788789012
+21/04/2025,BM-002,Iron Sheets G32 3m,Building Materials,20,25000,500000,card,Kevine Mukarwego,788999990
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,15,7500,112500,cash,Emmanuel Tuyishime,788567890
+21/04/2025,HD-003,Padlock 50mm,Hardware,3,4000,11400,mobile_money,Leoncie Uwimana,788000001
+21/04/2025,PL-002,Water Tap Brass,Plumbing,3,9500,27075,mobile_money,Marie Rose Uwase,788678901
+21/04/2025,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,mobile_money,David Niyonzima,788901234
+21/04/2025,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,5700,card,Aimee Uwineza,788333334
+21/04/2025,HD-001,Door Lock Set,Hardware,17,12000,204000,cash,Jean de Dieu Habimana,788123456
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,2,2000,4000,card,Jacques Nzeyimana,788888889
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,2,13000,26000,cash,Samuel Habimana,787111111
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,4,5500,20900,mobile_money,Consolee Mukamana,788234567
+21/04/2025,LB-003,Door Frame Set,Lumber,1,22000,19800,card,Grace Uwimana,788012345
+21/04/2025,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,cash,Hassan Niyomugabo,788666667
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,1,2000,2000,mobile_money,Dativa Mukandekezi,788222223
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,4,35000,140000,cash,Leoncie Uwimana,788000001
+21/04/2025,PT-003,"Paint Brush 4""",Paint,1,2500,2500,mobile_money,Diane Mukasine,787222222
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,5,6500,29250,card,Jean Baptiste Ndayisaba,788789012
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,3,13000,35100,mobile_money,Immaculee Uwimana,788777778
+21/04/2025,HD-001,Door Lock Set,Hardware,6,12000,72000,mobile_money,Patrick Nshimiyimana,788345678
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,1,18000,16200,mobile_money,Grace Uwimana,788012345
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,68400,cash,Emmanuel Tuyishime,788567890
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Consolee Mukamana,788234567
+21/04/2025,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,cash,Innocent Niyibizi,787999999
+21/04/2025,EL-002,LED Bulb 12W,Electrical,4,2500,10000,mobile_money,Alice Uwera,787444444
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,9,42000,378000,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,1,13000,11700,cash,Jacques Nzeyimana,788888889
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,4,13000,46800,card,Robert Ngabo,787555555
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,8,5500,41800,cash,Emmanuel Tuyishime,788567890
+21/04/2025,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,mobile_money,Samuel Habimana,787111111
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,52250,mobile_money,David Niyonzima,788901234
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,5,42000,210000,cash,Jacques Nzeyimana,788888889
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,12,8500,102000,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,64800,mobile_money,Aimee Uwineza,788333334
+21/04/2025,FT-002,"Nails 4"" 1kg",Fasteners,19,3800,72200,mobile_money,Hassan Niyomugabo,788666667
+21/04/2025,EL-004,Socket Outlet Double,Electrical,8,5000,38000,mobile_money,David Niyonzima,788901234
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,cash,Robert Ngabo,787555555
+21/04/2025,EL-002,LED Bulb 12W,Electrical,13,2500,32500,mobile_money,Jacques Nzeyimana,788888889
+21/04/2025,EL-002,LED Bulb 12W,Electrical,3,2500,7500,cash,Grace Uwimana,788012345
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,cash,Emmanuel Tuyishime,788567890
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Robert Ngabo,787555555
+21/04/2025,PT-003,"Paint Brush 4""",Paint,16,2500,40000,cash,Leoncie Uwimana,788000001
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,2,8500,17000,card,Claude Twagirayezu,787777777
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,4,18000,72000,cash,Beatrice Mukamisha,787888888
+21/04/2025,PL-004,Shower Head,Plumbing,11,11000,121000,cash,Patrick Nshimiyimana,788345678
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,5,42000,210000,mobile_money,Consolee Mukamana,788234567
+21/04/2025,BM-004,River Sand (ton),Building Materials,17,22000,374000,cash,Consolee Mukamana,788234567
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,mobile_money,David Niyonzima,788901234
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,1,8500,7650,mobile_money,Jacques Nzeyimana,788888889
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,20,18000,324000,mobile_money,Chantal Uwimana,787000000
+21/04/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,2,12000,21600,card,Jean de Dieu Habimana,788123456
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,card,Samuel Habimana,787111111
+21/04/2025,LB-003,Door Frame Set,Lumber,5,22000,99000,mobile_money,Kevine Mukarwego,788999990
+21/04/2025,LB-003,Door Frame Set,Lumber,4,22000,88000,mobile_money,Goretti Mukamusoni,788555556
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,mobile_money,Beatrice Mukamisha,787888888
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,3,5500,15675,cash,Diane Mukasine,787222222
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,mobile_money,Emmanuel Tuyishime,788567890
+21/04/2025,-RF3,Gutter 3m PVC,Roofing,15,9500,142500,cash,Consolee Mukamana,788234567
+21/04/2025,-RF2,Ridge Cap,Roofing,3,5000,15000,cash,Goretti Mukamusoni,788555556
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,16,55000,880000,cash,Aline Ingabire,788890123
+21/04/2025,BM-004,River Sand (ton),Building Materials,1,22000,22000,mobile_money,Kevine Mukarwego,788999990
+21/04/2025,BM-004,River Sand (ton),Building Materials,5,22000,110000,cash,Pacifique Niyonzima,788111112
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,157500,card,Aimee Uwineza,788333334
+21/04/2025,-RF2,Ridge Cap,Roofing,2,5000,9500,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/04/2025,LB-003,Door Frame Set,Lumber,3,22000,66000,mobile_money,Marie Rose Uwase,788678901
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,14250,card,Peter Nshuti,787333333
+21/04/2025,BM-004,River Sand (ton),Building Materials,2,22000,39600,cash,Kevine Mukarwego,788999990
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,9,6500,55575,mobile_money,Marie Rose Uwase,788678901
+21/04/2025,-RF2,Ridge Cap,Roofing,19,5000,95000,cash,Alice Uwera,787444444
+21/04/2025,FT-001,Wood Screws #8 100pc,Fasteners,20,2000,40000,mobile_money,Pacifique Niyonzima,788111112
+21/04/2025,EL-002,LED Bulb 12W,Electrical,1,2500,2500,cash,Alice Uwera,787444444
+21/04/2025,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,Aline Ingabire,788890123
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,3,18000,51300,cash,Aline Ingabire,788890123
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,4,35000,140000,mobile_money,Dativa Mukandekezi,788222223
+21/04/2025,PL-004,Shower Head,Plumbing,3,11000,29700,mobile_money,Goretti Mukamusoni,788555556
+21/04/2025,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,54000,cash,Claude Twagirayezu,787777777
+21/04/2025,HD-001,Door Lock Set,Hardware,2,12000,24000,card,Robert Ngabo,787555555
+21/04/2025,LB-001,Timber 2x4 12ft,Lumber,19,6500,111150,mobile_money,Grace Uwimana,788012345
+21/04/2025,PL-004,Shower Head,Plumbing,4,11000,39600,mobile_money,Esperance Uwimana,788456789
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,3,42000,126000,cash,Dativa Mukandekezi,788222223
+21/04/2025,PL-002,Water Tap Brass,Plumbing,1,9500,9025,cash,Marie Rose Uwase,788678901
+21/04/2025,-RF3,Gutter 3m PVC,Roofing,15,9500,128250,mobile_money,Dativa Mukandekezi,788222223
+21/04/2025,PW-001,Electric Drill 650W,Power Tools,2,65000,117000,mobile_money,Marie Rose Uwase,788678901
+21/04/2025,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,cash,Samuel Habimana,787111111
+21/04/2025,PW-001,Electric Drill 650W,Power Tools,5,65000,308750,cash,Aimee Uwineza,788333334
+21/04/2025,HT-001,Hammer 2kg,Hand Tools,3,5500,14850,card,Goretti Mukamusoni,788555556
+21/04/2025,-RF2,Ridge Cap,Roofing,2,5000,10000,mobile_money,Marie Rose Uwase,788678901
+21/04/2025,HD-001,Door Lock Set,Hardware,5,12000,60000,mobile_money,Goretti Mukamusoni,788555556
+21/04/2025,PL-002,Water Tap Brass,Plumbing,10,9500,95000,mobile_money,Fidele Habiyaremye,788444445
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,12,2000,24000,cash,Patrick Nshimiyimana,788345678
+21/04/2025,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,mobile_money,Samuel Habimana,787111111
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,7,8500,59500,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/04/2025,BM-004,River Sand (ton),Building Materials,17,22000,355300,mobile_money,Alice Uwera,787444444
+21/04/2025,HD-001,Door Lock Set,Hardware,5,12000,60000,card,Innocent Niyibizi,787999999
+21/04/2025,-RF3,Gutter 3m PVC,Roofing,1,9500,9025,cash,Robert Ngabo,787555555
+21/04/2025,EL-003,Circuit Breaker 32A,Electrical,2,12000,24000,cash,Grace Uwimana,788012345
+21/04/2025,HD-003,Padlock 50mm,Hardware,2,4000,7600,cash,Samuel Habimana,787111111
+21/04/2025,LB-002,Plywood 4x8 12mm,Lumber,4,30000,108000,cash,Consolee Mukamana,788234567
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,2,35000,70000,cash,Goretti Mukamusoni,788555556
+21/04/2025,PL-003,Toilet Seat Cover,Plumbing,1,18000,18000,cash,Jacques Nzeyimana,788888889
+21/04/2025,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,9000,cash,Dativa Mukandekezi,788222223
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,3,42000,119700,cash,Goretti Mukamusoni,788555556
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,card,David Niyonzima,788901234
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,3,7500,22500,mobile_money,David Niyonzima,788901234
+21/04/2025,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,324000,cash,Peter Nshuti,787333333
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,mobile_money,Leoncie Uwimana,788000001
+21/04/2025,BM-003,"Concrete Blocks 6""",Building Materials,9,800,7200,credit,Hassan Niyomugabo,788666667
+21/04/2025,HD-003,Padlock 50mm,Hardware,4,4000,15200,cash,Aline Ingabire,788890123
+21/04/2025,LB-003,Door Frame Set,Lumber,5,22000,110000,cash,Immaculee Uwimana,788777778
+21/04/2025,FT-001,Wood Screws #8 100pc,Fasteners,15,2000,30000,mobile_money,Grace Uwimana,788012345
+21/04/2025,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,mobile_money,Hassan Niyomugabo,788666667
+21/04/2025,EL-002,LED Bulb 12W,Electrical,20,2500,50000,cash,Aimee Uwineza,788333334
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,card,Marie Rose Uwase,788678901
+21/04/2025,HD-003,Padlock 50mm,Hardware,5,4000,20000,mobile_money,Chantal Uwimana,787000000
+21/04/2025,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,card,Marie Rose Uwase,788678901
+21/04/2025,PL-004,Shower Head,Plumbing,4,11000,44000,card,Chantal Uwimana,787000000
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,11,55000,605000,cash,Robert Ngabo,787555555
+21/04/2025,PT-001,Emulsion Paint White 20L,Paint,5,42000,210000,credit,Dativa Mukandekezi,788222223
+21/04/2025,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,mobile_money,Aline Ingabire,788890123
+21/04/2025,EL-003,Circuit Breaker 32A,Electrical,8,12000,96000,mobile_money,Leoncie Uwimana,788000001
+21/04/2025,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Esperance Uwimana,788456789
+21/04/2025,-RF2,Ridge Cap,Roofing,5,5000,22500,mobile_money,Samuel Habimana,787111111
+21/04/2025,EL-001,Electrical Wire 2.5mm² (roll),Electrical,2,35000,66500,card,Sylvie Mutoni,787666666
+21/04/2025,HT-004,Pliers Set 3pc,Hand Tools,3,8500,25500,mobile_money,Peter Nshuti,787333333
+21/04/2025,-RF2,Ridge Cap,Roofing,6,5000,30000,cash,Esperance Uwimana,788456789
+21/04/2025,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,48000,cash,Robert Ngabo,787555555
+21/04/2025,PT-002,Oil Paint Gloss 4L,Paint,11,13000,143000,credit,Beatrice Mukamisha,787888888
+01/05/2026,HT-004,Pliers Set 3pc,Hand Tools,15,8500,127500,mobile_money,Pacifique Niyonzima,788111112
+01/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,17,25000,425000,cash,Jean Baptiste Ndayisaba,788789012
+01/05/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,credit,Alice Uwera,787444444
+01/05/2026,PL-003,Toilet Seat Cover,Plumbing,3,18000,51300,mobile_money,Goretti Mukamusoni,788555556
+01/05/2026,PT-003,"Paint Brush 4""",Paint,4,2500,10000,mobile_money,Diane Mukasine,787222222
+01/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,cash,Grace Uwimana,788012345
+01/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,4,35000,140000,cash,Innocent Niyibizi,787999999
+01/05/2026,-RF2,Ridge Cap,Roofing,1,5000,5000,credit,Chantal Uwimana,787000000
+01/05/2026,HD-003,Padlock 50mm,Hardware,3,4000,10800,mobile_money,Alice Uwera,787444444
+01/05/2026,PL-004,Shower Head,Plumbing,5,11000,55000,cash,Dativa Mukandekezi,788222223
+01/05/2026,-RF1,Roofing Tiles (bundle),Roofing,5,18000,85500,mobile_money,Peter Nshuti,787333333
+01/05/2026,FT-003,Bolts M10 50pc,Fasteners,6,5500,33000,cash,David Niyonzima,788901234
+02/05/2026,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,cash,Beatrice Mukamisha,787888888
+02/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,card,Emmanuel Tuyishime,788567890
+02/05/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,card,Aimee Uwineza,788333334
+02/05/2026,PT-001,Emulsion Paint White 20L,Paint,1,42000,42000,cash,Aline Ingabire,788890123
+02/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,8,35000,280000,mobile_money,Sylvie Mutoni,787666666
+02/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,15,2000,30000,cash,Jacques Nzeyimana,788888889
+02/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,16,35000,560000,cash,David Niyonzima,788901234
+02/05/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,13300,cash,Dativa Mukandekezi,788222223
+02/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,cash,Fidele Habiyaremye,788444445
+03/05/2026,PL-002,Water Tap Brass,Plumbing,1,9500,9500,card,Peter Nshuti,787333333
+03/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,71250,cash,Leoncie Uwimana,788000001
+03/05/2026,LB-003,Door Frame Set,Lumber,2,22000,44000,cash,Aline Ingabire,788890123
+03/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2280,mobile_money,David Niyonzima,788901234
+03/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,6,2000,12000,cash,Leoncie Uwimana,788000001
+03/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,8,120000,960000,mobile_money,Alice Uwera,787444444
+03/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,13500,mobile_money,Leoncie Uwimana,788000001
+03/05/2026,-RF1,Roofing Tiles (bundle),Roofing,3,18000,54000,cash,Leoncie Uwimana,788000001
+03/05/2026,-RF3,Gutter 3m PVC,Roofing,2,9500,19000,cash,Samuel Habimana,787111111
+03/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,cash,Peter Nshuti,787333333
+03/05/2026,PT-001,Emulsion Paint White 20L,Paint,2,42000,84000,mobile_money,David Niyonzima,788901234
+04/05/2026,EL-004,Socket Outlet Double,Electrical,5,5000,22500,mobile_money,Jacques Nzeyimana,788888889
+04/05/2026,HD-001,Door Lock Set,Hardware,18,12000,216000,cash,Patrick Nshimiyimana,788345678
+04/05/2026,PL-004,Shower Head,Plumbing,16,11000,167200,mobile_money,Emmanuel Tuyishime,788567890
+04/05/2026,EL-002,LED Bulb 12W,Electrical,15,2500,33750,cash,Claude Twagirayezu,787777777
+04/05/2026,HD-001,Door Lock Set,Hardware,3,12000,32400,cash,Peter Nshuti,787333333
+04/05/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,6300,mobile_money,Jean Baptiste Ndayisaba,788789012
+04/05/2026,PT-001,Emulsion Paint White 20L,Paint,13,42000,546000,cash,Esperance Uwimana,788456789
+04/05/2026,PL-004,Shower Head,Plumbing,5,11000,55000,cash,Marie Rose Uwase,788678901
+04/05/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,30875,cash,Leoncie Uwimana,788000001
+04/05/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,card,Immaculee Uwimana,788777778
+04/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,1,12000,12000,cash,Samuel Habimana,787111111
+04/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,16,12000,192000,mobile_money,Diane Mukasine,787222222
+04/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,mobile_money,Fidele Habiyaremye,788444445
+04/05/2026,PT-002,Oil Paint Gloss 4L,Paint,2,13000,23400,cash,Leoncie Uwimana,788000001
+04/05/2026,BM-004,River Sand (ton),Building Materials,13,22000,286000,cash,Jean Baptiste Ndayisaba,788789012
+04/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,mobile_money,Leoncie Uwimana,788000001
+04/05/2026,PL-003,Toilet Seat Cover,Plumbing,4,18000,68400,card,David Niyonzima,788901234
+05/05/2026,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8075,credit,Emmanuel Tuyishime,788567890
+05/05/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5225,card,Patrick Nshimiyimana,788345678
+05/05/2026,PL-003,Toilet Seat Cover,Plumbing,16,18000,273600,mobile_money,Pacifique Niyonzima,788111112
+05/05/2026,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,cash,Aline Ingabire,788890123
+05/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,16,55000,880000,card,Patrick Nshimiyimana,788345678
+05/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,10,25000,250000,cash,Grace Uwimana,788012345
+05/05/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,30875,mobile_money,Aimee Uwineza,788333334
+05/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,cash,Aimee Uwineza,788333334
+05/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,17,2000,34000,mobile_money,Jean de Dieu Habimana,788123456
+05/05/2026,HD-003,Padlock 50mm,Hardware,15,4000,60000,cash,Pacifique Niyonzima,788111112
+05/05/2026,PL-004,Shower Head,Plumbing,2,11000,19800,cash,Immaculee Uwimana,788777778
+05/05/2026,PT-003,"Paint Brush 4""",Paint,10,2500,25000,cash,Diane Mukasine,787222222
+05/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,mobile_money,Jean de Dieu Habimana,788123456
+05/05/2026,PL-002,Water Tap Brass,Plumbing,2,9500,19000,credit,Emmanuel Tuyishime,788567890
+05/05/2026,PL-002,Water Tap Brass,Plumbing,1,9500,9500,card,Patrick Nshimiyimana,788345678
+05/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,mobile_money,Sylvie Mutoni,787666666
+05/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,64125,mobile_money,Kevine Mukarwego,788999990
+05/05/2026,-RF2,Ridge Cap,Roofing,4,5000,20000,mobile_money,Sylvie Mutoni,787666666
+05/05/2026,HD-003,Padlock 50mm,Hardware,2,4000,7600,mobile_money,Dativa Mukandekezi,788222223
+05/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,12,55000,660000,mobile_money,Innocent Niyibizi,787999999
+05/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,3,35000,99750,cash,Emmanuel Tuyishime,788567890
+05/05/2026,EL-002,LED Bulb 12W,Electrical,4,2500,10000,cash,Fidele Habiyaremye,788444445
+05/05/2026,BM-004,River Sand (ton),Building Materials,3,22000,66000,mobile_money,Aline Ingabire,788890123
+06/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,54000,card,Sylvie Mutoni,787666666
+06/05/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,cash,Samuel Habimana,787111111
+06/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,3,2000,6000,cash,Leoncie Uwimana,788000001
+06/05/2026,LB-003,Door Frame Set,Lumber,10,22000,220000,cash,Patrick Nshimiyimana,788345678
+06/05/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,mobile_money,Immaculee Uwimana,788777778
+06/05/2026,PT-001,Emulsion Paint White 20L,Paint,2,42000,84000,mobile_money,Leoncie Uwimana,788000001
+06/05/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,mobile_money,Innocent Niyibizi,787999999
+06/05/2026,EL-002,LED Bulb 12W,Electrical,12,2500,30000,cash,Grace Uwimana,788012345
+06/05/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Emmanuel Tuyishime,788567890
+06/05/2026,PT-003,"Paint Brush 4""",Paint,3,2500,7500,mobile_money,Jacques Nzeyimana,788888889
+06/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,mobile_money,Samuel Habimana,787111111
+06/05/2026,HD-003,Padlock 50mm,Hardware,5,4000,20000,mobile_money,David Niyonzima,788901234
+06/05/2026,EL-003,Circuit Breaker 32A,Electrical,20,12000,216000,mobile_money,Diane Mukasine,787222222
+06/05/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,cash,Chantal Uwimana,787000000
+06/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,2,35000,63000,mobile_money,Fidele Habiyaremye,788444445
+06/05/2026,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,mobile_money,Sylvie Mutoni,787666666
+06/05/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,cash,Leoncie Uwimana,788000001
+06/05/2026,EL-002,LED Bulb 12W,Electrical,2,2500,5000,cash,Innocent Niyibizi,787999999
+06/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1900,mobile_money,Pacifique Niyonzima,788111112
+06/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,cash,Leoncie Uwimana,788000001
+06/05/2026,HT-004,Pliers Set 3pc,Hand Tools,7,8500,59500,cash,Peter Nshuti,787333333
+06/05/2026,EL-004,Socket Outlet Double,Electrical,3,5000,14250,mobile_money,Leoncie Uwimana,788000001
+06/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,mobile_money,Jacques Nzeyimana,788888889
+06/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,18,2000,36000,cash,Peter Nshuti,787333333
+07/05/2026,LB-003,Door Frame Set,Lumber,3,22000,66000,mobile_money,Immaculee Uwimana,788777778
+07/05/2026,-RF3,Gutter 3m PVC,Roofing,1,9500,9500,mobile_money,Hassan Niyomugabo,788666667
+07/05/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,mobile_money,Beatrice Mukamisha,787888888
+07/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,15,25000,375000,cash,Jacques Nzeyimana,788888889
+07/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,mobile_money,Jacques Nzeyimana,788888889
+07/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,card,Grace Uwimana,788012345
+07/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,11,800,8800,cash,Alice Uwera,787444444
+07/05/2026,EL-004,Socket Outlet Double,Electrical,1,5000,5000,mobile_money,Leoncie Uwimana,788000001
+07/05/2026,-RF3,Gutter 3m PVC,Roofing,4,9500,38000,mobile_money,Peter Nshuti,787333333
+07/05/2026,EL-004,Socket Outlet Double,Electrical,5,5000,22500,card,Jean Baptiste Ndayisaba,788789012
+07/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,16,35000,560000,card,Patrick Nshimiyimana,788345678
+07/05/2026,-RF2,Ridge Cap,Roofing,5,5000,25000,mobile_money,Jacques Nzeyimana,788888889
+07/05/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,11700,mobile_money,Goretti Mukamusoni,788555556
+07/05/2026,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,mobile_money,Innocent Niyibizi,787999999
+07/05/2026,LB-001,Timber 2x4 12ft,Lumber,17,6500,110500,mobile_money,Emmanuel Tuyishime,788567890
+07/05/2026,-RF3,Gutter 3m PVC,Roofing,1,9500,8550,card,Robert Ngabo,787555555
+07/05/2026,EL-002,LED Bulb 12W,Electrical,5,2500,12500,cash,Chantal Uwimana,787000000
+07/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,cash,Alice Uwera,787444444
+08/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,6000,cash,Claude Twagirayezu,787777777
+08/05/2026,PT-003,"Paint Brush 4""",Paint,19,2500,47500,mobile_money,Jacques Nzeyimana,788888889
+08/05/2026,EL-003,Circuit Breaker 32A,Electrical,3,12000,32400,card,Chantal Uwimana,787000000
+08/05/2026,HD-001,Door Lock Set,Hardware,5,12000,60000,cash,Marie Rose Uwase,788678901
+08/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,324000,cash,Jean Baptiste Ndayisaba,788789012
+08/05/2026,EL-002,LED Bulb 12W,Electrical,3,2500,7500,mobile_money,Peter Nshuti,787333333
+08/05/2026,PL-002,Water Tap Brass,Plumbing,3,9500,28500,mobile_money,Grace Uwimana,788012345
+08/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3040,card,Chantal Uwimana,787000000
+08/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,8,13500,108000,cash,Consolee Mukamana,788234567
+08/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,13,3800,49400,mobile_money,Peter Nshuti,787333333
+08/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,8,13500,108000,credit,Hassan Niyomugabo,788666667
+08/05/2026,PL-002,Water Tap Brass,Plumbing,10,9500,95000,mobile_money,Jean de Dieu Habimana,788123456
+08/05/2026,EL-003,Circuit Breaker 32A,Electrical,7,12000,84000,credit,Grace Uwimana,788012345
+08/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,12,35000,420000,mobile_money,Leoncie Uwimana,788000001
+08/05/2026,PL-003,Toilet Seat Cover,Plumbing,19,18000,342000,mobile_money,Jean Baptiste Ndayisaba,788789012
+08/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,15,55000,825000,cash,Sylvie Mutoni,787666666
+08/05/2026,PL-004,Shower Head,Plumbing,4,11000,39600,mobile_money,Patrick Nshimiyimana,788345678
+09/05/2026,PL-003,Toilet Seat Cover,Plumbing,7,18000,126000,cash,Marie Rose Uwase,788678901
+09/05/2026,PL-004,Shower Head,Plumbing,5,11000,55000,cash,Pacifique Niyonzima,788111112
+09/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,9,12000,102600,cash,Samuel Habimana,787111111
+09/05/2026,-RF1,Roofing Tiles (bundle),Roofing,18,18000,324000,cash,Fidele Habiyaremye,788444445
+09/05/2026,EL-003,Circuit Breaker 32A,Electrical,17,12000,204000,cash,Fidele Habiyaremye,788444445
+09/05/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3325,cash,Emmanuel Tuyishime,788567890
+09/05/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,4950,mobile_money,Innocent Niyibizi,787999999
+09/05/2026,-RF2,Ridge Cap,Roofing,5,5000,23750,cash,Marie Rose Uwase,788678901
+10/05/2026,-RF2,Ridge Cap,Roofing,4,5000,20000,mobile_money,Robert Ngabo,787555555
+10/05/2026,HD-001,Door Lock Set,Hardware,2,12000,24000,cash,Marie Rose Uwase,788678901
+10/05/2026,-RF2,Ridge Cap,Roofing,17,5000,80750,card,Kevine Mukarwego,788999990
+10/05/2026,-RF3,Gutter 3m PVC,Roofing,20,9500,190000,mobile_money,Innocent Niyibizi,787999999
+10/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,16,2000,32000,cash,Claude Twagirayezu,787777777
+10/05/2026,PW-001,Electric Drill 650W,Power Tools,16,65000,1040000,mobile_money,Aline Ingabire,788890123
+11/05/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,cash,Marie Rose Uwase,788678901
+11/05/2026,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,mobile_money,Sylvie Mutoni,787666666
+11/05/2026,-RF3,Gutter 3m PVC,Roofing,1,9500,9500,card,Fidele Habiyaremye,788444445
+11/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,6840,mobile_money,Goretti Mukamusoni,788555556
+11/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,14,120000,1680000,card,Robert Ngabo,787555555
+11/05/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,mobile_money,Consolee Mukamana,788234567
+11/05/2026,EL-002,LED Bulb 12W,Electrical,7,2500,16625,card,Jacques Nzeyimana,788888889
+11/05/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,mobile_money,Peter Nshuti,787333333
+11/05/2026,PL-004,Shower Head,Plumbing,3,11000,33000,cash,Claude Twagirayezu,787777777
+11/05/2026,EL-002,LED Bulb 12W,Electrical,3,2500,7500,cash,Jacques Nzeyimana,788888889
+11/05/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,mobile_money,Sylvie Mutoni,787666666
+11/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,48000,mobile_money,Immaculee Uwimana,788777778
+11/05/2026,-RF3,Gutter 3m PVC,Roofing,16,9500,152000,cash,Pacifique Niyonzima,788111112
+11/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,cash,Innocent Niyibizi,787999999
+11/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,8,2000,16000,mobile_money,Beatrice Mukamisha,787888888
+11/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,18,35000,567000,mobile_money,Marie Rose Uwase,788678901
+12/05/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,61750,mobile_money,Robert Ngabo,787555555
+12/05/2026,PT-002,Oil Paint Gloss 4L,Paint,1,13000,13000,mobile_money,Alice Uwera,787444444
+12/05/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,32500,card,Alice Uwera,787444444
+12/05/2026,HD-001,Door Lock Set,Hardware,2,12000,24000,mobile_money,Hassan Niyomugabo,788666667
+12/05/2026,EL-003,Circuit Breaker 32A,Electrical,5,12000,60000,cash,Beatrice Mukamisha,787888888
+12/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,cash,Jean Baptiste Ndayisaba,788789012
+12/05/2026,HD-003,Padlock 50mm,Hardware,18,4000,72000,cash,Consolee Mukamana,788234567
+12/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Emmanuel Tuyishime,788567890
+12/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Goretti Mukamusoni,788555556
+12/05/2026,BM-004,River Sand (ton),Building Materials,17,22000,374000,mobile_money,Innocent Niyibizi,787999999
+12/05/2026,FT-003,Bolts M10 50pc,Fasteners,3,5500,14850,mobile_money,Claude Twagirayezu,787777777
+12/05/2026,PW-001,Electric Drill 650W,Power Tools,15,65000,975000,card,Diane Mukasine,787222222
+12/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,48600,cash,Esperance Uwimana,788456789
+12/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,credit,Sylvie Mutoni,787666666
+12/05/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,cash,Chantal Uwimana,787000000
+12/05/2026,PT-001,Emulsion Paint White 20L,Paint,1,42000,42000,mobile_money,Sylvie Mutoni,787666666
+12/05/2026,HD-001,Door Lock Set,Hardware,3,12000,36000,mobile_money,Peter Nshuti,787333333
+12/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,mobile_money,Samuel Habimana,787111111
+12/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,28500,card,Peter Nshuti,787333333
+12/05/2026,HT-003,Measuring Tape 5m,Hand Tools,16,3500,56000,mobile_money,Jacques Nzeyimana,788888889
+12/05/2026,PT-003,"Paint Brush 4""",Paint,3,2500,7125,card,Fidele Habiyaremye,788444445
+12/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,2,2000,4000,cash,Hassan Niyomugabo,788666667
+12/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,16,55000,880000,credit,Diane Mukasine,787222222
+12/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,6840,cash,Jean Baptiste Ndayisaba,788789012
+12/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Patrick Nshimiyimana,788345678
+12/05/2026,HD-003,Padlock 50mm,Hardware,2,4000,7600,mobile_money,Robert Ngabo,787555555
+12/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,6,2000,12000,cash,Chantal Uwimana,787000000
+12/05/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,credit,Hassan Niyomugabo,788666667
+12/05/2026,HT-004,Pliers Set 3pc,Hand Tools,9,8500,76500,card,Esperance Uwimana,788456789
+13/05/2026,PT-001,Emulsion Paint White 20L,Paint,1,42000,37800,mobile_money,Robert Ngabo,787555555
+13/05/2026,FT-003,Bolts M10 50pc,Fasteners,12,5500,66000,cash,Alice Uwera,787444444
+13/05/2026,EL-003,Circuit Breaker 32A,Electrical,12,12000,144000,cash,Marie Rose Uwase,788678901
+13/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,cash,Kevine Mukarwego,788999990
+13/05/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,mobile_money,Samuel Habimana,787111111
+13/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,12,3800,45600,credit,Claude Twagirayezu,787777777
+13/05/2026,-RF3,Gutter 3m PVC,Roofing,6,9500,57000,mobile_money,Leoncie Uwimana,788000001
+13/05/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,credit,Consolee Mukamana,788234567
+13/05/2026,PL-002,Water Tap Brass,Plumbing,3,9500,28500,mobile_money,Beatrice Mukamisha,787888888
+13/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,cash,Jean de Dieu Habimana,788123456
+13/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,cash,Fidele Habiyaremye,788444445
+13/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,12,13500,162000,card,Kevine Mukarwego,788999990
+13/05/2026,HT-001,Hammer 2kg,Hand Tools,11,5500,60500,cash,Samuel Habimana,787111111
+13/05/2026,PT-001,Emulsion Paint White 20L,Paint,1,42000,42000,credit,Diane Mukasine,787222222
+13/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Diane Mukasine,787222222
+13/05/2026,EL-002,LED Bulb 12W,Electrical,5,2500,11250,mobile_money,Diane Mukasine,787222222
+13/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,card,Esperance Uwimana,788456789
+13/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,credit,Fidele Habiyaremye,788444445
+13/05/2026,FT-003,Bolts M10 50pc,Fasteners,9,5500,47025,cash,Robert Ngabo,787555555
+13/05/2026,HD-001,Door Lock Set,Hardware,5,12000,57000,card,David Niyonzima,788901234
+13/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,12,2000,24000,mobile_money,Aline Ingabire,788890123
+13/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,6,2000,12000,cash,Diane Mukasine,787222222
+13/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,17,800,13600,mobile_money,Leoncie Uwimana,788000001
+13/05/2026,EL-004,Socket Outlet Double,Electrical,5,5000,22500,cash,Diane Mukasine,787222222
+13/05/2026,HD-001,Door Lock Set,Hardware,5,12000,60000,cash,Esperance Uwimana,788456789
+13/05/2026,-RF2,Ridge Cap,Roofing,2,5000,10000,cash,Claude Twagirayezu,787777777
+13/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,15000,mobile_money,Emmanuel Tuyishime,788567890
+13/05/2026,PT-002,Oil Paint Gloss 4L,Paint,5,13000,58500,cash,Esperance Uwimana,788456789
+13/05/2026,PL-003,Toilet Seat Cover,Plumbing,5,18000,90000,cash,Diane Mukasine,787222222
+13/05/2026,PT-001,Emulsion Paint White 20L,Paint,3,42000,126000,cash,Marie Rose Uwase,788678901
+13/05/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,10450,mobile_money,Esperance Uwimana,788456789
+13/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,14,25000,350000,credit,Emmanuel Tuyishime,788567890
+14/05/2026,LB-001,Timber 2x4 12ft,Lumber,12,6500,78000,card,Claude Twagirayezu,787777777
+14/05/2026,HD-003,Padlock 50mm,Hardware,17,4000,68000,cash,Esperance Uwimana,788456789
+14/05/2026,PL-004,Shower Head,Plumbing,5,11000,55000,mobile_money,Patrick Nshimiyimana,788345678
+14/05/2026,-RF1,Roofing Tiles (bundle),Roofing,7,18000,126000,card,Marie Rose Uwase,788678901
+14/05/2026,PT-001,Emulsion Paint White 20L,Paint,5,42000,199500,mobile_money,Samuel Habimana,787111111
+14/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,13,55000,715000,mobile_money,Grace Uwimana,788012345
+14/05/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,Esperance Uwimana,788456789
+14/05/2026,PW-001,Electric Drill 650W,Power Tools,15,65000,975000,cash,Diane Mukasine,787222222
+14/05/2026,PL-002,Water Tap Brass,Plumbing,4,9500,36100,mobile_money,Pacifique Niyonzima,788111112
+14/05/2026,-RF2,Ridge Cap,Roofing,2,5000,10000,mobile_money,Grace Uwimana,788012345
+14/05/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,mobile_money,Emmanuel Tuyishime,788567890
+14/05/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,card,Innocent Niyibizi,787999999
+14/05/2026,PL-003,Toilet Seat Cover,Plumbing,2,18000,34200,cash,Alice Uwera,787444444
+14/05/2026,PT-002,Oil Paint Gloss 4L,Paint,4,13000,52000,mobile_money,Samuel Habimana,787111111
+14/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,40500,cash,Claude Twagirayezu,787777777
+14/05/2026,-RF2,Ridge Cap,Roofing,3,5000,15000,cash,Emmanuel Tuyishime,788567890
+14/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,mobile_money,Chantal Uwimana,787000000
+14/05/2026,PT-003,"Paint Brush 4""",Paint,1,2500,2250,card,Emmanuel Tuyishime,788567890
+14/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,Aline Ingabire,788890123
+14/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,14,120000,1680000,mobile_money,Robert Ngabo,787555555
+14/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,9,7500,64125,card,Innocent Niyibizi,787999999
+14/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,cash,Jean Baptiste Ndayisaba,788789012
+14/05/2026,PW-001,Electric Drill 650W,Power Tools,12,65000,780000,mobile_money,Jacques Nzeyimana,788888889
+14/05/2026,PT-003,"Paint Brush 4""",Paint,3,2500,7500,cash,Marie Rose Uwase,788678901
+14/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,card,Fidele Habiyaremye,788444445
+14/05/2026,HD-001,Door Lock Set,Hardware,5,12000,54000,cash,Leoncie Uwimana,788000001
+14/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,3,35000,105000,cash,Claude Twagirayezu,787777777
+14/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,4,12000,45600,mobile_money,Jacques Nzeyimana,788888889
+14/05/2026,LB-003,Door Frame Set,Lumber,2,22000,41800,mobile_money,Consolee Mukamana,788234567
+15/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,13680,card,Aimee Uwineza,788333334
+15/05/2026,EL-003,Circuit Breaker 32A,Electrical,3,12000,32400,cash,Innocent Niyibizi,787999999
+15/05/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,card,Leoncie Uwimana,788000001
+15/05/2026,EL-002,LED Bulb 12W,Electrical,4,2500,10000,cash,Kevine Mukarwego,788999990
+15/05/2026,PT-001,Emulsion Paint White 20L,Paint,2,42000,75600,mobile_money,Consolee Mukamana,788234567
+15/05/2026,-RF3,Gutter 3m PVC,Roofing,1,9500,9500,card,Beatrice Mukamisha,787888888
+15/05/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,9900,mobile_money,Pacifique Niyonzima,788111112
+15/05/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Patrick Nshimiyimana,788345678
+15/05/2026,PL-004,Shower Head,Plumbing,20,11000,198000,mobile_money,Beatrice Mukamisha,787888888
+15/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,9,35000,283500,card,Fidele Habiyaremye,788444445
+15/05/2026,BM-004,River Sand (ton),Building Materials,6,22000,132000,cash,Jean Baptiste Ndayisaba,788789012
+15/05/2026,EL-003,Circuit Breaker 32A,Electrical,1,12000,11400,credit,Emmanuel Tuyishime,788567890
+15/05/2026,EL-003,Circuit Breaker 32A,Electrical,1,12000,10800,mobile_money,Goretti Mukamusoni,788555556
+15/05/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,61750,mobile_money,Beatrice Mukamisha,787888888
+15/05/2026,-RF2,Ridge Cap,Roofing,1,5000,4750,cash,Patrick Nshimiyimana,788345678
+15/05/2026,PT-001,Emulsion Paint White 20L,Paint,2,42000,84000,cash,Claude Twagirayezu,787777777
+15/05/2026,-RF1,Roofing Tiles (bundle),Roofing,20,18000,360000,mobile_money,Diane Mukasine,787222222
+15/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,6,55000,330000,mobile_money,Beatrice Mukamisha,787888888
+15/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,19,120000,2052000,cash,Jean de Dieu Habimana,788123456
+15/05/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,cash,Aimee Uwineza,788333334
+15/05/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,308750,mobile_money,Alice Uwera,787444444
+16/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,10000,cash,Innocent Niyibizi,787999999
+16/05/2026,HT-001,Hammer 2kg,Hand Tools,7,5500,38500,card,Goretti Mukamusoni,788555556
+16/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,7,2000,14000,cash,Immaculee Uwimana,788777778
+16/05/2026,-RF2,Ridge Cap,Roofing,6,5000,30000,credit,Peter Nshuti,787333333
+16/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,20,25000,500000,cash,Pacifique Niyonzima,788111112
+16/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,10000,cash,Immaculee Uwimana,788777778
+17/05/2026,PL-002,Water Tap Brass,Plumbing,13,9500,123500,card,Consolee Mukamana,788234567
+17/05/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Jean Baptiste Ndayisaba,788789012
+17/05/2026,HD-003,Padlock 50mm,Hardware,4,4000,15200,cash,Sylvie Mutoni,787666666
+17/05/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,cash,Claude Twagirayezu,787777777
+17/05/2026,PT-002,Oil Paint Gloss 4L,Paint,2,13000,23400,credit,Innocent Niyibizi,787999999
+17/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,3,35000,105000,card,Robert Ngabo,787555555
+18/05/2026,-RF2,Ridge Cap,Roofing,4,5000,20000,mobile_money,Samuel Habimana,787111111
+18/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,card,Sylvie Mutoni,787666666
+18/05/2026,FT-003,Bolts M10 50pc,Fasteners,3,5500,14850,card,Kevine Mukarwego,788999990
+18/05/2026,LB-003,Door Frame Set,Lumber,3,22000,66000,mobile_money,Patrick Nshimiyimana,788345678
+18/05/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,mobile_money,Robert Ngabo,787555555
+18/05/2026,EL-004,Socket Outlet Double,Electrical,14,5000,66500,credit,Aimee Uwineza,788333334
+18/05/2026,EL-003,Circuit Breaker 32A,Electrical,12,12000,144000,credit,Chantal Uwimana,787000000
+18/05/2026,PL-004,Shower Head,Plumbing,18,11000,198000,cash,Patrick Nshimiyimana,788345678
+18/05/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,5850,credit,Alice Uwera,787444444
+18/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,2,35000,63000,cash,Hassan Niyomugabo,788666667
+18/05/2026,HD-001,Door Lock Set,Hardware,4,12000,48000,card,Leoncie Uwimana,788000001
+18/05/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,cash,Consolee Mukamana,788234567
+18/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2400,mobile_money,Beatrice Mukamisha,787888888
+18/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,18,120000,2160000,cash,Goretti Mukamusoni,788555556
+18/05/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,cash,Fidele Habiyaremye,788444445
+18/05/2026,PT-003,"Paint Brush 4""",Paint,8,2500,19000,mobile_money,Jean Baptiste Ndayisaba,788789012
+18/05/2026,LB-003,Door Frame Set,Lumber,3,22000,62700,cash,Emmanuel Tuyishime,788567890
+18/05/2026,-RF1,Roofing Tiles (bundle),Roofing,6,18000,108000,card,Beatrice Mukamisha,787888888
+18/05/2026,EL-002,LED Bulb 12W,Electrical,4,2500,10000,cash,Pacifique Niyonzima,788111112
+18/05/2026,-RF1,Roofing Tiles (bundle),Roofing,10,18000,180000,cash,David Niyonzima,788901234
+19/05/2026,PW-001,Electric Drill 650W,Power Tools,20,65000,1170000,cash,Emmanuel Tuyishime,788567890
+19/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,Aimee Uwineza,788333334
+19/05/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,26125,cash,Esperance Uwimana,788456789
+19/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,3,7500,20250,card,Claude Twagirayezu,787777777
+19/05/2026,PL-002,Water Tap Brass,Plumbing,3,9500,28500,cash,Samuel Habimana,787111111
+19/05/2026,-RF3,Gutter 3m PVC,Roofing,5,9500,47500,credit,Esperance Uwimana,788456789
+19/05/2026,PL-003,Toilet Seat Cover,Plumbing,3,18000,48600,card,Chantal Uwimana,787000000
+19/05/2026,EL-003,Circuit Breaker 32A,Electrical,15,12000,180000,card,Diane Mukasine,787222222
+19/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,18,3800,68400,cash,Claude Twagirayezu,787777777
+19/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,13,2000,23400,mobile_money,Kevine Mukarwego,788999990
+19/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3040,mobile_money,Goretti Mukamusoni,788555556
+19/05/2026,PT-003,"Paint Brush 4""",Paint,3,2500,7500,mobile_money,Esperance Uwimana,788456789
+19/05/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Beatrice Mukamisha,787888888
+19/05/2026,-RF1,Roofing Tiles (bundle),Roofing,8,18000,144000,mobile_money,Jean de Dieu Habimana,788123456
+19/05/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,credit,Samuel Habimana,787111111
+19/05/2026,PT-002,Oil Paint Gloss 4L,Paint,20,13000,247000,cash,Immaculee Uwimana,788777778
+19/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,20,13500,270000,mobile_money,Consolee Mukamana,788234567
+19/05/2026,EL-003,Circuit Breaker 32A,Electrical,2,12000,24000,mobile_money,Jean Baptiste Ndayisaba,788789012
+19/05/2026,EL-003,Circuit Breaker 32A,Electrical,17,12000,193800,cash,Dativa Mukandekezi,788222223
+19/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,cash,Kevine Mukarwego,788999990
+19/05/2026,-RF1,Roofing Tiles (bundle),Roofing,1,18000,18000,cash,Jacques Nzeyimana,788888889
+19/05/2026,HD-001,Door Lock Set,Hardware,2,12000,21600,cash,Aline Ingabire,788890123
+20/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,2,12000,24000,card,Aimee Uwineza,788333334
+20/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,19,25000,475000,cash,Goretti Mukamusoni,788555556
+20/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,cash,Peter Nshuti,787333333
+20/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,cash,Robert Ngabo,787555555
+20/05/2026,EL-002,LED Bulb 12W,Electrical,4,2500,10000,cash,Aimee Uwineza,788333334
+20/05/2026,-RF2,Ridge Cap,Roofing,4,5000,18000,cash,Aimee Uwineza,788333334
+20/05/2026,PL-003,Toilet Seat Cover,Plumbing,1,18000,18000,card,Kevine Mukarwego,788999990
+20/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,11,25000,275000,cash,Dativa Mukandekezi,788222223
+20/05/2026,HD-001,Door Lock Set,Hardware,4,12000,45600,card,Consolee Mukamana,788234567
+20/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,card,Esperance Uwimana,788456789
+20/05/2026,HD-003,Padlock 50mm,Hardware,5,4000,18000,card,Alice Uwera,787444444
+20/05/2026,LB-002,Plywood 4x8 12mm,Lumber,16,30000,480000,cash,Fidele Habiyaremye,788444445
+20/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,40500,cash,Chantal Uwimana,787000000
+20/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,card,Jean Baptiste Ndayisaba,788789012
+20/05/2026,HD-003,Padlock 50mm,Hardware,4,4000,16000,cash,Diane Mukasine,787222222
+21/05/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,58500,cash,Diane Mukasine,787222222
+21/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,4,2000,8000,mobile_money,Samuel Habimana,787111111
+21/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,3,12000,34200,cash,Leoncie Uwimana,788000001
+21/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,20,2000,40000,card,Samuel Habimana,787111111
+21/05/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,26125,mobile_money,Marie Rose Uwase,788678901
+21/05/2026,EL-004,Socket Outlet Double,Electrical,15,5000,75000,cash,Samuel Habimana,787111111
+21/05/2026,HT-001,Hammer 2kg,Hand Tools,8,5500,44000,cash,Sylvie Mutoni,787666666
+21/05/2026,PT-002,Oil Paint Gloss 4L,Paint,1,13000,13000,cash,Beatrice Mukamisha,787888888
+21/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,mobile_money,Sylvie Mutoni,787666666
+21/05/2026,-RF2,Ridge Cap,Roofing,10,5000,50000,mobile_money,Aline Ingabire,788890123
+21/05/2026,-RF2,Ridge Cap,Roofing,3,5000,13500,mobile_money,Alice Uwera,787444444
+21/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,60750,mobile_money,Jean Baptiste Ndayisaba,788789012
+21/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,card,Kevine Mukarwego,788999990
+22/05/2026,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8500,credit,Robert Ngabo,787555555
+22/05/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,cash,Esperance Uwimana,788456789
+22/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1440,card,Chantal Uwimana,787000000
+22/05/2026,EL-004,Socket Outlet Double,Electrical,4,5000,18000,mobile_money,Kevine Mukarwego,788999990
+22/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,118750,mobile_money,Immaculee Uwimana,788777778
+22/05/2026,FT-003,Bolts M10 50pc,Fasteners,4,5500,20900,cash,Immaculee Uwimana,788777778
+22/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,cash,Fidele Habiyaremye,788444445
+22/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,148500,cash,Goretti Mukamusoni,788555556
+22/05/2026,-RF1,Roofing Tiles (bundle),Roofing,1,18000,18000,mobile_money,David Niyonzima,788901234
+22/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,10,3800,38000,mobile_money,Pacifique Niyonzima,788111112
+22/05/2026,-RF1,Roofing Tiles (bundle),Roofing,18,18000,291600,cash,Sylvie Mutoni,787666666
+22/05/2026,BM-004,River Sand (ton),Building Materials,20,22000,440000,credit,Diane Mukasine,787222222
+22/05/2026,PL-004,Shower Head,Plumbing,3,11000,33000,mobile_money,Chantal Uwimana,787000000
+22/05/2026,HT-004,Pliers Set 3pc,Hand Tools,4,8500,34000,mobile_money,Pacifique Niyonzima,788111112
+22/05/2026,-RF2,Ridge Cap,Roofing,2,5000,9500,mobile_money,David Niyonzima,788901234
+23/05/2026,PT-001,Emulsion Paint White 20L,Paint,14,42000,558600,mobile_money,Peter Nshuti,787333333
+23/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,114000,mobile_money,Diane Mukasine,787222222
+23/05/2026,HD-001,Door Lock Set,Hardware,11,12000,132000,card,Alice Uwera,787444444
+23/05/2026,HT-004,Pliers Set 3pc,Hand Tools,1,8500,8500,cash,Kevine Mukarwego,788999990
+23/05/2026,EL-002,LED Bulb 12W,Electrical,2,2500,4500,cash,Patrick Nshimiyimana,788345678
+24/05/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,David Niyonzima,788901234
+24/05/2026,FT-003,Bolts M10 50pc,Fasteners,16,5500,88000,cash,Beatrice Mukamisha,787888888
+24/05/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,cash,Peter Nshuti,787333333
+24/05/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,mobile_money,Goretti Mukamusoni,788555556
+24/05/2026,PL-003,Toilet Seat Cover,Plumbing,19,18000,342000,credit,Sylvie Mutoni,787666666
+24/05/2026,HT-004,Pliers Set 3pc,Hand Tools,2,8500,17000,card,Robert Ngabo,787555555
+24/05/2026,HD-001,Door Lock Set,Hardware,3,12000,36000,mobile_money,Patrick Nshimiyimana,788345678
+24/05/2026,PT-001,Emulsion Paint White 20L,Paint,3,42000,113400,cash,Beatrice Mukamisha,787888888
+25/05/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,cash,Esperance Uwimana,788456789
+25/05/2026,LB-002,Plywood 4x8 12mm,Lumber,20,30000,570000,mobile_money,Diane Mukasine,787222222
+25/05/2026,PT-003,"Paint Brush 4""",Paint,16,2500,38000,card,Chantal Uwimana,787000000
+25/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,8,55000,440000,cash,Aline Ingabire,788890123
+25/05/2026,PT-003,"Paint Brush 4""",Paint,8,2500,20000,mobile_money,Aline Ingabire,788890123
+25/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,card,Immaculee Uwimana,788777778
+25/05/2026,HD-001,Door Lock Set,Hardware,1,12000,11400,cash,Marie Rose Uwase,788678901
+25/05/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,mobile_money,Robert Ngabo,787555555
+25/05/2026,PT-002,Oil Paint Gloss 4L,Paint,1,13000,11700,mobile_money,Aline Ingabire,788890123
+25/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,15,35000,525000,cash,Immaculee Uwimana,788777778
+25/05/2026,PL-003,Toilet Seat Cover,Plumbing,2,18000,36000,mobile_money,Sylvie Mutoni,787666666
+25/05/2026,PT-001,Emulsion Paint White 20L,Paint,4,42000,168000,mobile_money,Chantal Uwimana,787000000
+25/05/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,10450,cash,Esperance Uwimana,788456789
+25/05/2026,PT-003,"Paint Brush 4""",Paint,10,2500,25000,mobile_money,Goretti Mukamusoni,788555556
+25/05/2026,EL-002,LED Bulb 12W,Electrical,1,2500,2500,mobile_money,Pacifique Niyonzima,788111112
+25/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,6,35000,189000,cash,Pacifique Niyonzima,788111112
+25/05/2026,PT-002,Oil Paint Gloss 4L,Paint,5,13000,65000,mobile_money,Claude Twagirayezu,787777777
+25/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,18,2000,32400,mobile_money,Kevine Mukarwego,788999990
+25/05/2026,HD-001,Door Lock Set,Hardware,18,12000,216000,credit,Innocent Niyibizi,787999999
+25/05/2026,HD-001,Door Lock Set,Hardware,1,12000,12000,cash,David Niyonzima,788901234
+25/05/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,175500,cash,Sylvie Mutoni,787666666
+25/05/2026,EL-004,Socket Outlet Double,Electrical,4,5000,20000,mobile_money,Immaculee Uwimana,788777778
+25/05/2026,-RF2,Ridge Cap,Roofing,1,5000,4500,credit,Patrick Nshimiyimana,788345678
+25/05/2026,PT-002,Oil Paint Gloss 4L,Paint,17,13000,221000,cash,Emmanuel Tuyishime,788567890
+25/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2160,mobile_money,David Niyonzima,788901234
+25/05/2026,BM-004,River Sand (ton),Building Materials,13,22000,286000,cash,Robert Ngabo,787555555
+25/05/2026,BM-004,River Sand (ton),Building Materials,3,22000,66000,mobile_money,Consolee Mukamana,788234567
+26/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,Leoncie Uwimana,788000001
+26/05/2026,EL-002,LED Bulb 12W,Electrical,18,2500,45000,cash,Alice Uwera,787444444
+26/05/2026,PL-002,Water Tap Brass,Plumbing,10,9500,85500,cash,Peter Nshuti,787333333
+26/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,16,35000,560000,mobile_money,Robert Ngabo,787555555
+26/05/2026,PL-004,Shower Head,Plumbing,4,11000,44000,credit,Peter Nshuti,787333333
+26/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,10,3800,38000,mobile_money,Grace Uwimana,788012345
+26/05/2026,-RF1,Roofing Tiles (bundle),Roofing,1,18000,16200,credit,Peter Nshuti,787333333
+26/05/2026,HD-001,Door Lock Set,Hardware,1,12000,12000,cash,Pacifique Niyonzima,788111112
+26/05/2026,PL-002,Water Tap Brass,Plumbing,8,9500,68400,cash,Sylvie Mutoni,787666666
+26/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,card,Kevine Mukarwego,788999990
+26/05/2026,LB-001,Timber 2x4 12ft,Lumber,4,6500,26000,cash,Patrick Nshimiyimana,788345678
+26/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,13,7500,97500,mobile_money,Sylvie Mutoni,787666666
+26/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,9,13500,109350,mobile_money,Hassan Niyomugabo,788666667
+26/05/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,261250,cash,Leoncie Uwimana,788000001
+26/05/2026,EL-004,Socket Outlet Double,Electrical,4,5000,20000,cash,Innocent Niyibizi,787999999
+26/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,15,120000,1620000,cash,Consolee Mukamana,788234567
+26/05/2026,PL-003,Toilet Seat Cover,Plumbing,4,18000,72000,cash,Sylvie Mutoni,787666666
+26/05/2026,BM-002,Iron Sheets G32 3m,Building Materials,7,25000,175000,cash,Hassan Niyomugabo,788666667
+26/05/2026,PL-002,Water Tap Brass,Plumbing,1,9500,9500,cash,Robert Ngabo,787555555
+26/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,mobile_money,David Niyonzima,788901234
+27/05/2026,HD-003,Padlock 50mm,Hardware,17,4000,68000,mobile_money,Diane Mukasine,787222222
+27/05/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,18525,cash,Marie Rose Uwase,788678901
+27/05/2026,PL-002,Water Tap Brass,Plumbing,5,9500,47500,cash,Samuel Habimana,787111111
+27/05/2026,PL-003,Toilet Seat Cover,Plumbing,5,18000,85500,card,Chantal Uwimana,787000000
+27/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12825,cash,Jacques Nzeyimana,788888889
+27/05/2026,HD-003,Padlock 50mm,Hardware,18,4000,72000,mobile_money,Marie Rose Uwase,788678901
+27/05/2026,HD-001,Door Lock Set,Hardware,5,12000,60000,mobile_money,Pacifique Niyonzima,788111112
+27/05/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,mobile_money,Jacques Nzeyimana,788888889
+27/05/2026,LB-001,Timber 2x4 12ft,Lumber,4,6500,24700,credit,Esperance Uwimana,788456789
+27/05/2026,PT-003,"Paint Brush 4""",Paint,17,2500,38250,credit,Jean de Dieu Habimana,788123456
+27/05/2026,PL-002,Water Tap Brass,Plumbing,20,9500,171000,cash,Alice Uwera,787444444
+27/05/2026,HT-004,Pliers Set 3pc,Hand Tools,5,8500,38250,mobile_money,Diane Mukasine,787222222
+27/05/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,mobile_money,Diane Mukasine,787222222
+27/05/2026,-RF1,Roofing Tiles (bundle),Roofing,4,18000,72000,mobile_money,Aimee Uwineza,788333334
+27/05/2026,BM-004,River Sand (ton),Building Materials,16,22000,352000,cash,Fidele Habiyaremye,788444445
+27/05/2026,PT-002,Oil Paint Gloss 4L,Paint,3,13000,39000,mobile_money,Leoncie Uwimana,788000001
+27/05/2026,HT-004,Pliers Set 3pc,Hand Tools,12,8500,91800,mobile_money,Beatrice Mukamisha,787888888
+27/05/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,card,Innocent Niyibizi,787999999
+27/05/2026,PL-004,Shower Head,Plumbing,2,11000,19800,cash,Jean de Dieu Habimana,788123456
+27/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,3,35000,105000,mobile_money,Grace Uwimana,788012345
+27/05/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Alice Uwera,787444444
+27/05/2026,HD-001,Door Lock Set,Hardware,1,12000,12000,cash,Innocent Niyibizi,787999999
+27/05/2026,PL-002,Water Tap Brass,Plumbing,3,9500,27075,cash,Jacques Nzeyimana,788888889
+27/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,5,12000,60000,card,Marie Rose Uwase,788678901
+27/05/2026,PL-004,Shower Head,Plumbing,5,11000,49500,card,Peter Nshuti,787333333
+27/05/2026,HD-001,Door Lock Set,Hardware,3,12000,36000,mobile_money,Sylvie Mutoni,787666666
+27/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,mobile_money,Grace Uwimana,788012345
+28/05/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,mobile_money,Diane Mukasine,787222222
+28/05/2026,EL-003,Circuit Breaker 32A,Electrical,18,12000,216000,mobile_money,Robert Ngabo,787555555
+28/05/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,117000,cash,Patrick Nshimiyimana,788345678
+28/05/2026,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,mobile_money,Jean Baptiste Ndayisaba,788789012
+28/05/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,cash,Innocent Niyibizi,787999999
+28/05/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,Grace Uwimana,788012345
+28/05/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,credit,Alice Uwera,787444444
+28/05/2026,EL-004,Socket Outlet Double,Electrical,4,5000,20000,card,Samuel Habimana,787111111
+28/05/2026,EL-003,Circuit Breaker 32A,Electrical,4,12000,48000,cash,Goretti Mukamusoni,788555556
+28/05/2026,PT-001,Emulsion Paint White 20L,Paint,3,42000,113400,cash,Esperance Uwimana,788456789
+28/05/2026,HD-002,"Hinges 4"" (pair)",Hardware,5,2000,9500,cash,Goretti Mukamusoni,788555556
+28/05/2026,-RF2,Ridge Cap,Roofing,9,5000,45000,mobile_money,Beatrice Mukamisha,787888888
+28/05/2026,LB-003,Door Frame Set,Lumber,17,22000,374000,cash,Aline Ingabire,788890123
+28/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,credit,David Niyonzima,788901234
+29/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3600,cash,Samuel Habimana,787111111
+29/05/2026,LB-002,Plywood 4x8 12mm,Lumber,13,30000,390000,mobile_money,Emmanuel Tuyishime,788567890
+29/05/2026,PT-002,Oil Paint Gloss 4L,Paint,2,13000,26000,mobile_money,Jacques Nzeyimana,788888889
+29/05/2026,PT-002,Oil Paint Gloss 4L,Paint,3,13000,39000,credit,Samuel Habimana,787111111
+29/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,720,cash,Alice Uwera,787444444
+29/05/2026,EL-001,Electrical Wire 2.5mm² (roll),Electrical,5,35000,175000,mobile_money,Sylvie Mutoni,787666666
+29/05/2026,PL-003,Toilet Seat Cover,Plumbing,2,18000,36000,mobile_money,Samuel Habimana,787111111
+29/05/2026,BM-003,"Concrete Blocks 6""",Building Materials,11,800,8800,mobile_money,Samuel Habimana,787111111
+29/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,cash,Dativa Mukandekezi,788222223
+29/05/2026,-RF1,Roofing Tiles (bundle),Roofing,12,18000,216000,mobile_money,Emmanuel Tuyishime,788567890
+29/05/2026,HT-002,Screwdriver Set 6pc,Hand Tools,14,7500,105000,cash,Patrick Nshimiyimana,788345678
+29/05/2026,HD-003,Padlock 50mm,Hardware,16,4000,57600,mobile_money,Patrick Nshimiyimana,788345678
+29/05/2026,EL-002,LED Bulb 12W,Electrical,1,2500,2375,cash,Diane Mukasine,787222222
+29/05/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,card,Immaculee Uwimana,788777778
+29/05/2026,HD-003,Padlock 50mm,Hardware,4,4000,16000,cash,Robert Ngabo,787555555
+29/05/2026,EL-002,LED Bulb 12W,Electrical,3,2500,7125,cash,Leoncie Uwimana,788000001
+29/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,9,3800,32490,mobile_money,Leoncie Uwimana,788000001
+29/05/2026,EL-003,Circuit Breaker 32A,Electrical,1,12000,12000,card,Patrick Nshimiyimana,788345678
+30/05/2026,HT-004,Pliers Set 3pc,Hand Tools,3,8500,24225,mobile_money,Jacques Nzeyimana,788888889
+30/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,5,12000,60000,mobile_money,Emmanuel Tuyishime,788567890
+30/05/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,308750,credit,Grace Uwimana,788012345
+30/05/2026,HT-004,Pliers Set 3pc,Hand Tools,3,8500,25500,mobile_money,Jacques Nzeyimana,788888889
+31/05/2026,-RF3,Gutter 3m PVC,Roofing,15,9500,135375,cash,Diane Mukasine,787222222
+31/05/2026,PL-004,Shower Head,Plumbing,3,11000,33000,card,Sylvie Mutoni,787666666
+31/05/2026,FT-002,"Nails 4"" 1kg",Fasteners,16,3800,57760,cash,Sylvie Mutoni,787666666
+31/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,1,12000,12000,card,Hassan Niyomugabo,788666667
+31/05/2026,PL-001,"PVC Pipe 4"" x 3m",Plumbing,18,12000,216000,cash,Sylvie Mutoni,787666666
+31/05/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,9500,card,Pacifique Niyonzima,788111112
+31/05/2026,LB-002,Plywood 4x8 12mm,Lumber,14,30000,420000,mobile_money,Consolee Mukamana,788234567
+01/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,card,Hassan Niyomugabo,788666667
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,114000,mobile_money,Aline Ingabire,788890123
+01/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,cash,Kevine Mukarwego,788999990
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,16,65000,936000,mobile_money,Immaculee Uwimana,788777778
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,11,120000,1320000,cash,Claude Twagirayezu,787777777
+01/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,cash,Beatrice Mukamisha,787888888
+01/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3325,cash,Fidele Habiyaremye,788444445
+01/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,mobile_money,Consolee Mukamana,788234567
+01/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3325,card,Robert Ngabo,787555555
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,7,120000,798000,mobile_money,Jacques Nzeyimana,788888889
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,17,65000,1105000,cash,Diane Mukasine,787222222
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,cash,Kevine Mukarwego,788999990
+01/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,18050,cash,Chantal Uwimana,787000000
+01/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,19,7500,142500,cash,Claude Twagirayezu,787777777
+01/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,cash,Emmanuel Tuyishime,788567890
+01/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1520,mobile_money,Peter Nshuti,787333333
+01/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Innocent Niyibizi,787999999
+01/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,17,800,12240,mobile_money,Innocent Niyibizi,787999999
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,7,120000,840000,mobile_money,Consolee Mukamana,788234567
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,cash,David Niyonzima,788901234
+01/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,cash,Diane Mukasine,787222222
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,mobile_money,Fidele Habiyaremye,788444445
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,mobile_money,Jean Baptiste Ndayisaba,788789012
+01/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,mobile_money,Marie Rose Uwase,788678901
+01/06/2026,LB-003,Door Frame Set,Lumber,8,22000,176000,mobile_money,David Niyonzima,788901234
+01/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,13500,cash,Pacifique Niyonzima,788111112
+01/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,10260,cash,Pacifique Niyonzima,788111112
+01/06/2026,FT-003,Bolts M10 50pc,Fasteners,4,5500,19800,mobile_money,Goretti Mukamusoni,788555556
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,342000,cash,Leoncie Uwimana,788000001
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,card,Esperance Uwimana,788456789
+01/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,cash,Robert Ngabo,787555555
+01/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,24750,mobile_money,Dativa Mukandekezi,788222223
+01/06/2026,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,mobile_money,Aimee Uwineza,788333334
+01/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,cash,Alice Uwera,787444444
+01/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,cash,Kevine Mukarwego,788999990
+01/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,15,25000,375000,credit,Immaculee Uwimana,788777778
+01/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,mobile_money,Fidele Habiyaremye,788444445
+01/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,cash,Diane Mukasine,787222222
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,card,Sylvie Mutoni,787666666
+01/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,cash,Marie Rose Uwase,788678901
+01/06/2026,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,mobile_money,Patrick Nshimiyimana,788345678
+01/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,6000,mobile_money,Kevine Mukarwego,788999990
+01/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,66000,cash,David Niyonzima,788901234
+01/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3040,mobile_money,Kevine Mukarwego,788999990
+01/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,29250,mobile_money,Grace Uwimana,788012345
+01/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3800,cash,Pacifique Niyonzima,788111112
+01/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,credit,Diane Mukasine,787222222
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Hassan Niyomugabo,788666667
+02/06/2026,BM-004,River Sand (ton),Building Materials,20,22000,440000,cash,David Niyonzima,788901234
+02/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,mobile_money,Samuel Habimana,787111111
+02/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,220000,cash,Consolee Mukamana,788234567
+02/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,mobile_money,Pacifique Niyonzima,788111112
+02/06/2026,HT-001,Hammer 2kg,Hand Tools,13,5500,67925,mobile_money,Robert Ngabo,787555555
+02/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,13,800,10400,cash,Leoncie Uwimana,788000001
+02/06/2026,LB-001,Timber 2x4 12ft,Lumber,17,6500,110500,mobile_money,Jacques Nzeyimana,788888889
+02/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,Kevine Mukarwego,788999990
+02/06/2026,LB-003,Door Frame Set,Lumber,5,22000,104500,cash,Innocent Niyibizi,787999999
+02/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,cash,Kevine Mukarwego,788999990
+02/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3600,cash,Alice Uwera,787444444
+02/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,mobile_money,Aimee Uwineza,788333334
+02/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,14,55000,770000,credit,Consolee Mukamana,788234567
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,8,7500,57000,mobile_money,Leoncie Uwimana,788000001
+02/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,17,13500,206550,credit,Emmanuel Tuyishime,788567890
+02/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,6,120000,684000,mobile_money,Consolee Mukamana,788234567
+02/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,mobile_money,Hassan Niyomugabo,788666667
+02/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,9450,card,Immaculee Uwimana,788777778
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,cash,Aline Ingabire,788890123
+02/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,cash,Pacifique Niyonzima,788111112
+02/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,cash,David Niyonzima,788901234
+02/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,mobile_money,Leoncie Uwimana,788000001
+02/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,14440,card,Beatrice Mukamisha,787888888
+02/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2400,credit,Aline Ingabire,788890123
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,33750,cash,Grace Uwimana,788012345
+02/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,cash,Goretti Mukamusoni,788555556
+02/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,14,25000,350000,cash,Innocent Niyibizi,787999999
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,12,7500,81000,card,Pacifique Niyonzima,788111112
+02/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,10260,cash,Consolee Mukamana,788234567
+02/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,17100,cash,Jacques Nzeyimana,788888889
+02/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,mobile_money,Diane Mukasine,787222222
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,27000,card,Leoncie Uwimana,788000001
+02/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,10,800,8000,cash,Dativa Mukandekezi,788222223
+02/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,9,800,6480,cash,Chantal Uwimana,787000000
+02/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,cash,Samuel Habimana,787111111
+02/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,mobile_money,Samuel Habimana,787111111
+02/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,card,Consolee Mukamana,788234567
+02/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,card,Marie Rose Uwase,788678901
+02/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,6,25000,142500,mobile_money,Innocent Niyibizi,787999999
+02/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,cash,Emmanuel Tuyishime,788567890
+02/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,16,13500,216000,cash,Esperance Uwimana,788456789
+02/06/2026,HT-003,Measuring Tape 5m,Hand Tools,19,3500,63175,mobile_money,David Niyonzima,788901234
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,card,Patrick Nshimiyimana,788345678
+03/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,cash,Alice Uwera,787444444
+03/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,16,25000,380000,cash,Peter Nshuti,787333333
+03/06/2026,LB-002,Plywood 4x8 12mm,Lumber,2,30000,54000,card,Esperance Uwimana,788456789
+03/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,23750,cash,Leoncie Uwimana,788000001
+03/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,card,Goretti Mukamusoni,788555556
+03/06/2026,HT-001,Hammer 2kg,Hand Tools,15,5500,82500,mobile_money,Emmanuel Tuyishime,788567890
+03/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12825,cash,Alice Uwera,787444444
+03/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,card,Kevine Mukarwego,788999990
+03/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,6300,card,Grace Uwimana,788012345
+03/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,cash,Innocent Niyibizi,787999999
+03/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,220000,card,Aline Ingabire,788890123
+03/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,61750,cash,Robert Ngabo,787555555
+03/06/2026,FT-003,Bolts M10 50pc,Fasteners,8,5500,44000,cash,Hassan Niyomugabo,788666667
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,mobile_money,Immaculee Uwimana,788777778
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,cash,Peter Nshuti,787333333
+03/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,cash,Marie Rose Uwase,788678901
+03/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,mobile_money,David Niyonzima,788901234
+03/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,28500,cash,Patrick Nshimiyimana,788345678
+03/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,mobile_money,Pacifique Niyonzima,788111112
+03/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,cash,Leoncie Uwimana,788000001
+03/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,17550,mobile_money,Samuel Habimana,787111111
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,8,3800,30400,cash,Consolee Mukamana,788234567
+03/06/2026,LB-003,Door Frame Set,Lumber,8,22000,176000,credit,Consolee Mukamana,788234567
+03/06/2026,FT-003,Bolts M10 50pc,Fasteners,19,5500,94050,mobile_money,Sylvie Mutoni,787666666
+03/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,18,13500,243000,cash,Leoncie Uwimana,788000001
+03/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,8,800,6080,cash,Goretti Mukamusoni,788555556
+03/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,card,Patrick Nshimiyimana,788345678
+03/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,760,mobile_money,Innocent Niyibizi,787999999
+03/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,mobile_money,David Niyonzima,788901234
+03/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,54000,mobile_money,Leoncie Uwimana,788000001
+03/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,30875,cash,Hassan Niyomugabo,788666667
+03/06/2026,LB-001,Timber 2x4 12ft,Lumber,13,6500,84500,mobile_money,Sylvie Mutoni,787666666
+03/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,8,13500,108000,credit,Peter Nshuti,787333333
+03/06/2026,LB-003,Door Frame Set,Lumber,4,22000,79200,card,Chantal Uwimana,787000000
+03/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,card,Consolee Mukamana,788234567
+03/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,cash,Goretti Mukamusoni,788555556
+03/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,8,120000,960000,cash,Patrick Nshimiyimana,788345678
+03/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,Diane Mukasine,787222222
+03/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,Robert Ngabo,787555555
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,cash,Kevine Mukarwego,788999990
+03/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Beatrice Mukamisha,787888888
+03/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,62700,card,Jean Baptiste Ndayisaba,788789012
+03/06/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,cash,Grace Uwimana,788012345
+03/06/2026,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,mobile_money,Chantal Uwimana,787000000
+03/06/2026,HT-003,Measuring Tape 5m,Hand Tools,14,3500,46550,mobile_money,Alice Uwera,787444444
+03/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,cash,Jacques Nzeyimana,788888889
+03/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,mobile_money,Jean Baptiste Ndayisaba,788789012
+03/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,mobile_money,Jean de Dieu Habimana,788123456
+04/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,52250,cash,Claude Twagirayezu,787777777
+04/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,12,7500,81000,mobile_money,Sylvie Mutoni,787666666
+04/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,95000,mobile_money,Sylvie Mutoni,787666666
+04/06/2026,LB-003,Door Frame Set,Lumber,1,22000,19800,cash,Diane Mukasine,787222222
+04/06/2026,LB-001,Timber 2x4 12ft,Lumber,14,6500,91000,cash,Esperance Uwimana,788456789
+04/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,9,120000,1080000,mobile_money,Fidele Habiyaremye,788444445
+04/06/2026,HT-003,Measuring Tape 5m,Hand Tools,15,3500,52500,cash,Aline Ingabire,788890123
+04/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,card,Patrick Nshimiyimana,788345678
+04/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,card,Dativa Mukandekezi,788222223
+04/06/2026,LB-002,Plywood 4x8 12mm,Lumber,18,30000,540000,cash,Claude Twagirayezu,787777777
+04/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,mobile_money,Immaculee Uwimana,788777778
+04/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,27000,cash,Consolee Mukamana,788234567
+04/06/2026,FT-003,Bolts M10 50pc,Fasteners,6,5500,33000,credit,Pacifique Niyonzima,788111112
+04/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,cash,Esperance Uwimana,788456789
+04/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,6,3800,22800,mobile_money,Esperance Uwimana,788456789
+04/06/2026,LB-001,Timber 2x4 12ft,Lumber,9,6500,58500,cash,Patrick Nshimiyimana,788345678
+04/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,mobile_money,Jacques Nzeyimana,788888889
+04/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,234000,cash,Esperance Uwimana,788456789
+04/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,mobile_money,Jean Baptiste Ndayisaba,788789012
+04/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,mobile_money,Beatrice Mukamisha,787888888
+04/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5225,mobile_money,Grace Uwimana,788012345
+04/06/2026,HT-001,Hammer 2kg,Hand Tools,8,5500,44000,cash,Leoncie Uwimana,788000001
+04/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Hassan Niyomugabo,788666667
+04/06/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Robert Ngabo,787555555
+04/06/2026,HT-001,Hammer 2kg,Hand Tools,8,5500,39600,mobile_money,Samuel Habimana,787111111
+04/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,mobile_money,Kevine Mukarwego,788999990
+04/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,14,800,11200,mobile_money,Beatrice Mukamisha,787888888
+04/06/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,cash,Immaculee Uwimana,788777778
+04/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,mobile_money,Robert Ngabo,787555555
+04/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,85500,mobile_money,Chantal Uwimana,787000000
+04/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,30875,cash,Jacques Nzeyimana,788888889
+04/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,247500,cash,Immaculee Uwimana,788777778
+04/06/2026,LB-003,Door Frame Set,Lumber,3,22000,66000,card,Fidele Habiyaremye,788444445
+04/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,card,Jean de Dieu Habimana,788123456
+04/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,cash,David Niyonzima,788901234
+04/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Aimee Uwineza,788333334
+04/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,cash,Marie Rose Uwase,788678901
+04/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,540000,card,Patrick Nshimiyimana,788345678
+04/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,5700,cash,David Niyonzima,788901234
+04/06/2026,LB-003,Door Frame Set,Lumber,15,22000,330000,mobile_money,Robert Ngabo,787555555
+04/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,card,Leoncie Uwimana,788000001
+04/06/2026,HT-001,Hammer 2kg,Hand Tools,8,5500,44000,mobile_money,Grace Uwimana,788012345
+04/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,198000,mobile_money,Peter Nshuti,787333333
+04/06/2026,HT-001,Hammer 2kg,Hand Tools,9,5500,44550,cash,Consolee Mukamana,788234567
+04/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3600,mobile_money,Jean Baptiste Ndayisaba,788789012
+04/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,cash,Innocent Niyibizi,787999999
+04/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,4950,cash,Peter Nshuti,787333333
+05/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,cash,Jean Baptiste Ndayisaba,788789012
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,mobile_money,Grace Uwimana,788012345
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,card,Jacques Nzeyimana,788888889
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,mobile_money,Alice Uwera,787444444
+05/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,card,Consolee Mukamana,788234567
+05/06/2026,LB-001,Timber 2x4 12ft,Lumber,16,6500,104000,card,Consolee Mukamana,788234567
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Samuel Habimana,787111111
+05/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,cash,Beatrice Mukamisha,787888888
+05/06/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,mobile_money,Immaculee Uwimana,788777778
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Peter Nshuti,787333333
+05/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Jean Baptiste Ndayisaba,788789012
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,156750,cash,Innocent Niyibizi,787999999
+05/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,9450,cash,Leoncie Uwimana,788000001
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,mobile_money,Esperance Uwimana,788456789
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,209000,cash,Patrick Nshimiyimana,788345678
+05/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,15,800,12000,cash,Chantal Uwimana,787000000
+05/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2280,mobile_money,Consolee Mukamana,788234567
+05/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,17,3800,64600,cash,Leoncie Uwimana,788000001
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,20,25000,475000,cash,Aline Ingabire,788890123
+05/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,cash,Diane Mukasine,787222222
+05/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,5400,mobile_money,Aline Ingabire,788890123
+05/06/2026,LB-003,Door Frame Set,Lumber,4,22000,79200,cash,Hassan Niyomugabo,788666667
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,mobile_money,Fidele Habiyaremye,788444445
+05/06/2026,FT-003,Bolts M10 50pc,Fasteners,10,5500,55000,cash,Fidele Habiyaremye,788444445
+05/06/2026,LB-003,Door Frame Set,Lumber,9,22000,198000,credit,Pacifique Niyonzima,788111112
+05/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,10450,cash,Peter Nshuti,787333333
+05/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Samuel Habimana,787111111
+05/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,60750,cash,Kevine Mukarwego,788999990
+05/06/2026,BM-004,River Sand (ton),Building Materials,8,22000,158400,cash,Chantal Uwimana,787000000
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,14,25000,350000,mobile_money,Alice Uwera,787444444
+05/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,14,2000,28000,mobile_money,Marie Rose Uwase,788678901
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,12,25000,285000,mobile_money,Innocent Niyibizi,787999999
+05/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,15,120000,1800000,cash,Pacifique Niyonzima,788111112
+05/06/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,108000,cash,Alice Uwera,787444444
+05/06/2026,PW-001,Electric Drill 650W,Power Tools,19,65000,1173250,card,Marie Rose Uwase,788678901
+05/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,67500,cash,David Niyonzima,788901234
+05/06/2026,LB-003,Door Frame Set,Lumber,1,22000,20900,card,Chantal Uwimana,787000000
+05/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12150,mobile_money,Fidele Habiyaremye,788444445
+05/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,10260,cash,Consolee Mukamana,788234567
+05/06/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,mobile_money,Consolee Mukamana,788234567
+05/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,20,120000,2160000,cash,Consolee Mukamana,788234567
+05/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,cash,Jean de Dieu Habimana,788123456
+05/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,mobile_money,Peter Nshuti,787333333
+05/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,cash,Jacques Nzeyimana,788888889
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,49500,card,Esperance Uwimana,788456789
+05/06/2026,LB-003,Door Frame Set,Lumber,1,22000,20900,cash,Grace Uwimana,788012345
+05/06/2026,HT-003,Measuring Tape 5m,Hand Tools,9,3500,31500,cash,Immaculee Uwimana,788777778
+05/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,12,55000,660000,credit,Alice Uwera,787444444
+05/06/2026,LB-002,Plywood 4x8 12mm,Lumber,14,30000,378000,card,Beatrice Mukamisha,787888888
+06/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,20,7500,150000,credit,Alice Uwera,787444444
+06/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,19,55000,1045000,cash,Diane Mukasine,787222222
+06/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,credit,Innocent Niyibizi,787999999
+06/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,8,25000,200000,cash,Marie Rose Uwase,788678901
+06/06/2026,LB-003,Door Frame Set,Lumber,9,22000,178200,cash,Marie Rose Uwase,788678901
+06/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,mobile_money,Hassan Niyomugabo,788666667
+06/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,mobile_money,Jacques Nzeyimana,788888889
+06/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,cash,Samuel Habimana,787111111
+06/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,mobile_money,Robert Ngabo,787555555
+06/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,card,Alice Uwera,787444444
+06/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,mobile_money,Alice Uwera,787444444
+06/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,mobile_money,Claude Twagirayezu,787777777
+06/06/2026,FT-003,Bolts M10 50pc,Fasteners,7,5500,38500,mobile_money,Consolee Mukamana,788234567
+06/06/2026,HT-003,Measuring Tape 5m,Hand Tools,12,3500,37800,card,Kevine Mukarwego,788999990
+06/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,cash,Innocent Niyibizi,787999999
+06/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,5850,mobile_money,Fidele Habiyaremye,788444445
+06/06/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Jean Baptiste Ndayisaba,788789012
+06/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7220,cash,Jacques Nzeyimana,788888889
+06/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,cash,Esperance Uwimana,788456789
+06/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,20,3800,76000,cash,Marie Rose Uwase,788678901
+06/06/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,mobile_money,Jean de Dieu Habimana,788123456
+07/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,mobile_money,Jacques Nzeyimana,788888889
+07/06/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,12350,credit,Peter Nshuti,787333333
+07/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,cash,Jacques Nzeyimana,788888889
+07/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3600,mobile_money,Robert Ngabo,787555555
+07/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,32500,cash,Fidele Habiyaremye,788444445
+07/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3800,mobile_money,Kevine Mukarwego,788999990
+07/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,mobile_money,Hassan Niyomugabo,788666667
+07/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,card,Chantal Uwimana,787000000
+07/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,cash,Goretti Mukamusoni,788555556
+07/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,14,120000,1680000,cash,Goretti Mukamusoni,788555556
+08/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,9000,card,Emmanuel Tuyishime,788567890
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,6840,mobile_money,Aline Ingabire,788890123
+08/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,card,Sylvie Mutoni,787666666
+08/06/2026,LB-003,Door Frame Set,Lumber,13,22000,286000,mobile_money,Patrick Nshimiyimana,788345678
+08/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,cash,Innocent Niyibizi,787999999
+08/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,234000,card,Dativa Mukandekezi,788222223
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,mobile_money,Alice Uwera,787444444
+08/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,credit,Jacques Nzeyimana,788888889
+08/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Aline Ingabire,788890123
+08/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,mobile_money,Dativa Mukandekezi,788222223
+08/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,9,800,6480,card,Samuel Habimana,787111111
+08/06/2026,LB-003,Door Frame Set,Lumber,5,22000,99000,mobile_money,Samuel Habimana,787111111
+08/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,mobile_money,Pacifique Niyonzima,788111112
+08/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,mobile_money,Sylvie Mutoni,787666666
+08/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,54000,mobile_money,Samuel Habimana,787111111
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,mobile_money,Innocent Niyibizi,787999999
+08/06/2026,BM-004,River Sand (ton),Building Materials,9,22000,198000,cash,Claude Twagirayezu,787777777
+08/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,credit,Beatrice Mukamisha,787888888
+08/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,11,800,8800,mobile_money,Dativa Mukandekezi,788222223
+08/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3150,mobile_money,Leoncie Uwimana,788000001
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,cash,Samuel Habimana,787111111
+08/06/2026,LB-001,Timber 2x4 12ft,Lumber,7,6500,43225,cash,Robert Ngabo,787555555
+08/06/2026,PW-001,Electric Drill 650W,Power Tools,7,65000,455000,card,Patrick Nshimiyimana,788345678
+08/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,credit,Pacifique Niyonzima,788111112
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,6,120000,684000,cash,Esperance Uwimana,788456789
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,540000,mobile_money,Robert Ngabo,787555555
+08/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,mobile_money,Leoncie Uwimana,788000001
+08/06/2026,LB-001,Timber 2x4 12ft,Lumber,11,6500,67925,cash,Aline Ingabire,788890123
+08/06/2026,FT-003,Bolts M10 50pc,Fasteners,6,5500,29700,mobile_money,Diane Mukasine,787222222
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,20,120000,2400000,mobile_money,Jean de Dieu Habimana,788123456
+08/06/2026,LB-002,Plywood 4x8 12mm,Lumber,4,30000,120000,cash,Jacques Nzeyimana,788888889
+08/06/2026,LB-003,Door Frame Set,Lumber,3,22000,62700,mobile_money,Chantal Uwimana,787000000
+08/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,cash,Claude Twagirayezu,787777777
+08/06/2026,HT-001,Hammer 2kg,Hand Tools,10,5500,55000,cash,Immaculee Uwimana,788777778
+08/06/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,12350,mobile_money,Fidele Habiyaremye,788444445
+08/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,9900,mobile_money,Samuel Habimana,787111111
+08/06/2026,PW-001,Electric Drill 650W,Power Tools,6,65000,351000,mobile_money,Jean Baptiste Ndayisaba,788789012
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,mobile_money,Beatrice Mukamisha,787888888
+08/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,7200,cash,Chantal Uwimana,787000000
+08/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,27000,mobile_money,Sylvie Mutoni,787666666
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,cash,Fidele Habiyaremye,788444445
+08/06/2026,LB-003,Door Frame Set,Lumber,2,22000,39600,card,Jean Baptiste Ndayisaba,788789012
+08/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,66000,card,Robert Ngabo,787555555
+08/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,16,25000,400000,cash,Hassan Niyomugabo,788666667
+08/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,Samuel Habimana,787111111
+08/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,cash,Consolee Mukamana,788234567
+08/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,credit,Jacques Nzeyimana,788888889
+08/06/2026,LB-001,Timber 2x4 12ft,Lumber,7,6500,43225,cash,Diane Mukasine,787222222
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,3,3800,11400,cash,Marie Rose Uwase,788678901
+08/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,247500,cash,Jean de Dieu Habimana,788123456
+08/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7220,mobile_money,Esperance Uwimana,788456789
+09/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,18,2000,36000,mobile_money,Hassan Niyomugabo,788666667
+09/06/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,card,Dativa Mukandekezi,788222223
+09/06/2026,BM-004,River Sand (ton),Building Materials,10,22000,220000,cash,Jean de Dieu Habimana,788123456
+09/06/2026,HT-003,Measuring Tape 5m,Hand Tools,11,3500,38500,mobile_money,Leoncie Uwimana,788000001
+09/06/2026,LB-001,Timber 2x4 12ft,Lumber,19,6500,123500,cash,Pacifique Niyonzima,788111112
+09/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,7,25000,166250,cash,Samuel Habimana,787111111
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,11000,card,Kevine Mukarwego,788999990
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,card,Jacques Nzeyimana,788888889
+09/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,cash,Diane Mukasine,787222222
+09/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,credit,Jacques Nzeyimana,788888889
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,cash,David Niyonzima,788901234
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,card,Alice Uwera,787444444
+09/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3800,card,Immaculee Uwimana,788777778
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,24750,cash,David Niyonzima,788901234
+09/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,card,Emmanuel Tuyishime,788567890
+09/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,15,120000,1800000,mobile_money,Esperance Uwimana,788456789
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,18,55000,990000,cash,David Niyonzima,788901234
+09/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,40500,cash,Marie Rose Uwase,788678901
+09/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Marie Rose Uwase,788678901
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,261250,mobile_money,Immaculee Uwimana,788777778
+09/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,mobile_money,Jacques Nzeyimana,788888889
+09/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,7,2000,13300,credit,Jean Baptiste Ndayisaba,788789012
+09/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,credit,Hassan Niyomugabo,788666667
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,52250,mobile_money,Alice Uwera,787444444
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,19,55000,1045000,mobile_money,Emmanuel Tuyishime,788567890
+09/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,14,7500,99750,card,Chantal Uwimana,787000000
+09/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,cash,Samuel Habimana,787111111
+09/06/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,mobile_money,Consolee Mukamana,788234567
+09/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,card,Peter Nshuti,787333333
+09/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,cash,Goretti Mukamusoni,788555556
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,11,55000,544500,card,David Niyonzima,788901234
+09/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,cash,Alice Uwera,787444444
+09/06/2026,BM-004,River Sand (ton),Building Materials,8,22000,176000,mobile_money,Robert Ngabo,787555555
+09/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,card,Pacifique Niyonzima,788111112
+09/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1800,card,Consolee Mukamana,788234567
+09/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,23750,cash,Patrick Nshimiyimana,788345678
+09/06/2026,BM-004,River Sand (ton),Building Materials,4,22000,79200,credit,Peter Nshuti,787333333
+09/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Diane Mukasine,787222222
+09/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,mobile_money,Dativa Mukandekezi,788222223
+09/06/2026,LB-003,Door Frame Set,Lumber,16,22000,334400,cash,Samuel Habimana,787111111
+09/06/2026,FT-003,Bolts M10 50pc,Fasteners,3,5500,16500,mobile_money,David Niyonzima,788901234
+09/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,5,3800,19000,card,David Niyonzima,788901234
+09/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,20,800,16000,mobile_money,Robert Ngabo,787555555
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,11000,cash,Marie Rose Uwase,788678901
+09/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12825,cash,Kevine Mukarwego,788999990
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,20,5500,104500,mobile_money,Kevine Mukarwego,788999990
+09/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,card,Esperance Uwimana,788456789
+09/06/2026,HT-001,Hammer 2kg,Hand Tools,12,5500,66000,cash,Leoncie Uwimana,788000001
+09/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,cash,Chantal Uwimana,787000000
+09/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,19800,card,Jean de Dieu Habimana,788123456
+10/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,cash,Diane Mukasine,787222222
+10/06/2026,LB-003,Door Frame Set,Lumber,9,22000,198000,mobile_money,Beatrice Mukamisha,787888888
+10/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,cash,Grace Uwimana,788012345
+10/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,mobile_money,Jean Baptiste Ndayisaba,788789012
+10/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,card,Emmanuel Tuyishime,788567890
+10/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,Aimee Uwineza,788333334
+10/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,credit,David Niyonzima,788901234
+10/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,26125,cash,Grace Uwimana,788012345
+10/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Patrick Nshimiyimana,788345678
+10/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3420,cash,Peter Nshuti,787333333
+10/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2160,cash,Hassan Niyomugabo,788666667
+10/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,17,800,12240,mobile_money,Immaculee Uwimana,788777778
+10/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,mobile_money,Diane Mukasine,787222222
+10/06/2026,LB-003,Door Frame Set,Lumber,3,22000,59400,cash,Sylvie Mutoni,787666666
+10/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,15200,cash,Claude Twagirayezu,787777777
+10/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,mobile_money,Jean Baptiste Ndayisaba,788789012
+10/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,cash,Jean Baptiste Ndayisaba,788789012
+10/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,mobile_money,Emmanuel Tuyishime,788567890
+10/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,credit,Jean de Dieu Habimana,788123456
+10/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,credit,Jacques Nzeyimana,788888889
+10/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,cash,Hassan Niyomugabo,788666667
+10/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,cash,Alice Uwera,787444444
+10/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,mobile_money,Chantal Uwimana,787000000
+10/06/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,cash,Peter Nshuti,787333333
+10/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,credit,Grace Uwimana,788012345
+10/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,cash,Esperance Uwimana,788456789
+10/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,6,2000,11400,card,Pacifique Niyonzima,788111112
+10/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,card,Peter Nshuti,787333333
+10/06/2026,LB-003,Door Frame Set,Lumber,3,22000,59400,mobile_money,Fidele Habiyaremye,788444445
+10/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,20,3800,72200,cash,Diane Mukasine,787222222
+10/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,12,25000,300000,mobile_money,David Niyonzima,788901234
+10/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,cash,Dativa Mukandekezi,788222223
+10/06/2026,LB-002,Plywood 4x8 12mm,Lumber,20,30000,600000,cash,Emmanuel Tuyishime,788567890
+10/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,mobile_money,Aimee Uwineza,788333334
+10/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,66000,mobile_money,Hassan Niyomugabo,788666667
+10/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,credit,Marie Rose Uwase,788678901
+10/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,8,7500,60000,cash,Diane Mukasine,787222222
+10/06/2026,LB-003,Door Frame Set,Lumber,3,22000,66000,cash,Innocent Niyibizi,787999999
+10/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,17,2000,34000,cash,Chantal Uwimana,787000000
+10/06/2026,LB-003,Door Frame Set,Lumber,2,22000,44000,cash,Chantal Uwimana,787000000
+10/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,17,120000,2040000,mobile_money,Robert Ngabo,787555555
+10/06/2026,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,cash,Alice Uwera,787444444
+11/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,mobile_money,Jacques Nzeyimana,788888889
+11/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Pacifique Niyonzima,788111112
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,cash,Diane Mukasine,787222222
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3600,mobile_money,Jacques Nzeyimana,788888889
+11/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,card,Hassan Niyomugabo,788666667
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,13,800,10400,cash,Jean de Dieu Habimana,788123456
+11/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,23750,mobile_money,Leoncie Uwimana,788000001
+11/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,16,120000,1920000,cash,Diane Mukasine,787222222
+11/06/2026,BM-004,River Sand (ton),Building Materials,16,22000,334400,cash,Grace Uwimana,788012345
+11/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,mobile_money,Diane Mukasine,787222222
+11/06/2026,LB-003,Door Frame Set,Lumber,10,22000,220000,cash,Alice Uwera,787444444
+11/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,mobile_money,Alice Uwera,787444444
+11/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,38475,cash,Robert Ngabo,787555555
+11/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,mobile_money,Jacques Nzeyimana,788888889
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,3,800,2280,mobile_money,Robert Ngabo,787555555
+11/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,480000,cash,Diane Mukasine,787222222
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,mobile_money,Jean Baptiste Ndayisaba,788789012
+11/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1800,cash,Claude Twagirayezu,787777777
+11/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,2000,cash,Aline Ingabire,788890123
+11/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,mobile_money,Aimee Uwineza,788333334
+11/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,342000,mobile_money,Beatrice Mukamisha,787888888
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,18,800,14400,card,Robert Ngabo,787555555
+11/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,mobile_money,Robert Ngabo,787555555
+11/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,mobile_money,Sylvie Mutoni,787666666
+11/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,2000,card,Dativa Mukandekezi,788222223
+11/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,540000,cash,Claude Twagirayezu,787777777
+11/06/2026,LB-003,Door Frame Set,Lumber,18,22000,356400,mobile_money,Patrick Nshimiyimana,788345678
+11/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,36450,mobile_money,Esperance Uwimana,788456789
+11/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,7000,cash,Claude Twagirayezu,787777777
+11/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,18,25000,450000,cash,Fidele Habiyaremye,788444445
+11/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3610,cash,Jean de Dieu Habimana,788123456
+11/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,mobile_money,Chantal Uwimana,787000000
+11/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,3,7500,22500,mobile_money,Kevine Mukarwego,788999990
+11/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,14,55000,770000,cash,Alice Uwera,787444444
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,cash,Innocent Niyibizi,787999999
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,cash,Alice Uwera,787444444
+11/06/2026,LB-002,Plywood 4x8 12mm,Lumber,14,30000,378000,cash,Innocent Niyibizi,787999999
+11/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,cash,Hassan Niyomugabo,788666667
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,Diane Mukasine,787222222
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,175500,mobile_money,Fidele Habiyaremye,788444445
+11/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,cash,Claude Twagirayezu,787777777
+11/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,credit,Emmanuel Tuyishime,788567890
+11/06/2026,LB-003,Door Frame Set,Lumber,5,22000,99000,cash,Jean de Dieu Habimana,788123456
+11/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,15000,mobile_money,Peter Nshuti,787333333
+11/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,1,3800,3610,card,Grace Uwimana,788012345
+11/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,card,Sylvie Mutoni,787666666
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,18,65000,1170000,mobile_money,Fidele Habiyaremye,788444445
+11/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,18,13500,243000,cash,Jean de Dieu Habimana,788123456
+11/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,15750,mobile_money,Dativa Mukandekezi,788222223
+11/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,6000,cash,Hassan Niyomugabo,788666667
+11/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,123500,cash,Claude Twagirayezu,787777777
+12/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,mobile_money,Samuel Habimana,787111111
+12/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,Jacques Nzeyimana,788888889
+12/06/2026,BM-004,River Sand (ton),Building Materials,2,22000,44000,card,Innocent Niyibizi,787999999
+12/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,credit,Immaculee Uwimana,788777778
+12/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,19,120000,2280000,cash,Kevine Mukarwego,788999990
+12/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,24750,cash,Jean de Dieu Habimana,788123456
+12/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,cash,David Niyonzima,788901234
+12/06/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,mobile_money,Immaculee Uwimana,788777778
+12/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,cash,Leoncie Uwimana,788000001
+12/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,5,55000,275000,credit,David Niyonzima,788901234
+12/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,570000,mobile_money,Hassan Niyomugabo,788666667
+12/06/2026,BM-004,River Sand (ton),Building Materials,6,22000,125400,credit,Marie Rose Uwase,788678901
+12/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,3,7500,21375,cash,Samuel Habimana,787111111
+12/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,130000,card,Grace Uwimana,788012345
+12/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3600,mobile_money,Consolee Mukamana,788234567
+12/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,mobile_money,Leoncie Uwimana,788000001
+12/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,36450,mobile_money,Robert Ngabo,787555555
+12/06/2026,PW-001,Electric Drill 650W,Power Tools,5,65000,325000,mobile_money,Samuel Habimana,787111111
+12/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,25650,cash,Claude Twagirayezu,787777777
+12/06/2026,BM-004,River Sand (ton),Building Materials,11,22000,242000,cash,Emmanuel Tuyishime,788567890
+12/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,110000,mobile_money,Consolee Mukamana,788234567
+12/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,20,800,16000,cash,Diane Mukasine,787222222
+12/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,mobile_money,Claude Twagirayezu,787777777
+12/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,cash,Alice Uwera,787444444
+12/06/2026,LB-002,Plywood 4x8 12mm,Lumber,5,30000,142500,cash,Claude Twagirayezu,787777777
+12/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,9000,cash,Leoncie Uwimana,788000001
+12/06/2026,FT-003,Bolts M10 50pc,Fasteners,12,5500,66000,mobile_money,Immaculee Uwimana,788777778
+12/06/2026,BM-004,River Sand (ton),Building Materials,6,22000,132000,card,Marie Rose Uwase,788678901
+12/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,card,Beatrice Mukamisha,787888888
+12/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,24750,mobile_money,Goretti Mukamusoni,788555556
+12/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,credit,Grace Uwimana,788012345
+12/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3800,card,Consolee Mukamana,788234567
+12/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,20,55000,990000,cash,Jean Baptiste Ndayisaba,788789012
+12/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,mobile_money,Beatrice Mukamisha,787888888
+12/06/2026,LB-001,Timber 2x4 12ft,Lumber,2,6500,13000,mobile_money,Aline Ingabire,788890123
+12/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,6,7500,45000,cash,Jean Baptiste Ndayisaba,788789012
+12/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,credit,Beatrice Mukamisha,787888888
+12/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,20,120000,2400000,mobile_money,Chantal Uwimana,787000000
+12/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,card,David Niyonzima,788901234
+12/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,card,Kevine Mukarwego,788999990
+12/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Patrick Nshimiyimana,788345678
+12/06/2026,FT-003,Bolts M10 50pc,Fasteners,11,5500,60500,cash,Diane Mukasine,787222222
+12/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,13,2000,26000,card,Alice Uwera,787444444
+12/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,mobile_money,Leoncie Uwimana,788000001
+12/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,cash,David Niyonzima,788901234
+13/06/2026,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,mobile_money,Fidele Habiyaremye,788444445
+13/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,15,13500,202500,mobile_money,Marie Rose Uwase,788678901
+13/06/2026,FT-003,Bolts M10 50pc,Fasteners,3,5500,16500,credit,Diane Mukasine,787222222
+13/06/2026,LB-002,Plywood 4x8 12mm,Lumber,20,30000,540000,mobile_money,Alice Uwera,787444444
+13/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,19,25000,427500,cash,Beatrice Mukamisha,787888888
+13/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,99000,mobile_money,Robert Ngabo,787555555
+13/06/2026,BM-004,River Sand (ton),Building Materials,6,22000,118800,card,Fidele Habiyaremye,788444445
+13/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,64125,mobile_money,Immaculee Uwimana,788777778
+13/06/2026,FT-003,Bolts M10 50pc,Fasteners,9,5500,44550,mobile_money,Aline Ingabire,788890123
+13/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,mobile_money,Innocent Niyibizi,787999999
+13/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,6750,credit,Patrick Nshimiyimana,788345678
+13/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,13,120000,1560000,cash,Peter Nshuti,787333333
+13/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,mobile_money,Jacques Nzeyimana,788888889
+13/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,9,7500,67500,mobile_money,Jean de Dieu Habimana,788123456
+13/06/2026,HT-003,Measuring Tape 5m,Hand Tools,20,3500,70000,mobile_money,Jacques Nzeyimana,788888889
+13/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,mobile_money,Jean Baptiste Ndayisaba,788789012
+14/06/2026,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,cash,Marie Rose Uwase,788678901
+14/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,13,2000,26000,cash,Jean Baptiste Ndayisaba,788789012
+14/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,cash,Aline Ingabire,788890123
+14/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,cash,Aline Ingabire,788890123
+14/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,card,Goretti Mukamusoni,788555556
+14/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Sylvie Mutoni,787666666
+14/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,16625,mobile_money,Peter Nshuti,787333333
+14/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,cash,Leoncie Uwimana,788000001
+14/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,4,120000,456000,card,David Niyonzima,788901234
+14/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,38475,cash,Aimee Uwineza,788333334
+14/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,cash,Innocent Niyibizi,787999999
+14/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Leoncie Uwimana,788000001
+14/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,mobile_money,Marie Rose Uwase,788678901
+15/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,35625,card,Sylvie Mutoni,787666666
+15/06/2026,LB-003,Door Frame Set,Lumber,15,22000,330000,credit,Aimee Uwineza,788333334
+15/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,4,55000,220000,cash,Fidele Habiyaremye,788444445
+15/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,cash,Pacifique Niyonzima,788111112
+15/06/2026,LB-001,Timber 2x4 12ft,Lumber,7,6500,40950,card,Jean de Dieu Habimana,788123456
+15/06/2026,FT-003,Bolts M10 50pc,Fasteners,4,5500,19800,cash,Dativa Mukandekezi,788222223
+15/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,5,120000,600000,mobile_money,Jean Baptiste Ndayisaba,788789012
+15/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,cash,Jean Baptiste Ndayisaba,788789012
+15/06/2026,BM-004,River Sand (ton),Building Materials,4,22000,88000,cash,David Niyonzima,788901234
+15/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,2,800,1600,card,Jean Baptiste Ndayisaba,788789012
+15/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,14,13500,189000,cash,Jean Baptiste Ndayisaba,788789012
+15/06/2026,LB-003,Door Frame Set,Lumber,5,22000,104500,cash,David Niyonzima,788901234
+15/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,card,Kevine Mukarwego,788999990
+15/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Beatrice Mukamisha,787888888
+15/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Patrick Nshimiyimana,788345678
+15/06/2026,LB-003,Door Frame Set,Lumber,6,22000,132000,credit,Esperance Uwimana,788456789
+15/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5225,card,Consolee Mukamana,788234567
+15/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,3800,cash,Robert Ngabo,787555555
+15/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,cash,Diane Mukasine,787222222
+15/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,12,2000,24000,cash,Hassan Niyomugabo,788666667
+15/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,cash,Claude Twagirayezu,787777777
+15/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,81000,cash,Emmanuel Tuyishime,788567890
+15/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,cash,Diane Mukasine,787222222
+15/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,15000,cash,Peter Nshuti,787333333
+15/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,2,3800,7600,mobile_money,Leoncie Uwimana,788000001
+15/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,mobile_money,Aimee Uwineza,788333334
+15/06/2026,FT-003,Bolts M10 50pc,Fasteners,6,5500,33000,mobile_money,Grace Uwimana,788012345
+15/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,mobile_money,Samuel Habimana,787111111
+15/06/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,mobile_money,Claude Twagirayezu,787777777
+15/06/2026,FT-003,Bolts M10 50pc,Fasteners,17,5500,88825,cash,Samuel Habimana,787111111
+16/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Dativa Mukandekezi,788222223
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,48600,mobile_money,Emmanuel Tuyishime,788567890
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,cash,Sylvie Mutoni,787666666
+16/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,30000,cash,Fidele Habiyaremye,788444445
+16/06/2026,LB-002,Plywood 4x8 12mm,Lumber,6,30000,171000,card,Dativa Mukandekezi,788222223
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Samuel Habimana,787111111
+16/06/2026,LB-003,Door Frame Set,Lumber,2,22000,44000,mobile_money,Pacifique Niyonzima,788111112
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,36450,mobile_money,Grace Uwimana,788012345
+16/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,20,7500,150000,card,Peter Nshuti,787333333
+16/06/2026,FT-003,Bolts M10 50pc,Fasteners,5,5500,27500,cash,Grace Uwimana,788012345
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,6300,mobile_money,Hassan Niyomugabo,788666667
+16/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,card,Esperance Uwimana,788456789
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,175500,mobile_money,Beatrice Mukamisha,787888888
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,cash,Alice Uwera,787444444
+16/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,9,7500,60750,cash,Beatrice Mukamisha,787888888
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,18,65000,1170000,cash,Peter Nshuti,787333333
+16/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,3,7500,22500,card,Leoncie Uwimana,788000001
+16/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,cash,Aline Ingabire,788890123
+16/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,8,55000,440000,cash,Aline Ingabire,788890123
+16/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,5,7500,37500,mobile_money,Chantal Uwimana,787000000
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,card,Claude Twagirayezu,787777777
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,13300,credit,Peter Nshuti,787333333
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Beatrice Mukamisha,787888888
+16/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1800,card,Leoncie Uwimana,788000001
+16/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,3,2000,5400,card,Pacifique Niyonzima,788111112
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,48600,mobile_money,Marie Rose Uwase,788678901
+16/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,32500,cash,Esperance Uwimana,788456789
+16/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,14,800,11200,cash,Consolee Mukamana,788234567
+16/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,mobile_money,Immaculee Uwimana,788777778
+16/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,cash,Sylvie Mutoni,787666666
+16/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,2880,cash,Claude Twagirayezu,787777777
+16/06/2026,LB-003,Door Frame Set,Lumber,8,22000,176000,mobile_money,Pacifique Niyonzima,788111112
+16/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,4000,mobile_money,Grace Uwimana,788012345
+16/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,mobile_money,Grace Uwimana,788012345
+16/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,228000,cash,Aimee Uwineza,788333334
+16/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,3,25000,75000,cash,Hassan Niyomugabo,788666667
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,12,65000,780000,cash,Aimee Uwineza,788333334
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Hassan Niyomugabo,788666667
+16/06/2026,LB-003,Door Frame Set,Lumber,2,22000,41800,mobile_money,Beatrice Mukamisha,787888888
+16/06/2026,HT-001,Hammer 2kg,Hand Tools,1,5500,5500,cash,Esperance Uwimana,788456789
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,cash,Pacifique Niyonzima,788111112
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,12150,cash,Grace Uwimana,788012345
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,12,13500,162000,cash,Beatrice Mukamisha,787888888
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,123500,mobile_money,Jacques Nzeyimana,788888889
+16/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,99000,cash,Leoncie Uwimana,788000001
+16/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,card,Marie Rose Uwase,788678901
+16/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,59400,mobile_money,Goretti Mukamusoni,788555556
+16/06/2026,PW-001,Electric Drill 650W,Power Tools,2,65000,123500,cash,Fidele Habiyaremye,788444445
+16/06/2026,HT-001,Hammer 2kg,Hand Tools,20,5500,110000,cash,Consolee Mukamana,788234567
+16/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,3,120000,360000,cash,Fidele Habiyaremye,788444445
+16/06/2026,FT-003,Bolts M10 50pc,Fasteners,18,5500,89100,cash,Robert Ngabo,787555555
+16/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,cash,Peter Nshuti,787333333
+16/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,19,13500,243675,cash,Patrick Nshimiyimana,788345678
+16/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,7,120000,840000,cash,Grace Uwimana,788012345
+16/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,11000,mobile_money,Marie Rose Uwase,788678901
+16/06/2026,LB-003,Door Frame Set,Lumber,7,22000,146300,credit,Dativa Mukandekezi,788222223
+16/06/2026,HT-001,Hammer 2kg,Hand Tools,12,5500,62700,mobile_money,Esperance Uwimana,788456789
+16/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,17,2000,34000,cash,Robert Ngabo,787555555
+17/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,4,13500,54000,cash,Aimee Uwineza,788333334
+17/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,mobile_money,Robert Ngabo,787555555
+17/06/2026,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,card,Patrick Nshimiyimana,788345678
+17/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,12,800,9600,cash,Esperance Uwimana,788456789
+17/06/2026,LB-002,Plywood 4x8 12mm,Lumber,5,30000,150000,cash,Marie Rose Uwase,788678901
+17/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,cash,Samuel Habimana,787111111
+17/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,1,2000,1800,cash,Patrick Nshimiyimana,788345678
+17/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,6,120000,720000,mobile_money,Innocent Niyibizi,787999999
+17/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,10450,cash,Beatrice Mukamisha,787888888
+17/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Innocent Niyibizi,787999999
+17/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,125000,mobile_money,Aline Ingabire,788890123
+17/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,2,13500,27000,mobile_money,Robert Ngabo,787555555
+17/06/2026,LB-002,Plywood 4x8 12mm,Lumber,18,30000,540000,cash,David Niyonzima,788901234
+17/06/2026,HT-003,Measuring Tape 5m,Hand Tools,1,3500,3500,cash,Consolee Mukamana,788234567
+17/06/2026,HT-001,Hammer 2kg,Hand Tools,5,5500,27500,card,Diane Mukasine,787222222
+17/06/2026,FT-003,Bolts M10 50pc,Fasteners,14,5500,77000,cash,Aimee Uwineza,788333334
+17/06/2026,BM-004,River Sand (ton),Building Materials,3,22000,62700,cash,Sylvie Mutoni,787666666
+17/06/2026,FT-003,Bolts M10 50pc,Fasteners,6,5500,31350,cash,Sylvie Mutoni,787666666
+17/06/2026,FT-003,Bolts M10 50pc,Fasteners,3,5500,16500,cash,Patrick Nshimiyimana,788345678
+17/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3600,card,Claude Twagirayezu,787777777
+17/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,David Niyonzima,788901234
+17/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,195000,cash,David Niyonzima,788901234
+17/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,19800,cash,Immaculee Uwimana,788777778
+17/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,mobile_money,Dativa Mukandekezi,788222223
+17/06/2026,BM-004,River Sand (ton),Building Materials,11,22000,229900,mobile_money,Patrick Nshimiyimana,788345678
+17/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,mobile_money,Grace Uwimana,788012345
+17/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,16,13500,216000,card,Marie Rose Uwase,788678901
+17/06/2026,HT-001,Hammer 2kg,Hand Tools,10,5500,55000,cash,Aline Ingabire,788890123
+17/06/2026,FT-003,Bolts M10 50pc,Fasteners,9,5500,49500,card,Hassan Niyomugabo,788666667
+17/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,card,Grace Uwimana,788012345
+17/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,2,25000,50000,cash,Claude Twagirayezu,787777777
+17/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,5,13500,67500,cash,Aline Ingabire,788890123
+17/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,8,13500,97200,card,Aline Ingabire,788890123
+17/06/2026,BM-004,River Sand (ton),Building Materials,19,22000,418000,mobile_money,Robert Ngabo,787555555
+17/06/2026,LB-001,Timber 2x4 12ft,Lumber,1,6500,6500,mobile_money,Chantal Uwimana,787000000
+18/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,2,55000,99000,cash,Diane Mukasine,787222222
+18/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,1,7500,7500,mobile_money,Aimee Uwineza,788333334
+18/06/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,card,Alice Uwera,787444444
+18/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,6300,cash,Claude Twagirayezu,787777777
+18/06/2026,LB-002,Plywood 4x8 12mm,Lumber,2,30000,60000,card,Alice Uwera,787444444
+18/06/2026,PW-001,Electric Drill 650W,Power Tools,3,65000,175500,cash,Esperance Uwimana,788456789
+18/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,17,800,12240,cash,Innocent Niyibizi,787999999
+18/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,156750,cash,Jean Baptiste Ndayisaba,788789012
+18/06/2026,LB-001,Timber 2x4 12ft,Lumber,8,6500,52000,mobile_money,Dativa Mukandekezi,788222223
+18/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,27000,credit,Beatrice Mukamisha,787888888
+18/06/2026,LB-003,Door Frame Set,Lumber,3,22000,59400,mobile_money,Consolee Mukamana,788234567
+18/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,6,800,4800,card,Diane Mukasine,787222222
+18/06/2026,BM-004,River Sand (ton),Building Materials,5,22000,110000,mobile_money,Jacques Nzeyimana,788888889
+18/06/2026,FT-003,Bolts M10 50pc,Fasteners,1,5500,5500,credit,Alice Uwera,787444444
+18/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,100000,mobile_money,Consolee Mukamana,788234567
+18/06/2026,LB-001,Timber 2x4 12ft,Lumber,18,6500,111150,cash,Aline Ingabire,788890123
+18/06/2026,FT-003,Bolts M10 50pc,Fasteners,13,5500,67925,cash,Beatrice Mukamisha,787888888
+18/06/2026,LB-003,Door Frame Set,Lumber,3,22000,62700,cash,David Niyonzima,788901234
+18/06/2026,LB-001,Timber 2x4 12ft,Lumber,5,6500,29250,cash,Beatrice Mukamisha,787888888
+18/06/2026,LB-003,Door Frame Set,Lumber,17,22000,355300,cash,Alice Uwera,787444444
+18/06/2026,BM-004,River Sand (ton),Building Materials,1,22000,22000,mobile_money,Chantal Uwimana,787000000
+18/06/2026,LB-002,Plywood 4x8 12mm,Lumber,3,30000,90000,mobile_money,Chantal Uwimana,787000000
+18/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,165000,cash,Alice Uwera,787444444
+18/06/2026,LB-002,Plywood 4x8 12mm,Lumber,1,30000,27000,cash,Grace Uwimana,788012345
+18/06/2026,HT-003,Measuring Tape 5m,Hand Tools,8,3500,25200,mobile_money,Immaculee Uwimana,788777778
+18/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,10,55000,550000,mobile_money,Goretti Mukamusoni,788555556
+18/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,52250,credit,Grace Uwimana,788012345
+18/06/2026,LB-003,Door Frame Set,Lumber,1,22000,22000,cash,Patrick Nshimiyimana,788345678
+18/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,2,2000,3800,card,Samuel Habimana,787111111
+18/06/2026,HT-003,Measuring Tape 5m,Hand Tools,11,3500,34650,cash,Robert Ngabo,787555555
+18/06/2026,LB-003,Door Frame Set,Lumber,5,22000,110000,credit,Peter Nshuti,787333333
+18/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,5,2000,10000,mobile_money,Kevine Mukarwego,788999990
+18/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,1,800,800,mobile_money,Patrick Nshimiyimana,788345678
+18/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,5,25000,112500,card,Jean de Dieu Habimana,788123456
+18/06/2026,HT-003,Measuring Tape 5m,Hand Tools,5,3500,17500,cash,Sylvie Mutoni,787666666
+18/06/2026,FT-003,Bolts M10 50pc,Fasteners,4,5500,22000,mobile_money,Robert Ngabo,787555555
+19/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,4,25000,90000,mobile_money,Jacques Nzeyimana,788888889
+19/06/2026,LB-003,Door Frame Set,Lumber,4,22000,88000,cash,Jean de Dieu Habimana,788123456
+19/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,10,2000,19000,cash,Innocent Niyibizi,787999999
+19/06/2026,PW-001,Electric Drill 650W,Power Tools,4,65000,260000,cash,David Niyonzima,788901234
+19/06/2026,FT-003,Bolts M10 50pc,Fasteners,2,5500,11000,cash,Peter Nshuti,787333333
+19/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,15,7500,112500,mobile_money,Goretti Mukamusoni,788555556
+19/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,1,13500,13500,cash,Hassan Niyomugabo,788666667
+19/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,4,3800,13680,cash,Esperance Uwimana,788456789
+19/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,3,55000,156750,mobile_money,Esperance Uwimana,788456789
+19/06/2026,LB-002,Plywood 4x8 12mm,Lumber,2,30000,54000,credit,Innocent Niyibizi,787999999
+19/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,19,25000,475000,cash,Dativa Mukandekezi,788222223
+19/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,52250,mobile_money,Samuel Habimana,787111111
+19/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,108000,cash,Patrick Nshimiyimana,788345678
+19/06/2026,PW-002,"Angle Grinder 4.5""",Power Tools,1,55000,55000,cash,Claude Twagirayezu,787777777
+19/06/2026,FT-002,"Nails 4"" 1kg",Fasteners,8,3800,27360,mobile_money,Immaculee Uwimana,788777778
+19/06/2026,HT-001,Hammer 2kg,Hand Tools,10,5500,55000,cash,Marie Rose Uwase,788678901
+19/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,2,120000,240000,cash,Patrick Nshimiyimana,788345678
+19/06/2026,LB-003,Door Frame Set,Lumber,5,22000,104500,cash,Immaculee Uwimana,788777778
+19/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,18,120000,2160000,mobile_money,Claude Twagirayezu,787777777
+19/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,cash,Claude Twagirayezu,787777777
+19/06/2026,LB-003,Door Frame Set,Lumber,2,22000,44000,mobile_money,David Niyonzima,788901234
+19/06/2026,PW-001,Electric Drill 650W,Power Tools,15,65000,975000,cash,Samuel Habimana,787111111
+19/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,9450,card,Aimee Uwineza,788333334
+19/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,3200,mobile_money,Esperance Uwimana,788456789
+19/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,12,800,9600,mobile_money,Patrick Nshimiyimana,788345678
+19/06/2026,HT-001,Hammer 2kg,Hand Tools,2,5500,10450,cash,Jean de Dieu Habimana,788123456
+19/06/2026,HT-003,Measuring Tape 5m,Hand Tools,3,3500,10500,mobile_money,Jacques Nzeyimana,788888889
+19/06/2026,HT-001,Hammer 2kg,Hand Tools,4,5500,22000,cash,Pacifique Niyonzima,788111112
+19/06/2026,FT-001,Wood Screws #8 100pc,Fasteners,4,2000,8000,card,Samuel Habimana,787111111
+19/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,1,25000,25000,mobile_money,Immaculee Uwimana,788777778
+19/06/2026,HT-003,Measuring Tape 5m,Hand Tools,4,3500,14000,cash,Kevine Mukarwego,788999990
+19/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,7000,card,Diane Mukasine,787222222
+19/06/2026,PW-001,Electric Drill 650W,Power Tools,1,65000,65000,cash,David Niyonzima,788901234
+19/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,3,13500,40500,cash,Jean de Dieu Habimana,788123456
+19/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,5,800,4000,card,Leoncie Uwimana,788000001
+19/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,10,7500,71250,mobile_money,Leoncie Uwimana,788000001
+20/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,18,120000,1944000,mobile_money,Emmanuel Tuyishime,788567890
+20/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,114000,mobile_money,Samuel Habimana,787111111
+20/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,1,120000,120000,cash,Innocent Niyibizi,787999999
+20/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,4,7500,30000,card,Alice Uwera,787444444
+20/06/2026,HT-003,Measuring Tape 5m,Hand Tools,2,3500,7000,cash,Aline Ingabire,788890123
+20/06/2026,PW-003,"Circular Saw 7.25""",Power Tools,10,120000,1140000,cash,Fidele Habiyaremye,788444445
+20/06/2026,HT-001,Hammer 2kg,Hand Tools,6,5500,29700,mobile_money,Diane Mukasine,787222222
+20/06/2026,LB-002,Plywood 4x8 12mm,Lumber,7,30000,210000,cash,Beatrice Mukamisha,787888888
+20/06/2026,BM-003,"Concrete Blocks 6""",Building Materials,4,800,2880,mobile_money,Peter Nshuti,787333333
+20/06/2026,HT-002,Screwdriver Set 6pc,Hand Tools,2,7500,14250,mobile_money,Jacques Nzeyimana,788888889
+20/06/2026,FT-003,Bolts M10 50pc,Fasteners,10,5500,55000,card,Pacifique Niyonzima,788111112
+20/06/2026,LB-001,Timber 2x4 12ft,Lumber,3,6500,19500,cash,Leoncie Uwimana,788000001
+20/06/2026,HT-003,Measuring Tape 5m,Hand Tools,9,3500,31500,cash,David Niyonzima,788901234
+20/06/2026,BM-002,Iron Sheets G32 3m,Building Materials,19,25000,475000,cash,Beatrice Mukamisha,787888888
+20/06/2026,BM-001,Cement Cimerwa 50kg,Building Materials,18,13500,218700,card,Aline Ingabire,788890123
+20/06/2026,HT-001,Hammer 2kg,Hand Tools,3,5500,16500,cash,Consolee Mukamana,788234567
+21/06/2026,HT-002,Hammer 2kg,Hand Tools,,,,,,
+22/06/2026,HT-003,,,,,,,,
+23/06/2026,HT-004,,,,,,,,
+24/06/2026,HT-005,,,,,,,,
+25/06/2026,HT-006,,,,,,,,
+26/06/2026,HT-007,,,,,,,,
+27/06/2026,HT-008,,,,,,,,
+28/06/2026,HT-009,,,,,,,,

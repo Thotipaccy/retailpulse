@@ -1,0 +1,35 @@
+sku_code,product_name,category,unit_cost,unit_price,reorder_point
+PW-001,Electric Drill 650W,Power Tools,45000,65000,5
+PW-002,"Angle Grinder 4.5""",Power Tools,38000,55000,4
+PW-003,"Circular Saw 7.25""",Power Tools,85000,120000,3
+HT-001,Hammer 2kg,Hand Tools,3500,5500,20
+HT-002,Screwdriver Set 6pc,Hand Tools,4500,7500,15
+HT-003,Measuring Tape 5m,Hand Tools,2000,3500,25
+HT-004,Pliers Set 3pc,Hand Tools,5500,8500,10
+EL-001,Electrical Wire 2.5mm² (roll),Electrical,25000,35000,10
+EL-002,LED Bulb 12W,Electrical,1500,2500,50
+EL-003,Circuit Breaker 32A,Electrical,8000,12000,15
+EL-004,Socket Outlet Double,Electrical,3000,5000,30
+PL-001,"PVC Pipe 4"" x 3m",Plumbing,8500,12000,20
+PL-002,Water Tap Brass,Plumbing,6500,9500,15
+PL-003,Toilet Seat Cover,Plumbing,12000,18000,10
+PL-004,Shower Head,Plumbing,7500,11000,10
+PT-001,Emulsion Paint White 20L,Paint,28000,42000,15
+PT-002,Oil Paint Gloss 4L,Paint,8500,13000,20
+PT-003,"Paint Brush 4""",Paint,1500,2500,30
+BM-001,Cement Cimerwa 50kg,Building Materials,11000,13500,50
+BM-002,Iron Sheets G32 3m,Building Materials,18000,25000,30
+BM-003,"Concrete Blocks 6""",Building Materials,500,800,200
+BM-004,River Sand (ton),Building Materials,15000,22000,10
+LB-001,Timber 2x4 12ft,Lumber,4500,6500,40
+LB-002,Plywood 4x8 12mm,Lumber,22000,30000,15
+LB-003,Door Frame Set,Lumber,15000,22000,10
+FT-001,Wood Screws #8 100pc,Fasteners,1200,2000,50
+FT-002,"Nails 4"" 1kg",Fasteners,2500,3800,40
+FT-003,Bolts M10 50pc,Fasteners,3500,5500,25
+RF-001,Roofing Tiles (bundle),Roofing,12000,18000,20
+RF-002,Ridge Cap,Roofing,3500,5000,30
+RF-003,Gutter 3m PVC,Roofing,6500,9500,15
+HD-001,Door Lock Set,Hardware,8500,12000,15
+HD-002,"Hinges 4"" (pair)",Hardware,1200,2000,40
+HD-003,Padlock 50mm,Hardware,2500,4000,25

@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: retailpulse-api
+
+  config:
+    import: optional:file:.env[.properties]
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:retailpulse_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  mvc:
+    async:
+      request-timeout: 300000
+
+server:
+  port: 8080
+  connection-timeout: 300000
+  servlet:
+    context-path: /
+
+retailpulse:
+  jwt:
+    secret: ${JWT_SECRET:RetailPulseSuperSecretKeyForJWTSigningMustBe256BitsLongMinimum!!}
+    access-expiration-ms: 3600000
+    refresh-expiration-ms: 2592000000
+    temp-token-expiration-ms: 600000
+  cors:
+    allowed-origins: http://localhost:5173
+  two-factor:
+    code-length: 6
+    expiration-minutes: 10
+  ai-service:
+    base-url: http://localhost:8000/ml
+    enabled: true
+  backup:
+    dir: backups
+  seed:
+    admin-email: ${RETAILPULSE_ADMIN_EMAIL:thotipaccy@gmail.com}
+    admin-password: ${RETAILPULSE_ADMIN_PASSWORD:admin123}
+  alerts:
+    recipient: ${ALERT_EMAIL:thotipaccy@gmail.com}
+  email:
+    daily-limit: 50
+    auto-alerts-enabled: false
+    log-otp-to-console: true
+
+logging:
+  level:
+    com.retailpulse: INFO
+    org.springframework.security: WARN

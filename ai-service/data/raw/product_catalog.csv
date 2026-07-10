@@ -1,0 +1,12 @@
+product_id,name,category,cost,price
+1,Cement (Cimerwa 50kg),Construction,10000,12500
+2,Iron Sheets (G32),Roofing,22000,28500
+3,Paint (Sahara 20L),Paints,35000,42000
+4,Electrical Wire (2.5mm²),Electrical,6500,8500
+5,Screwdriver Set,Hardware,14000,18500
+6,Door Locks (Union),Hardware,14000,18500
+7,Roofing Nails (5kg pack),Roofing,5000,6500
+8,Water Tanks (1000L),Plumbing,150000,185000
+9,Tiles (Ceramic 40x40cm),Flooring,2500,3200
+10,Plywood (18mm),Timber,38000,45000
+12,Water Tanks (1000L),Plumbing,150000,185000
