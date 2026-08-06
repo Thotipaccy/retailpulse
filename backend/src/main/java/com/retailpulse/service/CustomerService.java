@@ -27,6 +27,18 @@ public class CustomerService {
     private final TransactionRepository transactionRepository;
     private final AIServiceClient aiServiceClient;
 
+    public List<Customer> searchCustomers(String query) {
+        List<Customer> customers = customerRepository.findAll();
+        if (query == null || query.isBlank()) {
+            return customers;
+        }
+        String lowerQuery = query.toLowerCase();
+        return customers.stream()
+            .filter(c -> c.getCustomerName().toLowerCase().contains(lowerQuery) || 
+                         (c.getPhone() != null && c.getPhone().contains(lowerQuery)))
+            .toList();
+    }
+
     public Map<String, Object> getSummary() {
         List<Customer> customers = customerRepository.findAll();
         Map<String, Object> summary = new LinkedHashMap<>();

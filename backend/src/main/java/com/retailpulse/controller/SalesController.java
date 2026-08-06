@@ -1,8 +1,11 @@
 package com.retailpulse.controller;
 
+import com.retailpulse.dto.request.TransactionRequest;
 import com.retailpulse.dto.response.ApiResponse;
 import com.retailpulse.service.SalesService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,5 +54,20 @@ public class SalesController {
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate) {
         return ApiResponse.ok(salesService.getHeatmap(period, startDate, endDate));
+    }
+
+    @PostMapping("/record")
+    public ApiResponse<?> recordSale(Authentication authentication, @Valid @RequestBody TransactionRequest request) {
+        return ApiResponse.ok(salesService.recordSale(authentication.getName(), request));
+    }
+
+    @PutMapping("/{id}/mark-paid")
+    public ApiResponse<?> markAsPaid(Authentication authentication, @PathVariable String id) {
+        return ApiResponse.ok(salesService.markAsPaid(authentication.getName(), id));
+    }
+
+    @GetMapping("/outstanding")
+    public ApiResponse<?> getOutstanding() {
+        return ApiResponse.ok(salesService.getOutstandingCreditSales());
     }
 }

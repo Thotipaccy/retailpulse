@@ -8,6 +8,8 @@ import { LoginPage } from './pages/LoginPage'
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage'
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
+const RecordSalePage = lazy(() => import('./pages/RecordSalePage').then((m) => ({ default: m.RecordSalePage })))
+const OutstandingPaymentsPage = lazy(() => import('./pages/OutstandingPaymentsPage').then((m) => ({ default: m.OutstandingPaymentsPage })))
 const DataCollectionPage = lazy(() => import('./pages/DataCollectionPage').then((m) => ({ default: m.DataCollectionPage })))
 const SalesAnalyticsPage = lazy(() => import('./pages/SalesAnalyticsPage').then((m) => ({ default: m.SalesAnalyticsPage })))
 const InventoryAnalyticsPage = lazy(() => import('./pages/InventoryAnalyticsPage').then((m) => ({ default: m.InventoryAnalyticsPage })))
@@ -50,6 +52,8 @@ export default function App() {
           }
         >
           <Route index element={<Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>} />
+          <Route path="sell" element={<Suspense fallback={<PageLoader />}><RecordSalePage /></Suspense>} />
+          <Route path="outstanding-payments" element={<Suspense fallback={<PageLoader />}><OutstandingPaymentsPage /></Suspense>} />
           <Route path="ai-predictive" element={<Suspense fallback={<PageLoader />}><AIPredictivePage /></Suspense>} />
           <Route path="sales" element={<Suspense fallback={<PageLoader />}><SalesAnalyticsPage /></Suspense>} />
           <Route path="inventory" element={<Suspense fallback={<PageLoader />}><InventoryAnalyticsPage /></Suspense>} />

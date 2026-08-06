@@ -254,14 +254,14 @@ public class DataInitializer implements CommandLineRunner {
         Object[][] tx = {
                 {"TXN-20260605-001", "c3", "u1", "2026-06-05T09:15:00", 625000, PaymentMethod.BANK_TRANSFER},
                 {"TXN-20260605-002", "c1", "u2", "2026-06-05T10:30:00", 570000, PaymentMethod.MOBILE_MONEY},
-                {"TXN-20260605-003", "c2", "u2", "2026-06-05T11:45:00", 84000, PaymentMethod.CASH},
+                {"TXN-20260604-003", "c6", "u1", "2026-06-04T08:45:00", 110000, PaymentMethod.CASH},
                 {"TXN-20260604-004", "c5", "u2", "2026-06-04T14:20:00", 225000, PaymentMethod.MOBILE_MONEY},
-                {"TXN-20260604-005", "c7", "u2", "2026-06-04T16:00:00", 850000, PaymentMethod.BANK_TRANSFER},
-                {"TXN-20260604-006", "c8", "u2", "2026-06-04T08:30:00", 55500, PaymentMethod.CASH},
+                {"TXN-20260604-005", "c7", "u1", "2026-06-04T16:10:00", 350000, PaymentMethod.BANK_TRANSFER},
+                {"TXN-20260603-006", "c8", "u1", "2026-06-03T09:00:00", 450000, PaymentMethod.CASH},
                 {"TXN-20260603-007", "c4", "u2", "2026-06-03T13:15:00", 160000, PaymentMethod.MOBILE_MONEY},
-                {"TXN-20260603-008", "c3", "u2", "2026-06-03T15:45:00", 370000, PaymentMethod.BANK_TRANSFER},
-                {"TXN-20260602-009", "c1", "u2", "2026-06-02T10:00:00", 65000, PaymentMethod.CASH},
-                {"TXN-20260602-010", "c2", "u2", "2026-06-02T11:30:00", 225000, PaymentMethod.MOBILE_MONEY},
+                {"TXN-20260603-008", "c9", "u1", "2026-06-03T15:45:00", 1250000, PaymentMethod.BANK_TRANSFER},
+                {"TXN-20260602-009", "c10", "u1", "2026-06-02T10:00:00", 85000, PaymentMethod.CASH},
+                {"TXN-20260602-010", "c2", "u2", "2026-06-02T11:30:00", 225000, PaymentMethod.MOBILE_MONEY}
         };
         for (Object[] row : tx) {
             String customerId = (String) row[1];
@@ -273,6 +273,7 @@ public class DataInitializer implements CommandLineRunner {
                     .transactionDate(LocalDateTime.parse((String) row[3]))
                     .totalAmount(BigDecimal.valueOf((Integer) row[4]))
                     .paymentMethod((PaymentMethod) row[5])
+                    .paymentStatus("PAID")
                     .discountAmount(BigDecimal.ZERO)
                     .items(new ArrayList<>())
                     .build());

@@ -12,6 +12,14 @@ CORS_ORIGINS = [
 HOST = "0.0.0.0"
 PORT = 8000
 
+import os
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_NAME = os.getenv("DB_NAME", "retailpulse_db")
+DB_USER = os.getenv("DB_USER", "postgres")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "1234")
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
 # Rwanda seasonal windows (month numbers, 1-based)
 CONSTRUCTION_SEASON_MONTHS = {6, 7, 8, 9}
 RAINY_SEASON_MONTHS = {3, 4, 5, 10, 11}

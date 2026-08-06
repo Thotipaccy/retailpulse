@@ -59,6 +59,7 @@ export function DashboardPage() {
   const [categoryDonut, setCategoryDonut] = useState<{ name: string; value: number; color: string }[]>([])
   const [inventoryBars, setInventoryBars] = useState<InventoryBarRow[]>([])
   const [aiPredictions, setAiPredictions] = useState<{ product: string; confidence: number; trend: 'up' | 'down'; prediction: string; status?: 'urgent' | 'reorder' | 'monitor' | 'adequate' }[]>([])
+  const [outstanding, setOutstanding] = useState<any[]>([])
 
   const load = useCallback(() => {
     let cancelled = false
@@ -72,11 +73,12 @@ export function DashboardPage() {
       salesApi.getByCategory(),
       dashboardApi.getInventoryByCategory(),
       dashboardApi.getTopDemandProducts(3),
-    ]).then(([summaryRes, salesRes, alertsRes, categoryRes, inventoryRes, demandRes]) => {
+      salesApi.getOutstanding(),
+    ]).then(([summaryRes, salesRes, alertsRes, categoryRes, inventoryRes, demandRes, outRes]) => {
       if (cancelled) return
 
       const failed = [summaryRes, salesRes, alertsRes, categoryRes, inventoryRes, demandRes].filter((r) => r.status === 'rejected')
-      if (failed.length === 6) {
+      if (failed.length === 7) {
         setError(getErrorMessage((failed[0] as PromiseRejectedResult).reason))
         return
       }
@@ -130,6 +132,12 @@ export function DashboardPage() {
       } else {
         setAiPredictions([])
       }
+
+      if (outRes.status === 'fulfilled') {
+        setOutstanding(outRes.value)
+      } else {
+        setOutstanding([])
+      }
     }).finally(() => {
       if (!cancelled) setLoading(false)
     })
@@ -151,7 +159,22 @@ export function DashboardPage() {
     return () => window.removeEventListener(DASHBOARD_REFRESH_EVENT, onRefresh)
   }, [load])
 
-  const kpis = useMemo(() => summary?.kpis?.slice(0, 4) ?? [], [summary])
+  const kpis = useMemo(() => {
+    const baseKpis = summary?.kpis?.slice(0, 3) ?? []
+    
+    const outstandingTotal = outstanding.reduce((sum, item) => sum + item.totalAmount, 0)
+    
+    const outstandingKpi = {
+      id: 'outstanding-credit',
+      label: 'Outstanding Credit',
+      value: formatRWF(outstandingTotal),
+      trend: outstanding.length.toString(),
+      trendLabel: 'pending transactions',
+      icon: 'AlertTriangle'
+    }
+
+    return [outstandingKpi, ...baseKpis]
+  }, [summary, outstanding])
 
   if (loading) return <LoadingSkeleton rows={6} />
   if (error) return <ErrorState message={error} onRetry={load} />

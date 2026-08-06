@@ -3,6 +3,7 @@ package com.retailpulse.model.enums;
 public enum PaymentMethod {
     CASH,
     MOBILE_MONEY,
+    AIRTEL_MONEY,
     BANK_TRANSFER,
     CREDIT;
 

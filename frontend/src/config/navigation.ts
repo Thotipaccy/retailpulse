@@ -19,6 +19,7 @@ export interface NavItem {
  */
 export const NAV_ITEMS: NavItem[] = [
   { path: ROUTES.DASHBOARD, label: 'Dashboard', icon: 'LayoutDashboard', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },
+  { path: ROUTES.SELL, label: 'Record Sale', icon: 'ShoppingCart', roles: ['administrator', 'manager', 'analyst'], mobileTab: true },
   { path: ROUTES.AI_PREDICTIVE, label: 'AI Predictive', icon: 'Brain', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.SALES, label: 'Sales Analytics', icon: 'TrendingUp', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },
   { path: ROUTES.INVENTORY, label: 'Inventory', icon: 'Package', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },
@@ -50,6 +51,7 @@ export function getPageTitle(pathname: string): string {
   if (pathname.startsWith('/dashboard/customers/') && normalized !== ROUTES.CUSTOMERS_ALL) return 'Customer Profile'
   const item = NAV_ITEMS.find((n) => normalized === n.path || normalized.startsWith(n.path + '/'))
   if (item) return item.label
+  if (normalized === ROUTES.OUTSTANDING_PAYMENTS) return 'Outstanding Payments'
   if (normalized === ROUTES.PRODUCTS) return 'Products'
   if (normalized === ROUTES.PROFILE) return 'My Profile'
   return 'RetailPulse'

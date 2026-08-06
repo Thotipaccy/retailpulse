@@ -43,6 +43,15 @@ public class Transaction {
     @Column(name = "payment_method", nullable = false, length = 20)
     private PaymentMethod paymentMethod;
 
+    @Column(name = "payment_status", length = 20)
+    private String paymentStatus;
+
+    @Column(name = "payment_reference", length = 100)
+    private String paymentReference;
+
+    @Column(name = "expected_payment_date")
+    private java.time.LocalDate expectedPaymentDate;
+
     @Column(name = "discount_amount", nullable = false, precision = 15, scale = 2)
     private BigDecimal discountAmount;
 

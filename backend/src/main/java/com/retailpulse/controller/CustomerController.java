@@ -12,6 +12,11 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping
+    public ApiResponse<?> searchCustomers(@RequestParam(required = false) String query) {
+        return ApiResponse.ok(customerService.searchCustomers(query));
+    }
+
     @GetMapping("/summary")
     public ApiResponse<?> getSummary() {
         return ApiResponse.ok(customerService.getSummary());

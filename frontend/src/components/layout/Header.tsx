@@ -70,7 +70,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             onClick={() => setNotifOpen(!notifOpen)}
             className="relative rounded-lg p-2 text-on-glass transition-colors hover:glass"
             aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
-            aria-expanded={notifOpen ? 'true' : 'false'}
+            aria-expanded={notifOpen ? ('true' as const) : ('false' as const)}
           >
             <Bell className="h-5 w-5" />
             {unreadCount > 0 && (

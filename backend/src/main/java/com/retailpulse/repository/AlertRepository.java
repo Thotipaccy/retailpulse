@@ -12,5 +12,5 @@ public interface AlertRepository extends JpaRepository<Alert, String> {
     long countByUserUserIdAndIsReadFalse(String userId);
     long countByIsReadFalse();
     long countByUserUserId(String userId);
+    List<Alert> findByCreatedAtAfter(java.time.LocalDateTime date);
 }
-

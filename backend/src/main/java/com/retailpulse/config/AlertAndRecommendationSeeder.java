@@ -182,6 +182,7 @@ public class AlertAndRecommendationSeeder implements CommandLineRunner {
                         .transactionDate(txDate)
                         .totalAmount(product.getUnitPrice().multiply(BigDecimal.valueOf(qty)))
                         .paymentMethod(PaymentMethod.CASH)
+                        .paymentStatus("PAID")
                         .discountAmount(BigDecimal.ZERO)
                         .items(new ArrayList<>())
                         .build());

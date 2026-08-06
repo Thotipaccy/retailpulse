@@ -2,6 +2,8 @@ export const ROUTES = {
   LOGIN: '/login',
   FORGOT_PASSWORD: '/forgot-password',
   DASHBOARD: '/dashboard',
+  SELL: '/dashboard/sell',
+  OUTSTANDING_PAYMENTS: '/dashboard/outstanding-payments',
   AI_PREDICTIVE: '/dashboard/ai-predictive',
   SALES: '/dashboard/sales',
   INVENTORY: '/dashboard/inventory',

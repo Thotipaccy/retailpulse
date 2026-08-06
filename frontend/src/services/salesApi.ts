@@ -26,4 +26,19 @@ export const salesApi = {
     const { data } = await api.get('/sales/heatmap', { params: { period, startDate, endDate } })
     return unwrap<HeatmapPoint[]>({ data })
   },
+
+  async recordSale(payload: Record<string, any>): Promise<any> {
+    const { data } = await api.post('/sales/record', payload)
+    return unwrap<any>({ data })
+  },
+
+  async markAsPaid(transactionId: string): Promise<any> {
+    const { data } = await api.put(`/sales/${transactionId}/mark-paid`)
+    return unwrap<any>({ data })
+  },
+
+  async getOutstanding(): Promise<any[]> {
+    const { data } = await api.get('/sales/outstanding')
+    return unwrap<any[]>({ data })
+  },
 }

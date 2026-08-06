@@ -1,8 +1,13 @@
 package com.retailpulse.service;
 
-import com.retailpulse.model.Transaction;
-import com.retailpulse.repository.TransactionItemRepository;
-import com.retailpulse.repository.TransactionRepository;
+import com.retailpulse.dto.request.TransactionRequest;
+import com.retailpulse.dto.request.TransactionItemRequest;
+import com.retailpulse.exception.BadRequestException;
+import com.retailpulse.exception.ResourceNotFoundException;
+import com.retailpulse.model.*;
+import com.retailpulse.model.enums.*;
+import com.retailpulse.repository.*;
+import com.retailpulse.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +26,12 @@ public class SalesService {
 
     private final TransactionRepository transactionRepository;
     private final TransactionItemRepository transactionItemRepository;
+    private final ProductRepository productRepository;
+    private final StoreRepository storeRepository;
+    private final CustomerRepository customerRepository;
+    private final InventoryRecordRepository inventoryRecordRepository;
+    private final CustomUserDetailsService userDetailsService;
+    private final AuditLogService auditLogService;
 
     private LocalDateTime parseDate(String dateStr, boolean endOfDay) {
         if (dateStr == null || dateStr.isBlank() || "undefined".equals(dateStr)) return null;
@@ -327,5 +338,160 @@ public class SalesService {
             case "yearly" -> "Q" + ((date.getMonthValue() - 1) / 3 + 1);
             default -> date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
         };
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public Map<String, Object> recordSale(String userId, TransactionRequest request) {
+        if (request.getItems() == null || request.getItems().isEmpty()) {
+            throw new BadRequestException("Sale must have at least one item");
+        }
+
+        User user = userDetailsService.loadEntityById(userId);
+        Store store = storeRepository.findById(request.getStoreId() != null ? request.getStoreId() : "store-001")
+                .orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+
+        Customer customer = null;
+        if (request.getCustomerPhone() != null && !request.getCustomerPhone().isBlank()) {
+            customer = customerRepository.findFirstByPhone(request.getCustomerPhone())
+                    .orElseGet(() -> {
+                        Customer newC = Customer.builder()
+                                .customerId("cust-" + System.currentTimeMillis())
+                                .customerName(request.getCustomerName() != null ? request.getCustomerName() : "Unknown")
+                                .customerType(CustomerType.RETAIL)
+                                .phone(request.getCustomerPhone())
+                                .loyaltyMember(false)
+                                .lifetimeValue(BigDecimal.ZERO)
+                                .churnRiskScore(BigDecimal.ZERO)
+                                .rfmSegment("New")
+                                .createdAt(LocalDateTime.now())
+                                .isActive(true)
+                                .build();
+                        return customerRepository.save(newC);
+                    });
+        }
+
+        PaymentMethod paymentMethod;
+        try {
+            paymentMethod = PaymentMethod.valueOf(request.getPaymentMethod().toUpperCase());
+        } catch (Exception e) {
+            paymentMethod = PaymentMethod.CASH;
+        }
+
+        String paymentStatus = "PAID";
+        if (paymentMethod == PaymentMethod.CREDIT) {
+            paymentStatus = "UNPAID";
+            if (customer == null) {
+                throw new BadRequestException("Customer phone and name are required for credit sales");
+            }
+        }
+
+        String transactionId = "tx-" + UUID.randomUUID().toString().substring(0, 8);
+        LocalDateTime now = LocalDateTime.now();
+
+        BigDecimal subtotal = BigDecimal.ZERO;
+        List<TransactionItem> items = new ArrayList<>();
+
+        for (TransactionItemRequest itemReq : request.getItems()) {
+            Product product = productRepository.findById(itemReq.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + itemReq.getProductId()));
+            
+            InventoryRecord inventory = inventoryRecordRepository.findByProductProductIdAndStoreStoreId(product.getProductId(), store.getStoreId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Inventory not found for product: " + product.getProductName()));
+
+            if (inventory.getQuantityOnHand() < itemReq.getQuantity()) {
+                throw new BadRequestException("Insufficient stock for " + product.getProductName() + ". Available: " + inventory.getQuantityOnHand());
+            }
+
+            inventory.setQuantityOnHand(inventory.getQuantityOnHand() - itemReq.getQuantity());
+            inventory.setLastUpdated(now);
+            inventoryRecordRepository.save(inventory);
+
+            BigDecimal lineTotal = itemReq.getUnitPrice().multiply(BigDecimal.valueOf(itemReq.getQuantity()));
+            subtotal = subtotal.add(lineTotal);
+
+            TransactionItem ti = TransactionItem.builder()
+                    .itemId("ti-" + UUID.randomUUID().toString().substring(0, 8))
+                    .product(product)
+                    .quantity(itemReq.getQuantity())
+                    .unitPrice(itemReq.getUnitPrice())
+                    .lineTotal(lineTotal)
+                    .build();
+            items.add(ti);
+        }
+
+        BigDecimal totalAmount = subtotal.subtract(request.getDiscountAmount() != null ? request.getDiscountAmount() : BigDecimal.ZERO);
+
+        if (customer != null && paymentStatus.equals("PAID")) {
+            customer.setLifetimeValue(customer.getLifetimeValue().add(totalAmount));
+            customerRepository.save(customer);
+        }
+
+        Transaction transaction = Transaction.builder()
+                .transactionId(transactionId)
+                .customer(customer)
+                .user(user)
+                .store(store)
+                .transactionDate(now)
+                .totalAmount(totalAmount)
+                .paymentMethod(paymentMethod)
+                .paymentStatus(paymentStatus)
+                .paymentReference(request.getPaymentReference())
+                .expectedPaymentDate(request.getExpectedPaymentDate())
+                .discountAmount(request.getDiscountAmount() != null ? request.getDiscountAmount() : BigDecimal.ZERO)
+                .build();
+
+        for (TransactionItem ti : items) {
+            ti.setTransaction(transaction);
+        }
+        transaction.setItems(items);
+
+        transactionRepository.save(transaction);
+
+        auditLogService.log(userId, "SALE_RECORDED", "Recorded sale " + transactionId + ", Total: " + totalAmount, "transactions", transactionId);
+
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("transactionId", transactionId);
+        result.put("totalAmount", totalAmount);
+        result.put("paymentStatus", paymentStatus);
+        result.put("transactionDate", now.toString());
+        return result;
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public Map<String, Object> markAsPaid(String userId, String transactionId) {
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
+
+        if ("PAID".equals(transaction.getPaymentStatus())) {
+            throw new BadRequestException("Transaction is already marked as paid");
+        }
+
+        transaction.setPaymentStatus("PAID");
+        transactionRepository.save(transaction);
+
+        if (transaction.getCustomer() != null) {
+            Customer c = transaction.getCustomer();
+            c.setLifetimeValue(c.getLifetimeValue().add(transaction.getTotalAmount()));
+            customerRepository.save(c);
+        }
+
+        auditLogService.log(userId, "CREDIT_PAID", "Marked credit sale " + transactionId + " as paid", "transactions", transactionId);
+
+        return Map.of("transactionId", transactionId, "paymentStatus", "PAID");
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<Map<String, Object>> getOutstandingCreditSales() {
+        List<Transaction> transactions = transactionRepository.findByPaymentStatusOrderByTransactionDateDesc("UNPAID");
+        return transactions.stream().map(t -> {
+            Map<String, Object> m = new LinkedHashMap<>();
+            m.put("transactionId", t.getTransactionId());
+            m.put("transactionDate", t.getTransactionDate().toString());
+            m.put("totalAmount", t.getTotalAmount());
+            m.put("customerName", t.getCustomer() != null ? t.getCustomer().getCustomerName() : "Unknown");
+            m.put("customerPhone", t.getCustomer() != null ? t.getCustomer().getPhone() : "");
+            m.put("expectedPaymentDate", t.getExpectedPaymentDate() != null ? t.getExpectedPaymentDate().toString() : null);
+            return m;
+        }).toList();
     }
 }

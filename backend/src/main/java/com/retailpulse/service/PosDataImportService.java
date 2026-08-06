@@ -180,6 +180,7 @@ public class PosDataImportService {
                     .transactionDate(transactionDate)
                     .totalAmount(totalAmount.setScale(2, RoundingMode.HALF_UP))
                     .paymentMethod(paymentMethod)
+                    .paymentStatus(paymentMethod == PaymentMethod.CREDIT ? "UNPAID" : "PAID")
                     .discountAmount(BigDecimal.ZERO)
                     .items(new ArrayList<>())
                     .build();
@@ -246,8 +247,14 @@ public class PosDataImportService {
         List<Map<String, String>> importableRows = new ArrayList<>();
         for (Map<String, String> row : rows) {
             switch (classifyRow(row)) {
-                case EXACT_DUPLICATE -> duplicatesSkipped++;
-                case PARTIAL_DUPLICATE -> duplicatesSkipped++;
+                case EXACT_DUPLICATE -> {
+                    duplicatesSkipped++;
+                    importJobService.failRow(jobId, row, "Duplicate: This exact transaction was already imported.");
+                }
+                case PARTIAL_DUPLICATE -> {
+                    duplicatesSkipped++;
+                    importJobService.failRow(jobId, row, "Partial Duplicate: A similar transaction exists in the system.");
+                }
                 case NEW -> importableRows.add(row);
             }
         }
@@ -339,6 +346,7 @@ public class PosDataImportService {
                     .transactionDate(transactionDate)
                     .totalAmount(totalAmount.setScale(2, RoundingMode.HALF_UP))
                     .paymentMethod(paymentMethod)
+                    .paymentStatus(paymentMethod == PaymentMethod.CREDIT ? "UNPAID" : "PAID")
                     .discountAmount(BigDecimal.ZERO)
                     .items(new ArrayList<>())
                     .build();
@@ -645,10 +653,14 @@ public class PosDataImportService {
                         .stockoutRisk(BigDecimal.valueOf(0.1))
                         .lastUpdated(LocalDateTime.now())
                         .build());
-        int newQty = Math.max(0, record.getQuantityOnHand() - quantity);
-        record.setQuantityOnHand(newQty);
+                        
+        if (record.getQuantityOnHand() < quantity) {
+            throw new BadRequestException("Insufficient stock for " + product.getProductName() + ". Available: " + record.getQuantityOnHand() + ", Requested: " + quantity);
+        }
+        
+        record.setQuantityOnHand(record.getQuantityOnHand() - quantity);
         record.setLastUpdated(LocalDateTime.now());
-        if (newQty <= product.getReorderPoint()) {
+        if (record.getQuantityOnHand() <= product.getReorderPoint()) {
             record.setStockoutRisk(BigDecimal.valueOf(0.75));
         }
         inventoryRecordRepository.save(record);

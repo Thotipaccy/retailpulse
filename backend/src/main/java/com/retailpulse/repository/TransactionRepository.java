@@ -22,6 +22,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     List<Transaction> findByTransactionDateBetween(LocalDateTime start, LocalDateTime end);
     long countByTransactionDateBetween(LocalDateTime start, LocalDateTime end);
 
+    List<Transaction> findByPaymentStatusOrderByTransactionDateDesc(String paymentStatus);
+
     @Query("SELECT MIN(t.transactionDate), MAX(t.transactionDate) FROM Transaction t")
     Object[] findTransactionDateRange();
 

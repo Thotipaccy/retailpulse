@@ -8,6 +8,11 @@ export const customerApi = {
     return unwrap<CustomerSummary>({ data })
   },
 
+  async search(query?: string): Promise<Customer[]> {
+    const { data } = await api.get('/customers', { params: query ? { query } : undefined })
+    return unwrap<Customer[]>({ data })
+  },
+
   async getSegments(): Promise<ChartPoint[]> {
     const { data } = await api.get('/customers/segments')
     return unwrap<ChartPoint[]>({ data })
