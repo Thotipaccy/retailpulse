@@ -3,15 +3,9 @@ import { X, Receipt, CheckCircle } from 'lucide-react'
 import { GlassCard } from '../ui/GlassCard'
 import { useEscapeKey } from '../../hooks/useEscapeKey'
 
-export interface TransactionData {
-  transactionId: string;
-  customerName: string;
-  customerPhone: string;
-  transactionDate: string;
-  totalAmount: number;
-  amountPaid?: number;
-  balanceDue?: number;
-}
+import type { TransactionData } from '../../types/payment'
+
+export type { TransactionData }
 
 interface RecordPaymentModalProps {
   isOpen: boolean

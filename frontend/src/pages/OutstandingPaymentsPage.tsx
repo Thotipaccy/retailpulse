@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { PageHeader, CardSkeleton } from '../components/ui/PageHeader'
 import { Card } from '../components/ui/Card'
-import { AlertCircle, CheckCircle, Search } from 'lucide-react'
+import { CheckCircle, Search } from 'lucide-react'
 import { salesApi } from '../services/salesApi'
-import { RecordPaymentModal, TransactionData } from '../components/modals/RecordPaymentModal'
+import { RecordPaymentModal } from '../components/modals/RecordPaymentModal'
+import type { TransactionData } from '../types/payment'
 
 export function OutstandingPaymentsPage() {
   const [outstanding, setOutstanding] = useState<TransactionData[]>([])
@@ -12,11 +13,7 @@ export function OutstandingPaymentsPage() {
   const [actionError, setActionError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    loadOutstanding()
-  }, [])
-
-  const loadOutstanding = async () => {
+  const loadOutstanding = useCallback(async () => {
     try {
       setLoading(true)
       const data = await salesApi.getOutstanding()
@@ -26,7 +23,11 @@ export function OutstandingPaymentsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    loadOutstanding()
+  }, [loadOutstanding])
 
   const handleRecordPayment = async (amount: number, method: string) => {
     if (!selectedTransaction) return
