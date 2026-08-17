@@ -12,6 +12,7 @@ import { DeactivateConfirmModal } from '../components/ui/DeactivateConfirmModal'
 import { ExportModal } from '../components/ui/ExportModal'
 import { fetchProductsExportData } from '../services/exportDataService'
 import { EmptyState, ErrorState, LoadingSkeleton } from '../components/ui/PageHeader'
+import { Pagination } from '../components/ui/Pagination'
 import { useToast } from '../contexts/ToastContext'
 
 function stockBadge(status: ProductRecord['status']) {
@@ -36,8 +37,8 @@ export function ProductManagementPage() {
   const [category, setCategory] = useState('all')
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all')
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'low' | 'out_of_stock'>('all')
-  const [page, setPage] = useState(0)
-  const pageSize = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [modalOpen, setModalOpen] = useState(false)
   const [exportOpen, setExportOpen] = useState(false)
@@ -74,8 +75,13 @@ export function ProductManagementPage() {
     return true
   }), [products, search, category, statusFilter, stockFilter])
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize))
-  const paginated = filtered.slice(page * pageSize, (page + 1) * pageSize)
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search, category, statusFilter, stockFilter])
+
+  const paginated = useMemo(() => {
+    return filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+  }, [filtered, currentPage, pageSize])
 
   const openAdd = () => { setEditProduct(null); setForm(EMPTY_FORM); setModalOpen(true) }
 
@@ -177,7 +183,7 @@ export function ProductManagementPage() {
           <select title="Category filter" value={category} onChange={(e) => setCategory(e.target.value)} className="glass-input rounded-lg px-3 py-2 text-sm">
             {categories.map((c) => <option key={c} value={c}>{c === 'all' ? 'All Categories' : c}</option>)}
           </select>
-          <select title="Stock filter" value={stockFilter} onChange={(e) => { setStockFilter(e.target.value as typeof stockFilter); setPage(0) }} className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select title="Stock filter" value={stockFilter} onChange={(e) => setStockFilter(e.target.value as typeof stockFilter)} className="glass-input rounded-lg px-3 py-2 text-sm">
             <option value="all">All Stock</option>
             <option value="in_stock">In Stock</option>
             <option value="low">Low Stock</option>
@@ -227,7 +233,7 @@ export function ProductManagementPage() {
               <tbody>
                 {paginated.map((p, index) => (
                   <tr key={p.id} className={`border-b border-white/5 hover:bg-white/5 ${!p.isActive ? 'opacity-60' : ''}`}>
-                    <td className="px-4 py-3 text-center font-medium text-on-glass-muted">{page * pageSize + index + 1}</td>
+                    <td className="px-4 py-3 text-center font-medium text-on-glass-muted">{(currentPage - 1) * pageSize + index + 1}</td>
                     <td className="px-4 py-3"><input type="checkbox" title="Select product" checked={selected.has(p.id)} onChange={() => toggleSelect(p.id)} className="accent-copper" /></td>
                     <td className="px-4 py-3 font-medium text-on-glass">{p.name}</td>
                     <td className="px-4 py-3 font-mono text-xs text-copper-light">{p.sku}</td>
@@ -251,15 +257,15 @@ export function ProductManagementPage() {
                 ))}
               </tbody>
             </table>
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between border-t border-white/10 px-4 py-3">
-                <p className="text-sm text-on-glass-muted">Page {page + 1} of {totalPages}</p>
-                <div className="flex gap-2">
-                  <button type="button" disabled={page === 0} onClick={() => setPage((p) => p - 1)} className="rounded-lg glass-subtle px-3 py-1 text-sm disabled:opacity-40">Previous</button>
-                  <button type="button" disabled={page >= totalPages - 1} onClick={() => setPage((p) => p + 1)} className="rounded-lg glass-subtle px-3 py-1 text-sm disabled:opacity-40">Next</button>
-                </div>
-              </div>
-            )}
+            
+            <Pagination
+              currentPage={currentPage}
+              totalItems={filtered.length}
+              pageSize={pageSize}
+              onPageChange={setCurrentPage}
+              onPageSizeChange={setPageSize}
+              className="mt-4 px-4 pb-4"
+            />
             </>
           )}
         </GlassCard>

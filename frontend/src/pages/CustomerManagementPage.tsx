@@ -12,6 +12,7 @@ import { StatusBadge, getChurnRiskBadge } from '../components/ui/StatusBadge'
 import { Dialog } from '../components/ui/Dialog'
 import { DeactivateConfirmModal } from '../components/ui/DeactivateConfirmModal'
 import { EmptyState, ErrorState, LoadingSkeleton } from '../components/ui/PageHeader'
+import { Pagination } from '../components/ui/Pagination'
 import { useToast } from '../contexts/ToastContext'
 import type { Customer } from '../types'
 
@@ -44,6 +45,8 @@ export function CustomerManagementPage() {
   const [editCustomer, setEditCustomer] = useState<CustomerRecord | null>(null)
   const [deactivateTarget, setDeactivateTarget] = useState<CustomerRecord | null>(null)
   const [form, setForm] = useState(EMPTY)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
 
   const load = useCallback(() => {
     setLoading(true)
@@ -78,6 +81,14 @@ export function CustomerManagementPage() {
     if (q && !c.name.toLowerCase().includes(q) && !c.phone.includes(q) && !c.email.toLowerCase().includes(q)) return false
     return true
   }), [customers, search, typeFilter, segmentFilter])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search, typeFilter, segmentFilter])
+
+  const pagedItems = useMemo(() => {
+    return filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+  }, [filtered, currentPage, pageSize])
 
   const openAdd = () => { setEditCustomer(null); setForm(EMPTY); setModalOpen(true) }
   const openEdit = (c: CustomerRecord) => {
@@ -155,7 +166,8 @@ export function CustomerManagementPage() {
           {filtered.length === 0 ? (
             <EmptyState icon={<Search className="h-6 w-6" />} title="No matches" description="No customers match your search filters." />
           ) : (
-            <table className="w-full min-w-[960px] text-sm">
+            <>
+              <table className="w-full min-w-[960px] text-sm">
               <thead>
                 <tr className="border-b border-white/10 text-left text-on-glass-muted">
                   <th className="px-4 py-3 font-medium">#</th>
@@ -171,9 +183,9 @@ export function CustomerManagementPage() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((c, index) => (
+                {pagedItems.map((c, index) => (
                   <tr key={c.id} className={`border-b border-white/5 hover:bg-white/5 ${!c.isActive ? 'opacity-60' : ''}`}>
-                    <td className="px-4 py-3 text-on-glass-muted">{index + 1}</td>
+                    <td className="px-4 py-3 text-on-glass-muted">{(currentPage - 1) * pageSize + index + 1}</td>
                     <td className="px-4 py-3">
                       <button type="button" onClick={() => navigate(ROUTES.CUSTOMER(c.id))} className="font-medium text-copper-light hover:underline">{c.name}</button>
                     </td>
@@ -213,6 +225,16 @@ export function CustomerManagementPage() {
                 ))}
               </tbody>
             </table>
+            
+            <Pagination
+              currentPage={currentPage}
+              totalItems={filtered.length}
+              pageSize={pageSize}
+              onPageChange={setCurrentPage}
+              onPageSizeChange={setPageSize}
+              className="mt-4 px-4 pb-4"
+            />
+          </>
           )}
         </GlassCard>
       )}
