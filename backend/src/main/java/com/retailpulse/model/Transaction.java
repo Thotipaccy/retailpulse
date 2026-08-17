@@ -55,7 +55,15 @@ public class Transaction {
     @Column(name = "discount_amount", nullable = false, precision = 15, scale = 2)
     private BigDecimal discountAmount;
 
+    @Column(name = "amount_paid", precision = 15, scale = 2)
+    @Builder.Default
+    private BigDecimal amountPaid = BigDecimal.ZERO;
+
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<TransactionItem> items = new ArrayList<>();
+
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<PaymentHistory> paymentHistory = new ArrayList<>();
 }
