@@ -75,9 +75,6 @@ export function ProductManagementPage() {
     return true
   }), [products, search, category, statusFilter, stockFilter])
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, category, statusFilter, stockFilter])
 
   const paginated = useMemo(() => {
     return filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
@@ -178,18 +175,18 @@ export function ProductManagementPage() {
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-glass-muted" />
-            <input type="search" title="Search products" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search products..." className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm" />
+            <input type="search" title="Search products" value={search} onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search products..." className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm" />
           </div>
-          <select title="Category filter" value={category} onChange={(e) => setCategory(e.target.value)} className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select title="Category filter" value={category} onChange={(e) => { setCategory(e.target.value); setCurrentPage(1); }} className="glass-input rounded-lg px-3 py-2 text-sm">
             {categories.map((c) => <option key={c} value={c}>{c === 'all' ? 'All Categories' : c}</option>)}
           </select>
-          <select title="Stock filter" value={stockFilter} onChange={(e) => setStockFilter(e.target.value as typeof stockFilter)} className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select title="Stock filter" value={stockFilter} onChange={(e) => { setStockFilter(e.target.value as typeof stockFilter); setCurrentPage(1); }} className="glass-input rounded-lg px-3 py-2 text-sm">
             <option value="all">All Stock</option>
             <option value="in_stock">In Stock</option>
             <option value="low">Low Stock</option>
             <option value="out_of_stock">Out of Stock</option>
           </select>
-          <select title="Status filter" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)} className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select title="Status filter" value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value as typeof statusFilter); setCurrentPage(1); }} className="glass-input rounded-lg px-3 py-2 text-sm">
             <option value="all">All Status</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>

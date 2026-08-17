@@ -34,10 +34,6 @@ export function OutstandingPaymentsPage() {
     loadOutstanding()
   }, [loadOutstanding])
 
-  // Reset to page 1 whenever search or page size changes
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [searchQuery, pageSize])
 
   const handleRecordPayment = async (amount: number, method: string) => {
     if (!selectedTransaction) return
@@ -98,7 +94,7 @@ export function OutstandingPaymentsPage() {
               type="text"
               placeholder="Search ID, name or phone..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
               className="w-full bg-charcoal-900/50 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-on-glass focus:outline-none focus:border-copper"
             />
           </div>

@@ -17,6 +17,7 @@ import { CircularGauge } from '../components/ui/CircularGauge'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { getErrorMessage } from '../services/api'
 import { CHART_GRID, CHART_TICK, CHART_TOOLTIP } from '../components/ui/chartTheme'
+import { Pagination } from '../components/ui/Pagination'
 import type {
   DemandForecastResult,
   ForecastAccuracy,
@@ -114,7 +115,7 @@ export function AIPredictivePage() {
   const [exportOpen, setExportOpen] = useState(false)
   const [alertsOnly, setAlertsOnly] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 10
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   const loadInitial = useCallback(async () => {
     try {
@@ -178,7 +179,6 @@ export function AIPredictivePage() {
   }, [forecast, alertsOnly])
 
 
-  const totalPages = Math.ceil(tableRows.length / itemsPerPage)
   const paginatedRows = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage
     return tableRows.slice(start, start + itemsPerPage)
@@ -552,31 +552,14 @@ export function AIPredictivePage() {
               </tbody>
             </table>
           </div>
-          {totalPages > 1 && (
-            <div className="flex items-center justify-between border-t border-white/10 bg-white/5 px-6 py-4">
-              <p className="text-xs text-on-glass-muted">
-                Showing <span className="font-medium text-on-glass">{(currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-medium text-on-glass">{Math.min(currentPage * itemsPerPage, tableRows.length)}</span> of <span className="font-medium text-on-glass">{tableRows.length}</span> products
-              </p>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="rounded-lg border border-white/10 bg-background-dark px-3 py-1.5 text-xs font-medium text-on-glass hover:bg-white/5 disabled:opacity-50 transition-colors"
-                >
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="rounded-lg border border-white/10 bg-background-dark px-3 py-1.5 text-xs font-medium text-on-glass hover:bg-white/5 disabled:opacity-50 transition-colors"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          )}
+          <Pagination 
+            currentPage={currentPage} 
+            totalItems={tableRows.length} 
+            pageSize={itemsPerPage} 
+            onPageChange={setCurrentPage} 
+            onPageSizeChange={setItemsPerPage} 
+            className="mt-4 px-6 pb-4" 
+          />
           </>
         )}
       </GlassCard>

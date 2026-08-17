@@ -127,7 +127,7 @@ export function RecordSalePage() {
         expectedPaymentDate: paymentMethod === 'credit' && dueDate ? dueDate : undefined
       }
 
-      const result = await salesApi.recordSale(payload)
+      const result = await salesApi.recordSale(payload) as { transactionId: string; transactionDate: string }
       setConfirmation({ ...result, cart, total, discount, paymentMethod, customerName, customerPhone, dueDate })
       loadProducts()
     } catch (error: unknown) {

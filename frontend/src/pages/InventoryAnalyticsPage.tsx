@@ -20,6 +20,7 @@ import { getErrorMessage } from '../services/api'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { StatusBadge, getStockStatusBadge } from '../components/ui/StatusBadge'
 import { TintedKPICard } from '../components/ui/TintedKPICard'
+import { Pagination } from '../components/ui/Pagination'
 import type { InventorySummary, StockItem } from '../types/api'
 
 const FOREST = '#3d7a5c'
@@ -123,7 +124,7 @@ export function InventoryAnalyticsPage() {
   const [turnover, setTurnover] = useState<{ name: string; turnover: number; cogs: number; inventoryValue: number }[]>([])
   const [stockCards, setStockCards] = useState<StockCard[]>([])
   const [stockPage, setStockPage] = useState(1)
-  const [stockPageSize, setStockPageSize] = useState<number | 'all'>(8)
+  const [stockPageSize, setStockPageSize] = useState(8)
   const [risks, setRisks] = useState<RiskCard[]>([])
   const [riskDays, setRiskDays] = useState<7 | 14 | 30>(7)
   const [reorders, setReorders] = useState<ReorderRow[]>([])
@@ -249,11 +250,8 @@ export function InventoryAnalyticsPage() {
   const inStockPct = totalProducts ? Math.round(((summary?.healthy ?? 0) / totalProducts) * 100) : 0
   const lowPct = totalProducts ? Math.round(((summary?.low ?? 0) / totalProducts) * 100) : 0
   const totalValue = stockCards.reduce((sum, c) => sum + c.stockValue, 0)
-  const effectivePageSize = stockPageSize === 'all' ? filteredStockCards.length : stockPageSize
-  const totalPages = Math.max(1, Math.ceil(filteredStockCards.length / Math.max(effectivePageSize, 1)))
-  const currentPage = Math.min(stockPage, totalPages)
-  const startIndex = (currentPage - 1) * Math.max(effectivePageSize, 1)
-  const endIndex = Math.min(filteredStockCards.length, startIndex + Math.max(effectivePageSize, 1))
+  const startIndex = (stockPage - 1) * stockPageSize
+  const endIndex = Math.min(filteredStockCards.length, startIndex + stockPageSize)
   const paginatedStockCards = filteredStockCards.slice(startIndex, endIndex)
   const activeReorders = reorders.filter((r) => r.isActive)
   const reorderTotal = activeReorders.reduce((sum, r) => sum + r.estCost, 0)
@@ -366,17 +364,6 @@ export function InventoryAnalyticsPage() {
                 className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm sm:w-56"
               />
             </div>
-            {filteredStockCards.length > 0 && (
-              <>
-                <span className="text-xs text-on-glass-muted">Per page</span>
-                <select title="Items per page" value={String(stockPageSize)} onChange={(e) => { const value = e.target.value === 'all' ? 'all' : Number(e.target.value); setStockPageSize(value); setStockPage(1) }} className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-xs text-on-glass">
-                  <option value="8">8</option>
-                  <option value="16">16</option>
-                  <option value="24">24</option>
-                  <option value="all">All</option>
-                </select>
-              </>
-            )}
           </div>
         </div>
         {filteredStockCards.length === 0 ? (
@@ -424,16 +411,15 @@ export function InventoryAnalyticsPage() {
                 )
               })}
             </div>
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs text-on-glass-muted">Showing {startIndex + 1}-{endIndex} of {filteredStockCards.length} products</p>
-              {stockPageSize !== 'all' && (
-                <div className="flex items-center gap-2">
-                  <button type="button" disabled={currentPage <= 1} onClick={() => setStockPage((p) => Math.max(1, p - 1))} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-on-glass disabled:opacity-50">Previous</button>
-                  <span className="text-xs text-on-glass-muted">Page {currentPage} of {totalPages}</span>
-                  <button type="button" disabled={currentPage >= totalPages} onClick={() => setStockPage((p) => Math.min(totalPages, p + 1))} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-on-glass disabled:opacity-50">Next</button>
-                </div>
-              )}
-            </div>
+            <Pagination
+              currentPage={stockPage}
+              totalItems={filteredStockCards.length}
+              pageSize={stockPageSize}
+              onPageChange={setStockPage}
+              onPageSizeChange={setStockPageSize}
+              pageSizeOptions={[8, 16, 24, 48]}
+              className="mt-4"
+            />
           </>
         )}
       </div>

@@ -12,7 +12,7 @@ import { StatusBadge } from '../components/ui/StatusBadge'
 import { DeactivateConfirmModal } from '../components/ui/DeactivateConfirmModal'
 import { UserManagementModal } from '../components/modals/UserManagementModal'
 import { ConfirmModal, EmptyState, ErrorState, LoadingSkeleton } from '../components/ui/PageHeader'
-import { TablePagination, TABLE_PAGE_SIZE } from '../components/ui/TablePagination'
+import { Pagination } from '../components/ui/Pagination'
 import { useToast } from '../contexts/ToastContext'
 import type { AuditLog, User } from '../types'
 import type { SystemHealth } from '../types/api'
@@ -52,7 +52,8 @@ export function AdminPage() {
   const [backups, setBackups] = useState<Array<Record<string, unknown>>>([])
   const [backupLoading, setBackupLoading] = useState(false)
   const [restoreTarget, setRestoreTarget] = useState<string | null>(null)
-  const [auditPage, setAuditPage] = useState(0)
+  const [auditPage, setAuditPage] = useState(1)
+  const [pageSize, setPageSize] = useState(25)
 
   const load = useCallback(() => {
     setLoading(true)
@@ -330,7 +331,7 @@ export function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {logs.slice(auditPage * TABLE_PAGE_SIZE, (auditPage + 1) * TABLE_PAGE_SIZE).map((log) => (
+                  {logs.slice((auditPage - 1) * pageSize, auditPage * pageSize).map((log) => (
                     <tr key={log.logId} className="border-b border-white/5 hover:bg-white/5">
                       <td className="px-4 py-3 text-on-glass-muted">{formatDateTime(log.createdAt)}</td>
                       <td className="px-4 py-3 text-on-glass">{log.userName}</td>
@@ -342,7 +343,14 @@ export function AdminPage() {
                 </tbody>
               </table>
             </div>
-            <TablePagination page={auditPage} totalItems={logs.length} onPageChange={setAuditPage} />
+            <Pagination 
+              currentPage={auditPage} 
+              totalItems={logs.length} 
+              pageSize={pageSize} 
+              onPageChange={setAuditPage} 
+              onPageSizeChange={setPageSize} 
+              className="mt-2 px-4 pb-4" 
+            />
           </GlassCard>
         )
       )}

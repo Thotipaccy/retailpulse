@@ -9,11 +9,11 @@ export function useSalesTrend(period: 'daily' | 'weekly' | 'monthly' | 'yearly' 
 }
 
 export function useSalesByCategory() {
-  return useQuery({ queryKey: ['sales', 'category'], queryFn: salesApi.getByCategory })
+  return useQuery({ queryKey: ['sales', 'category'], queryFn: () => salesApi.getByCategory() })
 }
 
 export function useSalesByPayment() {
-  return useQuery({ queryKey: ['sales', 'payment'], queryFn: salesApi.getByPaymentMethod })
+  return useQuery({ queryKey: ['sales', 'payment'], queryFn: () => salesApi.getByPaymentMethod() })
 }
 
 export function useTopProducts() {

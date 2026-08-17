@@ -17,7 +17,7 @@ import { ReportConfigModal } from '../components/modals/ReportConfigModal'
 import { DeleteConfirmModal } from '../components/ui/DeleteConfirmModal'
 import { useToast } from '../contexts/ToastContext'
 import { EmptyState, ErrorState, LoadingSkeleton } from '../components/ui/PageHeader'
-import { TablePagination, TABLE_PAGE_SIZE } from '../components/ui/TablePagination'
+import { Pagination } from '../components/ui/Pagination'
 import type { ReportTemplate } from '../types/api'
 import type { Report } from '../types'
 
@@ -82,7 +82,8 @@ export function ReportingPage() {
     frequency: 'weekly',
     recipients: '',
   })
-  const [historyPage, setHistoryPage] = useState(0)
+  const [historyPage, setHistoryPage] = useState(1)
+  const [pageSize, setPageSize] = useState(25)
   const [deletingSchedule, setDeletingSchedule] = useState<ScheduledReport | null>(null)
 
   const load = useCallback(() => {
@@ -389,7 +390,7 @@ export function ReportingPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
-                  {history.slice(historyPage * TABLE_PAGE_SIZE, (historyPage + 1) * TABLE_PAGE_SIZE).map((r) => (
+                  {history.slice((historyPage - 1) * pageSize, historyPage * pageSize).map((r) => (
                     <tr key={r.reportId} className="text-on-glass">
                       <td className="px-5 py-3 font-medium">{r.reportType}</td>
                       <td className="px-5 py-3"><StatusBadge variant="neutral">{r.format.toUpperCase()}</StatusBadge></td>
@@ -410,7 +411,14 @@ export function ReportingPage() {
                 </tbody>
               </table>
             </div>
-            <TablePagination page={historyPage} totalItems={history.length} onPageChange={setHistoryPage} />
+            <Pagination 
+              currentPage={historyPage} 
+              totalItems={history.length} 
+              pageSize={pageSize} 
+              onPageChange={setHistoryPage} 
+              onPageSizeChange={setPageSize} 
+              className="mt-2 px-4 pb-4" 
+            />
           </GlassCard>
         )
       )}

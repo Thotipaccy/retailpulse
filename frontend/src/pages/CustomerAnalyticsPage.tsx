@@ -17,6 +17,7 @@ import { ProgressBar } from '../components/ui/ProgressBar'
 import { StatusBadge, getChurnRiskBadge } from '../components/ui/StatusBadge'
 import { DeactivateConfirmModal } from '../components/ui/DeactivateConfirmModal'
 import { TintedKPICard } from '../components/ui/TintedKPICard'
+import { Pagination } from '../components/ui/Pagination'
 import { ROUTES } from '../config/routes'
 import { useToast } from '../contexts/ToastContext'
 import type { CustomerSummary } from '../types/api'
@@ -83,8 +84,8 @@ export function CustomerAnalyticsPage() {
   const [deactivateTarget, setDeactivateTarget] = useState<TopCustomer | null>(null)
   const [frequencyData, setFrequencyData] = useState<Array<{ name: string; count: number }>>([])
   const [ltvTrend, setLtvTrend] = useState<Array<{ name: string; ltv: number }>>([])
-  const [customerPage, setCustomerPage] = useState(0)
-  const customerPageSize = 10
+  const [customerPage, setCustomerPage] = useState(1)
+  const [customerPageSize, setCustomerPageSize] = useState(10)
 
   const load = useCallback(() => {
     let cancelled = false
@@ -177,8 +178,7 @@ export function CustomerAnalyticsPage() {
     [segments, summary],
   )
 
-  const customerTotalPages = Math.max(1, Math.ceil(topCustomers.length / customerPageSize))
-  const paginatedCustomers = topCustomers.slice(customerPage * customerPageSize, (customerPage + 1) * customerPageSize)
+  const paginatedCustomers = topCustomers.slice((customerPage - 1) * customerPageSize, customerPage * customerPageSize)
 
   if (loading) return <LoadingSkeleton rows={5} />
   if (error) return <ErrorState message={error} onRetry={load} />
@@ -306,7 +306,7 @@ export function CustomerAnalyticsPage() {
                   const churn = getChurnRiskBadge(Number(c.churnRiskScore))
                   return (
                     <tr key={c.customerId} className={`border-b border-white/5 transition-colors hover:bg-white/5 ${!c.isActive ? 'opacity-70' : ''}`}>
-                      <td className="py-3 pr-4 text-center text-on-glass-muted">{customerPage * customerPageSize + index + 1}</td>
+                      <td className="py-3 pr-4 text-center text-on-glass-muted">{(customerPage - 1) * customerPageSize + index + 1}</td>
                       <td className="py-3 pr-4">
                         <button type="button" onClick={() => c.isActive && navigate(ROUTES.CUSTOMER(c.customerId))} className="flex items-center gap-3 text-left hover:opacity-80">
                           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-copper/20 text-xs font-bold text-copper-light">{getInitials(c.customerName)}</span>
@@ -350,15 +350,14 @@ export function CustomerAnalyticsPage() {
                 })}
               </tbody>
             </table>
-            {customerTotalPages > 1 && (
-              <div className="mt-4 flex items-center justify-between">
-                <p className="text-sm text-on-glass-muted">Page {customerPage + 1} of {customerTotalPages}</p>
-                <div className="flex gap-2">
-                  <button type="button" disabled={customerPage === 0} onClick={() => setCustomerPage((p) => p - 1)} className="rounded-lg glass-subtle px-3 py-1 text-sm disabled:opacity-40">Previous</button>
-                  <button type="button" disabled={customerPage >= customerTotalPages - 1} onClick={() => setCustomerPage((p) => p + 1)} className="rounded-lg glass-subtle px-3 py-1 text-sm disabled:opacity-40">Next</button>
-                </div>
-              </div>
-            )}
+            <Pagination 
+              currentPage={customerPage} 
+              totalItems={topCustomers.length} 
+              pageSize={customerPageSize} 
+              onPageChange={setCustomerPage} 
+              onPageSizeChange={setCustomerPageSize} 
+              className="mt-4 px-4 pb-4" 
+            />
           </div>
         )}
       </GlassCard>

@@ -223,7 +223,7 @@ export async function fetchCustomerExportData(options: ExportOptions): Promise<E
     sections.push(section('Customer Summary', [
       `Total customers: ${summary.totalCustomers}`,
       `Loyalty members: ${summary.loyaltyMembers}`,
-      `Average LTV: ${formatRWF(summary.avgLifetimeValue)}`,
+      `Average LTV: ${formatRWF(Number(summary.avgLifetimeValue))}`,
       `High churn risk: ${summary.highChurnRisk}`,
     ]))
   }

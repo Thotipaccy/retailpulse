@@ -82,9 +82,6 @@ export function CustomerManagementPage() {
     return true
   }), [customers, search, typeFilter, segmentFilter])
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, typeFilter, segmentFilter])
 
   const pagedItems = useMemo(() => {
     return filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
@@ -145,15 +142,15 @@ export function CustomerManagementPage() {
         <div className="flex flex-col gap-3 lg:flex-row">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-glass-muted" />
-            <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by name, phone, email..." className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm" />
+            <input type="search" value={search} onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, phone, email..." className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm" />
           </div>
-          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} title="Filter by customer type" className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select value={typeFilter} onChange={(e) => { setTypeFilter(e.target.value); setCurrentPage(1); }} title="Filter by customer type" className="glass-input rounded-lg px-3 py-2 text-sm">
             <option value="all">All Types</option>
             <option value="retail">Retail</option>
             <option value="wholesale">Wholesale</option>
             <option value="contractor">Contractor</option>
           </select>
-          <select value={segmentFilter} onChange={(e) => setSegmentFilter(e.target.value)} title="Filter by segment" className="glass-input rounded-lg px-3 py-2 text-sm">
+          <select value={segmentFilter} onChange={(e) => { setSegmentFilter(e.target.value); setCurrentPage(1); }} title="Filter by segment" className="glass-input rounded-lg px-3 py-2 text-sm">
             {segments.map((s) => <option key={s} value={s}>{s === 'all' ? 'All Segments' : s}</option>)}
           </select>
         </div>
