@@ -199,7 +199,12 @@ export function DashboardPage() {
           const TrendIcon = up ? TrendingUp : TrendingDown
           const trendColor = up ? 'text-forest-light' : 'text-rust-light'
           return (
-            <GlassCard key={kpi.id} hover className="p-5 transition-transform hover:-translate-y-0.5">
+            <GlassCard 
+              key={kpi.id} 
+              hover 
+              className="p-5 transition-transform hover:-translate-y-0.5"
+              onClick={kpi.id === 'outstanding-credit' ? () => navigate(ROUTES.OUTSTANDING_PAYMENTS) : undefined}
+            >
               <div className="flex items-center justify-between">
                 <span className="text-sm text-on-glass-muted">{kpi.label}</span>
                 <Icon className="h-4 w-4 text-copper-light" aria-hidden="true" />

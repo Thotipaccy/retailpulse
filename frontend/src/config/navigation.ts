@@ -20,6 +20,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { path: ROUTES.DASHBOARD, label: 'Dashboard', icon: 'LayoutDashboard', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },
   { path: ROUTES.SELL, label: 'Record Sale', icon: 'ShoppingCart', roles: ['administrator', 'manager', 'analyst'], mobileTab: true },
+  { path: ROUTES.OUTSTANDING_PAYMENTS, label: 'Outstanding Payments', icon: 'AlertCircle', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.AI_PREDICTIVE, label: 'AI Predictive', icon: 'Brain', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.SALES, label: 'Sales Analytics', icon: 'TrendingUp', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },
   { path: ROUTES.INVENTORY, label: 'Inventory', icon: 'Package', roles: ['administrator', 'manager', 'analyst', 'viewer'], mobileTab: true },

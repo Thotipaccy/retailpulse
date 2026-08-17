@@ -27,18 +27,18 @@ export const salesApi = {
     return unwrap<HeatmapPoint[]>({ data })
   },
 
-  async recordSale(payload: Record<string, any>): Promise<any> {
+  async recordSale(payload: Record<string, unknown>): Promise<Record<string, unknown>> {
     const { data } = await api.post('/sales/record', payload)
-    return unwrap<any>({ data })
+    return unwrap<Record<string, unknown>>({ data })
   },
 
-  async markAsPaid(transactionId: string): Promise<any> {
-    const { data } = await api.put(`/sales/${transactionId}/mark-paid`)
-    return unwrap<any>({ data })
+  async recordPayment(transactionId: string, payload: { amount: number; paymentMethod?: string }): Promise<Record<string, unknown>> {
+    const { data } = await api.post(`/sales/${transactionId}/pay`, payload)
+    return unwrap<Record<string, unknown>>({ data })
   },
 
-  async getOutstanding(): Promise<any[]> {
+  async getOutstanding(): Promise<Record<string, unknown>[]> {
     const { data } = await api.get('/sales/outstanding')
-    return unwrap<any[]>({ data })
+    return unwrap<Record<string, unknown>[]>({ data })
   },
 }
