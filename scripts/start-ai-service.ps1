@@ -8,4 +8,4 @@ if (-not (Test-Path ".\.venv\Scripts\uvicorn.exe")) {
 }
 
 Write-Host "Starting RetailPulse AI Service on http://localhost:8000 ..."
-.\.venv\Scripts\uvicorn.exe main:app --host 0.0.0.0 --port 8000 --reload
+.\.venv\Scripts\python.exe -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
