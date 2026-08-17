@@ -177,7 +177,7 @@ function mapUser(raw: Record<string, unknown>): User {
     fullName: String(raw.fullName ?? ''),
     email: String(raw.email ?? ''),
     stores: Array.isArray(raw.stores) ? raw.stores.map((store) => String(store)) : ['All Stores'],
-    role: raw.role as User['role'],
+    role: (typeof raw.role === 'string' ? raw.role.toLowerCase() : 'viewer') as User['role'],
     isActive: Boolean(raw.isActive ?? true),
     lastLogin: raw.lastLogin ? String(raw.lastLogin) : undefined,
     avatarDataUrl,
