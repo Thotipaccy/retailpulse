@@ -30,6 +30,7 @@ public class SalesService {
     private final StoreRepository storeRepository;
     private final CustomerRepository customerRepository;
     private final InventoryRecordRepository inventoryRecordRepository;
+    private final PaymentHistoryRepository paymentHistoryRepository;
     private final CustomUserDetailsService userDetailsService;
     private final AuditLogService auditLogService;
 
@@ -433,6 +434,7 @@ public class SalesService {
                 .store(store)
                 .transactionDate(now)
                 .totalAmount(totalAmount)
+                .amountPaid(paymentStatus.equals("PAID") ? totalAmount : BigDecimal.ZERO)
                 .paymentMethod(paymentMethod)
                 .paymentStatus(paymentStatus)
                 .paymentReference(request.getPaymentReference())
@@ -458,36 +460,77 @@ public class SalesService {
     }
 
     @org.springframework.transaction.annotation.Transactional
-    public Map<String, Object> markAsPaid(String userId, String transactionId) {
+    public Map<String, Object> recordPayment(String userId, String transactionId, BigDecimal amount, String paymentMethodStr) {
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
 
         if ("PAID".equals(transaction.getPaymentStatus())) {
-            throw new BadRequestException("Transaction is already marked as paid");
+            throw new BadRequestException("Transaction is already marked as fully paid");
+        }
+        
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BadRequestException("Payment amount must be greater than zero");
+        }
+        
+        BigDecimal currentPaid = transaction.getAmountPaid() != null ? transaction.getAmountPaid() : BigDecimal.ZERO;
+        BigDecimal newAmountPaid = currentPaid.add(amount);
+        
+        if (newAmountPaid.compareTo(transaction.getTotalAmount()) > 0) {
+            throw new BadRequestException("Payment amount exceeds the outstanding balance");
         }
 
-        transaction.setPaymentStatus("PAID");
+        User user = userDetailsService.loadEntityById(userId);
+        
+        PaymentHistory payment = PaymentHistory.builder()
+                .paymentId("pay-" + UUID.randomUUID().toString().substring(0, 8))
+                .transaction(transaction)
+                .user(user)
+                .paymentDate(LocalDateTime.now())
+                .amount(amount)
+                .paymentMethod(paymentMethodStr != null ? paymentMethodStr : "CASH")
+                .build();
+                
+        paymentHistoryRepository.save(payment);
+
+        transaction.setAmountPaid(newAmountPaid);
+        if (newAmountPaid.compareTo(transaction.getTotalAmount()) >= 0) {
+            transaction.setPaymentStatus("PAID");
+        } else {
+            transaction.setPaymentStatus("PARTIALLY_PAID");
+        }
+        
         transactionRepository.save(transaction);
 
         if (transaction.getCustomer() != null) {
             Customer c = transaction.getCustomer();
-            c.setLifetimeValue(c.getLifetimeValue().add(transaction.getTotalAmount()));
+            c.setLifetimeValue(c.getLifetimeValue().add(amount));
             customerRepository.save(c);
         }
 
-        auditLogService.log(userId, "CREDIT_PAID", "Marked credit sale " + transactionId + " as paid", "transactions", transactionId);
+        auditLogService.log(userId, "PAYMENT_RECORDED", "Recorded payment of " + amount + " for transaction " + transactionId, "transactions", transactionId);
 
-        return Map.of("transactionId", transactionId, "paymentStatus", "PAID");
+        return Map.of(
+            "transactionId", transactionId, 
+            "paymentStatus", transaction.getPaymentStatus(),
+            "amountPaid", transaction.getAmountPaid(),
+            "balanceDue", transaction.getTotalAmount().subtract(transaction.getAmountPaid())
+        );
     }
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<Map<String, Object>> getOutstandingCreditSales() {
-        List<Transaction> transactions = transactionRepository.findByPaymentStatusOrderByTransactionDateDesc("UNPAID");
+        List<Transaction> transactions = transactionRepository.findByPaymentStatusInOrderByTransactionDateDesc(List.of("UNPAID", "PARTIALLY_PAID"));
         return transactions.stream().map(t -> {
             Map<String, Object> m = new LinkedHashMap<>();
+            BigDecimal amountPaid = t.getAmountPaid() != null ? t.getAmountPaid() : BigDecimal.ZERO;
+            BigDecimal balanceDue = t.getTotalAmount().subtract(amountPaid);
+            
             m.put("transactionId", t.getTransactionId());
             m.put("transactionDate", t.getTransactionDate().toString());
             m.put("totalAmount", t.getTotalAmount());
+            m.put("amountPaid", amountPaid);
+            m.put("balanceDue", balanceDue);
+            m.put("paymentStatus", t.getPaymentStatus());
             m.put("customerName", t.getCustomer() != null ? t.getCustomer().getCustomerName() : "Unknown");
             m.put("customerPhone", t.getCustomer() != null ? t.getCustomer().getPhone() : "");
             m.put("expectedPaymentDate", t.getExpectedPaymentDate() != null ? t.getExpectedPaymentDate().toString() : null);

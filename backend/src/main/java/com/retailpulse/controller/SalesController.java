@@ -61,9 +61,11 @@ public class SalesController {
         return ApiResponse.ok(salesService.recordSale(authentication.getName(), request));
     }
 
-    @PutMapping("/{id}/mark-paid")
-    public ApiResponse<?> markAsPaid(Authentication authentication, @PathVariable String id) {
-        return ApiResponse.ok(salesService.markAsPaid(authentication.getName(), id));
+    @PostMapping("/{id}/pay")
+    public ApiResponse<?> recordPayment(Authentication authentication, @PathVariable String id, @RequestBody java.util.Map<String, Object> payload) {
+        java.math.BigDecimal amount = new java.math.BigDecimal(payload.get("amount").toString());
+        String paymentMethod = payload.containsKey("paymentMethod") ? payload.get("paymentMethod").toString() : "CASH";
+        return ApiResponse.ok(salesService.recordPayment(authentication.getName(), id, amount, paymentMethod));
     }
 
     @GetMapping("/outstanding")
