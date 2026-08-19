@@ -23,6 +23,7 @@ const ReportingPage = lazy(() => import('./pages/ReportingPage').then((m) => ({ 
 const AlertsPage = lazy(() => import('./pages/AlertsPage').then((m) => ({ default: m.AlertsPage })))
 const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })))
 const ProfilePage = lazy(() => import('./pages/ProfilePage').then((m) => ({ default: m.ProfilePage })))
+const TransactionHistoryPage = lazy(() => import('./pages/TransactionHistoryPage').then((m) => ({ default: m.TransactionHistoryPage })))
 
 function PageLoader() {
   return (
@@ -64,6 +65,7 @@ export default function App() {
           <Route path="recommendations" element={<Suspense fallback={<PageLoader />}><ProductRecommendationsPage /></Suspense>} />
           <Route path="data-collection" element={<Suspense fallback={<PageLoader />}><DataCollectionPage /></Suspense>} />
           <Route path="reports" element={<Suspense fallback={<PageLoader />}><ReportingPage /></Suspense>} />
+          <Route path="transaction-history" element={<Suspense fallback={<PageLoader />}><TransactionHistoryPage /></Suspense>} />
           <Route path="alerts" element={<Suspense fallback={<PageLoader />}><AlertsPage /></Suspense>} />
           <Route path="profile" element={<Suspense fallback={<PageLoader />}><ProfilePage /></Suspense>} />
           <Route

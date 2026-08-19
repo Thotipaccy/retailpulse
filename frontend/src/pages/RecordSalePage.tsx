@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
+import html2pdf from 'html2pdf.js'
+import { CheckoutModal } from '../components/modals/CheckoutModal'
 import { PageHeader } from '../components/ui/PageHeader'
 import { GlassCard } from '../components/ui/GlassCard'
 import { ShoppingCart, Search, Printer, Phone, CheckCircle, AlertTriangle, Tag, User, Calendar, CreditCard, Minus, Plus, Trash2 } from 'lucide-react'
@@ -34,14 +36,8 @@ export function RecordSalePage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
 
   const [cart, setCart] = useState<CartItem[]>([])
-  const [discount, setDiscount] = useState<number>(0)
-  const [paymentMethod, setPaymentMethod] = useState<string>('cash')
-  const [paymentReference, setPaymentReference] = useState('')
-  const [customerName, setCustomerName] = useState('')
-  const [customerPhone, setCustomerPhone] = useState('')
-  const [dueDate, setDueDate] = useState('')
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [confirmation, setConfirmation] = useState<SaleConfirmation | null>(null)
 
   const loadProducts = async () => {
@@ -106,47 +102,49 @@ export function RecordSalePage() {
   }
 
   const subtotal = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
-  const total = Math.max(0, subtotal - discount)
 
-  const handleConfirmSale = async () => {
+  const handleConfirmSale = async (paymentDetails: {
+    paymentMethod: string
+    paymentReference?: string
+    discountAmount: number
+    customerName: string
+    customerPhone: string
+    expectedPaymentDate?: string
+  }) => {
     if (cart.length === 0) return
-    if (paymentMethod === 'credit' && (!customerName || !customerPhone)) {
-      alert('Customer name and phone are required for credit sales.')
-      return
-    }
-
-    setIsSubmitting(true)
     try {
       const payload = {
         items: cart.map(item => ({ productId: item.productId, quantity: item.quantity, unitPrice: item.unitPrice })),
-        paymentMethod,
-        paymentReference: ['mobile_money', 'airtel', 'bank_transfer'].includes(paymentMethod) ? paymentReference : undefined,
-        discountAmount: discount,
-        customerName,
-        customerPhone,
-        expectedPaymentDate: paymentMethod === 'credit' && dueDate ? dueDate : undefined
+        ...paymentDetails
       }
 
       const result = await salesApi.recordSale(payload) as { transactionId: string; transactionDate: string }
-      setConfirmation({ ...result, cart, total, discount, paymentMethod, customerName, customerPhone, dueDate })
+      setConfirmation({ 
+        ...result, 
+        cart, 
+        total: Math.max(0, subtotal - paymentDetails.discountAmount), 
+        discount: paymentDetails.discountAmount, 
+        paymentMethod: paymentDetails.paymentMethod, 
+        customerName: paymentDetails.customerName, 
+        customerPhone: paymentDetails.customerPhone, 
+        dueDate: paymentDetails.expectedPaymentDate || '' 
+      })
       loadProducts()
+      setIsCheckoutOpen(false)
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : 'Failed to record sale'
       alert((error as { response?: { data?: { message?: string } } })?.response?.data?.message || msg)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
   const resetSale = () => {
     setCart([])
-    setDiscount(0)
-    setPaymentMethod('cash')
-    setPaymentReference('')
-    setCustomerName('')
-    setCustomerPhone('')
-    setDueDate('')
     setConfirmation(null)
+  }
+
+  const handlePrint = () => {
+    // Standard browser print (we handle layout in CSS via @media print)
+    window.print();
   }
 
   const generateReceiptText = () => {
@@ -174,17 +172,33 @@ export function RecordSalePage() {
     return text
   }
 
-  const shareViaWhatsApp = () => {
+  const shareViaWhatsApp = async () => {
     if (!confirmation) return
+
+    // 1. Generate and download PDF
+    const element = document.getElementById('receipt-print-area')
+    if (element) {
+      const opt = {
+        margin:       3,
+        filename:     `Receipt_${confirmation.transactionId.substring(0, 8).toUpperCase()}.pdf`,
+        image:        { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: [80, 200] as [number, number], orientation: 'portrait' as const }
+      }
+      // Unhide for PDF generation
+      element.classList.remove('opacity-0')
+      await html2pdf().set(opt).from(element).save()
+      // Re-hide
+      element.classList.add('opacity-0')
+    }
+
+    // 2. Send WhatsApp message
     const text = generateReceiptText()
     let phone = confirmation.customerPhone?.replace(/\D/g, '') || ''
     
-    // Auto-format local Rwandan numbers starting with 0
     if (phone.length === 10 && phone.startsWith('0')) {
       phone = '250' + phone.substring(1)
-    }
-    // Auto-format local Rwandan numbers starting with 7
-    else if (phone.length === 9 && phone.startsWith('7')) {
+    } else if (phone.length === 9 && phone.startsWith('7')) {
       phone = '250' + phone
     }
 
@@ -306,10 +320,10 @@ export function RecordSalePage() {
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button
-                  onClick={() => window.print()}
+                  onClick={handlePrint}
                   className="flex-1 btn-secondary py-3 flex items-center justify-center gap-2 text-sm"
                 >
-                  <Printer className="w-4 h-4" /> Print / Save PDF
+                  <Printer className="w-4 h-4" /> Print Receipt
                 </button>
                 <button
                   onClick={shareViaWhatsApp}
@@ -330,67 +344,100 @@ export function RecordSalePage() {
       </div>
 
         {/* ─── THERMAL RECEIPT PRINT LAYOUT ─── */}
-        <div className="hidden print:block bg-white text-black font-sans mx-auto" style={{ width: '80mm', padding: '4mm' }}>
-          <div className="text-center mb-4">
-            <h1 className="text-xl font-bold uppercase tracking-tight">Quincaillerie du Rwamagana</h1>
-            <p className="text-sm text-gray-600">Rwamagana, Eastern Province</p>
-            <div className="mt-3 pt-3 border-t border-dashed border-gray-400 text-xs text-left">
-              <p><strong>Receipt:</strong> #{confirmation.transactionId?.substring(0, 8).toUpperCase()}</p>
-              <p><strong>Date:</strong> {new Date(confirmation.transactionDate).toLocaleString()}</p>
-              <p><strong>Cashier:</strong> Administrator</p>
+        <div
+          id="receipt-print-area"
+          className="opacity-0"
+          style={{
+            position: 'fixed', left: 0, top: 0, pointerEvents: 'none', zIndex: -100,
+            width: '80mm', padding: '4mm', backgroundColor: '#ffffff', color: '#000000',
+            fontFamily: 'monospace, "Courier New"', fontSize: '12px', lineHeight: '1.4',
+          }}
+        >
+          {/* Header */}
+          <div style={{ textAlign: 'center', marginBottom: '8px' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '15px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Quincaillerie du Rwamagana
+            </div>
+            <div style={{ color: '#555', fontSize: '11px' }}>Rwamagana, Eastern Province</div>
+            <div style={{ marginTop: '6px', paddingTop: '6px', borderTop: '1px dashed #999', textAlign: 'left', fontSize: '11px' }}>
+              <div><strong>Receipt:</strong> #{confirmation.transactionId?.substring(0, 8).toUpperCase()}</div>
+              <div><strong>Date:</strong> {new Date(confirmation.transactionDate).toLocaleString()}</div>
+              <div><strong>Cashier:</strong> Administrator</div>
             </div>
           </div>
-          
-          <table className="w-full text-sm mb-4">
+
+          {/* Items table */}
+          <table style={{ width: '100%', fontSize: '11px', marginBottom: '8px', borderCollapse: 'collapse' }}>
             <thead>
-              <tr className="border-b border-dashed border-gray-400">
-                <th className="text-left py-1 font-semibold">Item</th>
-                <th className="text-center py-1 font-semibold">Qty</th>
-                <th className="text-right py-1 font-semibold">Price</th>
-                <th className="text-right py-1 font-semibold">Total</th>
+              <tr style={{ borderBottom: '1px dashed #999' }}>
+                <th style={{ textAlign: 'left', paddingBottom: '3px', fontWeight: 'bold' }}>Item</th>
+                <th style={{ textAlign: 'center', paddingBottom: '3px', fontWeight: 'bold' }}>Qty</th>
+                <th style={{ textAlign: 'right', paddingBottom: '3px', fontWeight: 'bold' }}>Price</th>
+                <th style={{ textAlign: 'right', paddingBottom: '3px', fontWeight: 'bold' }}>Total</th>
               </tr>
             </thead>
             <tbody>
               {confirmation.cart.map((item: CartItem, i: number) => (
-                <tr key={i} className="border-b border-gray-100 last:border-none">
-                  <td className="py-1.5 pr-1 break-words">{item.productName}</td>
-                  <td className="py-1.5 text-center">{item.quantity}</td>
-                  <td className="py-1.5 text-right">{item.unitPrice.toLocaleString()}</td>
-                  <td className="py-1.5 text-right font-medium">{(item.quantity * item.unitPrice).toLocaleString()}</td>
+                <tr key={i} style={{ borderBottom: '1px solid #eee' }}>
+                  <td style={{ padding: '3px 2px 3px 0', wordBreak: 'break-word' }}>{item.productName}</td>
+                  <td style={{ padding: '3px', textAlign: 'center' }}>{item.quantity}</td>
+                  <td style={{ padding: '3px', textAlign: 'right' }}>{item.unitPrice.toLocaleString()}</td>
+                  <td style={{ padding: '3px', textAlign: 'right', fontWeight: 'bold' }}>{(item.quantity * item.unitPrice).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="border-t border-dashed border-gray-400 pt-2 mb-4 space-y-1">
+          {/* Totals */}
+          <div style={{ borderTop: '1px dashed #999', paddingTop: '6px', marginBottom: '8px' }}>
             {confirmation.discount > 0 && (
-              <div className="flex justify-between text-sm">
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '2px' }}>
                 <span>Subtotal</span>
                 <span>{(confirmation.total + confirmation.discount).toLocaleString()}</span>
               </div>
             )}
             {confirmation.discount > 0 && (
-              <div className="flex justify-between text-sm">
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '2px' }}>
                 <span>Discount</span>
                 <span>-{confirmation.discount.toLocaleString()}</span>
               </div>
             )}
-            <div className="flex justify-between font-bold text-lg pt-1">
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '14px', paddingTop: '4px' }}>
               <span>TOTAL</span>
               <span>{confirmation.total.toLocaleString()} RWF</span>
             </div>
           </div>
 
-          <div className="border-t border-dashed border-gray-400 pt-2 mb-6 text-xs space-y-1">
-            <p className="flex justify-between"><span>Payment Method:</span> <span className="font-medium">{paymentLabel[confirmation.paymentMethod] ?? confirmation.paymentMethod}</span></p>
-            {confirmation.customerName && <p className="flex justify-between"><span>Customer:</span> <span className="font-medium">{confirmation.customerName}</span></p>}
-            {confirmation.customerPhone && <p className="flex justify-between"><span>Phone:</span> <span className="font-medium">{confirmation.customerPhone}</span></p>}
-            {confirmation.dueDate && isCredit && <p className="flex justify-between text-red-600 font-bold"><span>Due by:</span> <span>{confirmation.dueDate}</span></p>}
+          {/* Payment & Customer */}
+          <div style={{ borderTop: '1px dashed #999', paddingTop: '6px', marginBottom: '12px', fontSize: '11px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+              <span>Payment Method:</span>
+              <span style={{ fontWeight: 'bold' }}>{paymentLabel[confirmation.paymentMethod] ?? confirmation.paymentMethod}</span>
+            </div>
+            {confirmation.customerName && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+                <span>Customer:</span>
+                <span style={{ fontWeight: 'bold' }}>{confirmation.customerName}</span>
+              </div>
+            )}
+            {confirmation.customerPhone && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+                <span>Phone:</span>
+                <span style={{ fontWeight: 'bold' }}>{confirmation.customerPhone}</span>
+              </div>
+            )}
+            {confirmation.dueDate && isCredit && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#c00', fontWeight: 'bold' }}>
+                <span>Due by:</span>
+                <span>{confirmation.dueDate}</span>
+              </div>
+            )}
           </div>
 
-          <div className="text-center text-xs border-t border-dashed border-gray-400 pt-4 pb-4">
-            <p className="font-semibold text-sm">Thank you for your business!</p>
-            <p className="text-gray-500 mt-1">Goods once sold are not returnable.</p>
+          {/* Footer */}
+          <div style={{ textAlign: 'center', fontSize: '11px', borderTop: '1px dashed #999', paddingTop: '8px', paddingBottom: '8px' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '12px' }}>Thank you for your business!</div>
+            <div style={{ color: '#777', marginTop: '3px' }}>Goods once sold are not returnable.</div>
           </div>
         </div>
       </>
@@ -568,141 +615,32 @@ export function RecordSalePage() {
             )}
           </div>
 
-          {/* Bottom panel: payment options — scrollable */}
-          <div className="shrink-0 border-t border-white/10 bg-charcoal-900/40 divide-y divide-white/5 overflow-y-auto max-h-[40vh] md:max-h-[35vh]">
-
-            {/* Subtotal / Discount */}
-            <div className="px-4 py-2 space-y-1.5 text-sm">
-              <div className="flex justify-between text-on-glass-muted">
-                <span>Subtotal</span>
-                <span className="font-medium text-on-glass">{subtotal.toLocaleString()} RWF</span>
-              </div>
-              <div className="flex justify-between items-center text-on-glass-muted">
-                <label htmlFor="discount-input" className="flex items-center gap-1.5"><Tag className="w-3 h-3 text-emerald-400" /> Discount (RWF)</label>
-                <input
-                  id="discount-input"
-                  type="number"
-                  min={0}
-                  value={discount || ''}
-                  onChange={e => setDiscount(Number(e.target.value))}
-                  placeholder="0"
-                  className="w-24 px-2 py-1 bg-charcoal-800 border border-white/10 rounded-lg text-right text-sm font-medium text-on-glass focus:border-copper outline-none"
-                />
-              </div>
-              {discount > 0 && (
-                <div className="flex justify-between text-emerald-400 text-xs font-medium">
-                  <span>You save</span>
-                  <span>− {discount.toLocaleString()} RWF</span>
-                </div>
-              )}
-            </div>
-
-            {/* Payment method */}
-            <div className="px-4 py-2 space-y-1.5">
-              <label htmlFor="payment-method" className="block text-xs font-semibold text-on-glass-muted uppercase tracking-wider">Payment Method</label>
-              <select
-                id="payment-method"
-                value={paymentMethod}
-                onChange={e => setPaymentMethod(e.target.value)}
-                aria-label="Payment Method"
-                title="Payment Method"
-                className="w-full px-3 py-2 bg-charcoal-800 border border-white/10 rounded-xl text-sm text-on-glass focus:border-copper outline-none appearance-none cursor-pointer"
-              >
-                <option value="cash">💵  Cash (RWF)</option>
-                <option value="mobile_money">📱  MTN Mobile Money</option>
-                <option value="airtel">📲  Airtel Money</option>
-                <option value="bank_transfer">🏦  Bank Transfer</option>
-                <option value="credit">📋  Credit (Pay Later)</option>
-              </select>
-              {['mobile_money', 'airtel', 'bank_transfer'].includes(paymentMethod) && (
-                <input
-                  type="text"
-                  placeholder="Transaction reference / phone"
-                  value={paymentReference}
-                  onChange={e => setPaymentReference(e.target.value)}
-                  className="w-full px-3 py-2 bg-charcoal-800 border border-white/10 rounded-xl text-sm text-on-glass focus:border-copper outline-none"
-                />
-              )}
-            </div>
-
-            {/* Customer info */}
-            <div className="px-4 py-2 space-y-1.5">
-              <label className="block text-xs font-semibold text-on-glass-muted uppercase tracking-wider">
-                Customer Details {paymentMethod === 'credit' && <span className="text-rust ml-1">* Required</span>}
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                <datalist id="customer-names">
-                  {customers.map(c => <option key={c.customerId} value={c.customerName} />)}
-                </datalist>
-                <datalist id="customer-phones">
-                  {customers.filter(c => c.phone).map(c => <option key={c.customerId} value={c.phone} />)}
-                </datalist>
-
-                <input
-                  type="text"
-                  list="customer-names"
-                  placeholder="Customer name"
-                  value={customerName}
-                  onChange={e => {
-                    setCustomerName(e.target.value)
-                    const match = customers.find(c => c.customerName.toLowerCase() === e.target.value.toLowerCase())
-                    if (match && match.phone && !customerPhone) setCustomerPhone(match.phone)
-                  }}
-                  className="w-full px-3 py-2 bg-charcoal-800 border border-white/10 rounded-xl text-sm text-on-glass focus:border-copper outline-none placeholder:text-on-glass-muted"
-                />
-                <input
-                  type="text"
-                  list="customer-phones"
-                  placeholder="Phone number"
-                  value={customerPhone}
-                  onChange={e => {
-                    setCustomerPhone(e.target.value)
-                    const match = customers.find(c => c.phone && c.phone === e.target.value)
-                    if (match && !customerName) setCustomerName(match.customerName)
-                  }}
-                  className="w-full px-3 py-2 bg-charcoal-800 border border-white/10 rounded-xl text-sm text-on-glass focus:border-copper outline-none placeholder:text-on-glass-muted"
-                />
-              </div>
-              {paymentMethod === 'credit' && (
-                <input
-                  type="date"
-                  title="Expected payment due date"
-                  aria-label="Expected payment due date"
-                  value={dueDate}
-                  onChange={e => setDueDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-charcoal-800 border border-white/10 rounded-xl text-sm text-on-glass focus:border-copper outline-none"
-                />
-              )}
-            </div>
-          </div>
-
-          {/* TOTAL + CONFIRM — always pinned at bottom, never scrolled away */}
-          <div className="shrink-0 border-t border-copper/20 bg-charcoal-900/60 px-4 py-3 space-y-2">
+          {/* TOTAL + PROCEED — always pinned at bottom */}
+          <div className="shrink-0 border-t border-copper/20 bg-charcoal-900/60 px-4 py-4 space-y-3">
             <div className="flex justify-between items-center">
-              <span className="font-bold text-on-glass-muted uppercase text-sm tracking-wider">Total</span>
-              <span className="text-2xl font-extrabold text-copper-light tabular-nums">{total.toLocaleString()} <span className="text-sm font-semibold text-on-glass-muted">RWF</span></span>
+              <span className="font-bold text-on-glass-muted uppercase text-sm tracking-wider">Subtotal</span>
+              <span className="text-2xl font-extrabold text-copper-light tabular-nums">{subtotal.toLocaleString()} <span className="text-sm font-semibold text-on-glass-muted">RWF</span></span>
             </div>
             <button
-              onClick={handleConfirmSale}
-              disabled={cart.length === 0 || isSubmitting}
-              className="w-full btn-primary py-3 font-bold text-base tracking-wide disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              onClick={() => setIsCheckoutOpen(true)}
+              disabled={cart.length === 0}
+              className="w-full btn-primary py-3.5 font-bold text-base tracking-wide disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-xl shadow-copper/20"
             >
-              {isSubmitting ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  PROCESSING…
-                </>
-              ) : (
-                <>
-                  <CheckCircle className="w-4 h-4" />
-                  CONFIRM SALE
-                </>
-              )}
+              PROCEED TO CHECKOUT
             </button>
           </div>
 
         </GlassCard>
       </div>
+
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        cart={cart}
+        customers={customers}
+        subtotal={subtotal}
+        onConfirm={handleConfirmSale}
+      />
     </div>
   )
 }

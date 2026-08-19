@@ -537,4 +537,63 @@ public class SalesService {
             return m;
         }).toList();
     }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<Map<String, Object>> getTransactionHistory(String startDate, String endDate, String paymentMethod, String customerName) {
+        LocalDateTime start = parseDate(startDate, false);
+        LocalDateTime end = parseDate(endDate, true);
+        
+        // Provide safe fallback dates to bypass Postgres null-inference bugs
+        LocalDateTime safeStart = start != null ? start : LocalDateTime.of(2000, 1, 1, 0, 0);
+        LocalDateTime safeEnd = end != null ? end : LocalDateTime.now().plusYears(100);
+
+        PaymentMethod pm = null;
+        if (paymentMethod != null && !paymentMethod.isBlank()) {
+            try { pm = PaymentMethod.valueOf(paymentMethod.toUpperCase()); } catch (Exception ignored) {}
+        }
+        String cn = (customerName != null && !customerName.isBlank()) ? customerName.toLowerCase() : null;
+
+        // Only query DB with strict date ranges, no IS NULL checks
+        List<Transaction> transactions = transactionRepository.findHistoryByDates(safeStart, safeEnd);
+        
+        // Filter payment method and customer name in Java
+        final PaymentMethod filterPm = pm;
+        final String filterCn = cn;
+        
+        if (filterPm != null || filterCn != null) {
+            transactions = transactions.stream()
+                    .filter(t -> filterPm == null || t.getPaymentMethod() == filterPm)
+                    .filter(t -> filterCn == null || 
+                                 (t.getCustomer() != null &&
+                                  t.getCustomer().getCustomerName() != null &&
+                                  t.getCustomer().getCustomerName().toLowerCase().contains(filterCn)))
+                    .toList();
+        }
+        return transactions.stream().map(t -> {
+            Map<String, Object> m = new LinkedHashMap<>();
+            m.put("transactionId", t.getTransactionId());
+            m.put("transactionDate", t.getTransactionDate().toString());
+            m.put("totalAmount", t.getTotalAmount());
+            m.put("discountAmount", t.getDiscountAmount() != null ? t.getDiscountAmount() : BigDecimal.ZERO);
+            m.put("paymentMethod", t.getPaymentMethod() != null ? t.getPaymentMethod().name().toLowerCase() : "cash");
+            m.put("paymentStatus", t.getPaymentStatus());
+            m.put("paymentReference", t.getPaymentReference());
+            m.put("customerName", t.getCustomer() != null ? t.getCustomer().getCustomerName() : null);
+            m.put("customerPhone", t.getCustomer() != null ? t.getCustomer().getPhone() : null);
+            m.put("expectedPaymentDate", t.getExpectedPaymentDate() != null ? t.getExpectedPaymentDate().toString() : null);
+            m.put("cashierName", t.getUser() != null ? t.getUser().getFullName() : "Unknown");
+            List<Map<String, Object>> items = t.getItems().stream().map(item -> {
+                Map<String, Object> im = new LinkedHashMap<>();
+                im.put("productId", item.getProduct() != null ? item.getProduct().getProductId() : "");
+                im.put("productName", item.getProduct() != null ? item.getProduct().getProductName() : "Unknown");
+                im.put("quantity", item.getQuantity());
+                im.put("unitPrice", item.getUnitPrice());
+                im.put("lineTotal", item.getLineTotal());
+                return im;
+            }).toList();
+            m.put("items", items);
+            return m;
+        }).toList();
+    }
 }
+

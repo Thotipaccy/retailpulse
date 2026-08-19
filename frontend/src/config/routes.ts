@@ -18,7 +18,9 @@ export const ROUTES = {
   ADMIN: '/dashboard/admin',
   PROFILE: '/dashboard/profile',
   PROFILE_SECURITY: '/dashboard/profile?tab=security',
+  TRANSACTION_HISTORY: '/dashboard/transaction-history',
 } as const
+
 
 /** Legacy paths → dashboard paths (for redirects) */
 export const LEGACY_REDIRECTS: Record<string, string> = {

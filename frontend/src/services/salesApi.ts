@@ -41,4 +41,9 @@ export const salesApi = {
     const { data } = await api.get('/sales/outstanding')
     return unwrap<Record<string, unknown>[]>({ data })
   },
+
+  async getHistory(params?: { startDate?: string; endDate?: string; paymentMethod?: string; customerName?: string }): Promise<Record<string, unknown>[]> {
+    const { data } = await api.get('/sales/history', { params })
+    return unwrap<Record<string, unknown>[]>({ data })
+  },
 }

@@ -72,4 +72,14 @@ public class SalesController {
     public ApiResponse<?> getOutstanding() {
         return ApiResponse.ok(salesService.getOutstandingCreditSales());
     }
+
+    @GetMapping("/history")
+    public ApiResponse<?> getHistory(
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            @RequestParam(required = false) String paymentMethod,
+            @RequestParam(required = false) String customerName) {
+        return ApiResponse.ok(salesService.getTransactionHistory(startDate, endDate, paymentMethod, customerName));
+    }
 }
+

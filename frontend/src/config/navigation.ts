@@ -29,6 +29,7 @@ export const NAV_ITEMS: NavItem[] = [
   { path: ROUTES.RECOMMENDATIONS, label: 'Recommendations', icon: 'Sparkles', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.DATA_COLLECTION, label: 'Data Collection', icon: 'Upload', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.REPORTS, label: 'Reporting', icon: 'FileText', roles: ['administrator', 'manager', 'analyst'] },
+  { path: ROUTES.TRANSACTION_HISTORY, label: 'Tx History', icon: 'ClipboardList', roles: ['administrator', 'manager', 'analyst'] },
   { path: ROUTES.ALERTS, label: 'Alerts', icon: 'Bell', roles: ['administrator', 'manager', 'analyst', 'viewer'], badge: true },
   { path: ROUTES.ADMIN, label: 'Administration', icon: 'Settings', roles: ['administrator'] },
 ]

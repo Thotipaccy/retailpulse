@@ -146,3 +146,36 @@
     appearance: textfield;
   }
 }
+
+/* ─── PRINT STYLES FOR THERMAL RECEIPT ─── */
+@media print {
+  /* Hide the entire app by default */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the receipt area and its children */
+  #receipt-print-area, #receipt-print-area *,
+  #history-receipt-area, #history-receipt-area * {
+    visibility: visible;
+  }
+  
+  /* Position the receipt cleanly at the top left of the printed page */
+  #receipt-print-area, #history-receipt-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 80mm !important;
+    margin: 0 !important;
+    padding: 4mm !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 9999 !important;
+  }
+  
+  /* Setup page settings to default to the 80mm roll size */
+  @page {
+    margin: 0;
+    size: 80mm auto;
+  }
+}

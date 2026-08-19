@@ -1,6 +1,7 @@
 package com.retailpulse.repository;
 
 import com.retailpulse.model.Transaction;
+import com.retailpulse.model.enums.PaymentMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -51,4 +52,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
 
     @Query("SELECT MAX(t.transactionDate) FROM Transaction t WHERE t.customer.customerId = :customerId AND t.transactionDate < :endDate")
     java.util.Optional<LocalDateTime> findLatestTransactionDateByCustomerBefore(@Param("customerId") String customerId, @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT t FROM Transaction t LEFT JOIN FETCH t.customer " +
+           "WHERE t.transactionDate >= :start AND t.transactionDate <= :end " +
+           "ORDER BY t.transactionDate DESC")
+    List<Transaction> findHistoryByDates(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
 }
+
