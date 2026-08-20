@@ -14,6 +14,7 @@ from models import (
     StockoutRiskModel,
 )
 from services import ChurnService, ForecastService, RecommendationService, StockoutService
+from services.training_service import training_service
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -133,6 +134,26 @@ def health():
     }
 
 
+@app.post("/ml/reload")
+def reload_models():
+    """Reload all models from disk after retraining (no process restart needed)."""
+    # Re-instantiate models so old in-memory state is fully cleared
+    registry["demand"] = DemandForecastModel()
+    registry["churn"] = ChurnPredictionModel()
+    registry["recommendation"] = ProductRecommendationModel()
+    registry["stockout"] = StockoutRiskModel()
+    models_loaded = load_models()
+    registry["models_loaded"] = models_loaded
+    demand: DemandForecastModel = registry["demand"]
+    return {
+        "status": "reloaded",
+        "mape": round(demand.mape, 2),
+        "weeklyPrecision": demand.weekly_precision,
+        "seasonalDetection": demand.seasonal_score,
+        "overall": round(max(0, 100 - demand.mape), 1),
+    }
+
+
 @app.get("/ml/models/status")
 def models_status():
     demand: DemandForecastModel = registry["demand"]
@@ -163,9 +184,9 @@ def models_status():
             },
         },
         "overall": round(max(0, 100 - demand.mape), 1),
-        "weeklyPrecision": 92.0,
-        "seasonalDetection": 87.0,
-        "mape": demand.mape,
+        "weeklyPrecision": demand.weekly_precision,
+        "seasonalDetection": demand.seasonal_score,
+        "mape": round(demand.mape, 2),
     }
 
 
@@ -227,40 +248,31 @@ def stockout(body: dict = Body(default={})):
 
 @app.post("/ml/retrain")
 def retrain(body: dict = Body(default={})):
-    """Retrain all ML models on available training data."""
-    try:
-        from train.train_all import main as train_main
-        import io
-        import contextlib
+    """
+    Trigger background model retraining.
+    Returns immediately — training runs in a daemon thread.
+    Poll GET /ml/training/status to check progress.
+    """
+    reason = body.get("reason", "api_trigger")
+    min_records = int(body.get("min_records", 0))
+    result = training_service.trigger(reason=reason, min_records=min_records)
+    return result
 
-        buf = io.StringIO()
-        with contextlib.redirect_stdout(buf):
-            train_main()
-        output = buf.getvalue()
 
-        status = {
-            "demand": getattr(registry["demand"], "accuracy", 0.94),
-            "churn": getattr(registry["churn"], "accuracy", 0.85),
-            "recommendation": getattr(registry["recommendation"], "accuracy", 0.80),
-            "stockout": getattr(registry["stockout"], "accuracy", 0.88),
-        }
-        overall = sum(status.values()) / len(status) * 100
-        for name, model in registry.items():
-            if name != "models_loaded" and hasattr(model, "load"):
-                model.load()
+@app.get("/ml/training/status")
+def training_status():
+    """Return current training state (idle | training | completed | failed) with metrics."""
+    return training_service.get_status()
 
-        return {
-            "status": "ok",
-            "message": "Models retrained successfully",
-            "accuracy": round(overall, 2),
-            "mape": round(100 - overall, 2),
-            "models": status,
-            "log": output[-2000:] if len(output) > 2000 else output,
-            "data": {"accuracy": round(overall, 2), "mape": round(100 - overall, 2), "models": status},
-        }
-    except Exception as ex:
-        logger.exception("Retrain failed")
-        raise HTTPException(status_code=500, detail=str(ex)) from ex
+
+@app.post("/ml/training/notify")
+def notify_new_record(body: dict = Body(default={})):
+    """Called by backend whenever new transaction records are saved.
+    Accumulates a counter and fires auto-retrain at 30 records.
+    """
+    count = int(body.get("count", 1))
+    training_service.notify_new_record(count)
+    return {"acknowledged": True, "count": count}
 
 
 if __name__ == "__main__":

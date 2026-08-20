@@ -246,7 +246,21 @@ export function ProductManagementPage() {
                         {p.isActive ? (
                           <button type="button" onClick={() => setDeactivateTarget(p)} className="text-xs text-rust-light hover:underline">Delete</button>
                         ) : (
-                          <button type="button" onClick={() => { setProducts((prev) => prev.map((x) => x.id === p.id ? { ...x, isActive: true } : x)); toast(`${p.name} reactivated`, 'success') }} className="text-xs text-forest-light hover:underline">Reactivate</button>
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              try {
+                                await productApi.reactivate(p.id)
+                                setProducts((prev) => prev.map((x) => x.id === p.id ? { ...x, isActive: true } : x))
+                                toast(`${p.name} reactivated`, 'success')
+                              } catch (err) {
+                                toast(getErrorMessage(err), 'error')
+                              }
+                            }}
+                            className="text-xs text-forest-light hover:underline"
+                          >
+                            Reactivate
+                          </button>
                         )}
                       </div>
                     </td>

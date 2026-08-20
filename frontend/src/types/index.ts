@@ -62,6 +62,7 @@ export interface Customer {
   rfmSegment: 'Champions' | 'Loyal' | 'At Risk' | 'Dormant' | 'Lost'
   lastPurchaseDate: string
   totalOrders: number
+  isActive?: boolean
 }
 
 export interface UploadRecord {

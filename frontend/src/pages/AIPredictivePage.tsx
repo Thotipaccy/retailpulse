@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  BrainCircuit, Download, AlertTriangle, CheckCircle2, Loader2, Lightbulb, X,
+  BrainCircuit, Download, AlertTriangle, CheckCircle2, Loader2, Lightbulb, X, Calendar
 } from 'lucide-react'
 import {
   Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis,
@@ -29,9 +29,9 @@ type Horizon = 'daily' | 'weekly' | 'monthly'
 type Scope = 'all' | 'category' | 'product'
 
 const HORIZONS: { id: Horizon; label: string; hint: string }[] = [
-  { id: 'daily', label: 'Daily', hint: 'Next 7 days' },
-  { id: 'weekly', label: 'Weekly', hint: 'Next 4 weeks' },
-  { id: 'monthly', label: 'Monthly', hint: 'Next 3 months' },
+  { id: 'daily', label: 'Daily', hint: 'Short-term tactical planning (Next 7 Days)' },
+  { id: 'weekly', label: 'Weekly', hint: 'Operational planning (Next 30 Days)' },
+  { id: 'monthly', label: 'Monthly', hint: 'Long-term strategic planning (Next 6 Months)' },
 ]
 
 const STATUS_VARIANT = {
@@ -208,27 +208,55 @@ export function AIPredictivePage() {
       <GlassCard className="p-6 relative z-[60]">
         <h2 className="text-lg font-semibold uppercase tracking-wide text-on-glass">Generate Demand Forecast</h2>
         <div className="mt-5 space-y-5">
-          <div>
-            <p className="mb-2 text-sm text-on-glass-muted">Horizon</p>
-            <div className="flex flex-wrap gap-2">
-              {HORIZONS.map((h) => (
-                <button
-                  key={h.id}
-                  type="button"
-                  onClick={() => setHorizon(h.id)}
-                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-                    horizon === h.id
-                      ? 'bg-copper text-white'
-                      : 'border border-white/15 text-on-glass-muted hover:border-copper/40 hover:text-on-glass'
-                  }`}
-                >
-                  {h.label}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-xs text-on-glass-muted">
-              {HORIZONS.find((h) => h.id === horizon)?.hint}
+          <div className="pt-2 pb-6">
+            <p className="mb-6 text-sm text-on-glass-muted flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              Forecast Horizon
             </p>
+
+            {/* Custom Interactive Timeline */}
+            <div className="relative max-w-2xl mx-auto px-4 sm:px-12">
+              {/* Track Background */}
+              <div className="absolute top-3 left-4 right-4 sm:left-12 sm:right-12 h-1 bg-white/10 rounded-full" />
+
+              {/* Active Track Fill */}
+              <div
+                className="absolute top-3 left-4 sm:left-12 h-1 bg-gradient-to-r from-copper to-copper-light rounded-full transition-all duration-500 ease-out"
+                style={{
+                  width: horizon === 'daily' ? '0%' : horizon === 'weekly' ? '50%' : '100%'
+                }}
+              />
+
+              {/* Timeline Stops */}
+              <div className="relative flex justify-between">
+                {HORIZONS.map((h, index) => {
+                  const isActive = horizon === h.id;
+                  const isPast = HORIZONS.findIndex(x => x.id === horizon) >= index;
+
+                  return (
+                    <div key={h.id} className="flex flex-col items-center group" style={{ width: '120px' }}>
+                      <button
+                        type="button"
+                        onClick={() => setHorizon(h.id)}
+                        className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full transition-all duration-300 ${isActive
+                            ? 'bg-copper shadow-[0_0_15px_rgba(184,115,51,0.6)] scale-125'
+                            : isPast
+                              ? 'bg-copper-light hover:bg-copper hover:scale-110'
+                              : 'bg-glass-panel border-2 border-white/20 hover:border-white/50 hover:scale-110'
+                          }`}
+                      >
+                        {isActive && <div className="h-2.5 w-2.5 rounded-full bg-white" />}
+                      </button>
+
+                      <div className={`mt-4 text-center transition-colors duration-300 ${isActive ? 'text-copper-light font-semibold' : 'text-on-glass-muted group-hover:text-on-glass'}`}>
+                        <div className="text-sm tracking-wide uppercase">{h.label}</div>
+                        <div className="text-[10px] opacity-70 mt-1 max-w-[100px] leading-tight mx-auto">{h.hint}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -296,12 +324,12 @@ export function AIPredictivePage() {
                 )}
                 <span>System Health & Diagnostics</span>
               </div>
-              
+
               {/* Popover Content */}
               <div className="pointer-events-none absolute left-0 top-full mt-2 w-72 translate-y-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 z-[100]">
                 <div className="rounded-xl border border-white/20 bg-[#1a1917] p-4 text-xs shadow-2xl backdrop-blur-xl">
                   <p className="font-semibold text-on-glass mb-3 border-b border-white/10 pb-2">Diagnostic Information</p>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <p className="text-on-glass-muted mb-1.5 flex items-center gap-1.5 font-medium">
@@ -329,7 +357,7 @@ export function AIPredictivePage() {
                         </ul>
                       </div>
                     </div>
-                    
+
                     <div>
                       <p className="text-on-glass-muted mb-1.5 flex items-center gap-1.5 font-medium">
                         <Lightbulb className="h-3.5 w-3.5" />
@@ -385,85 +413,85 @@ export function AIPredictivePage() {
 
       <GlassCard className="p-6">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-on-glass">
-                {horizon === 'weekly' ? '4-Week Demand Forecast' : horizon === 'monthly' ? '3-Month Demand Forecast' : '7-Day Demand Forecast'}
-              </h2>
-              <p className="text-sm text-on-glass-muted">
-                {horizon === 'weekly' ? 'Predicted weekly sales with confidence intervals' : horizon === 'monthly' ? 'Predicted monthly sales with confidence intervals' : 'Predicted daily sales with confidence intervals'}
-              </p>
-            </div>
-            {forecast && (
-              <StatusBadge variant={forecast.lowConfidence ? 'warning' : 'success'}>
-                MAPE Score: {forecast.mape}%
-              </StatusBadge>
-            )}
+          <div>
+            <h2 className="text-lg font-semibold text-on-glass">
+              {horizon === 'weekly' ? '4-Week Demand Forecast' : horizon === 'monthly' ? '3-Month Demand Forecast' : '7-Day Demand Forecast'}
+            </h2>
+            <p className="text-sm text-on-glass-muted">
+              {horizon === 'weekly' ? 'Predicted weekly sales with confidence intervals' : horizon === 'monthly' ? 'Predicted monthly sales with confidence intervals' : 'Predicted daily sales with confidence intervals'}
+            </p>
           </div>
-
-          {generating ? (
-            <LoadingSkeleton rows={4} />
-          ) : generateError ? (
-            <ErrorState message={generateError} onRetry={generateForecast} />
-          ) : !forecast ? (
-            <EmptyState
-              icon={<BrainCircuit className="h-6 w-6" />}
-              title="No forecast generated yet"
-              description="Select parameters and click Generate Forecast."
-            />
-          ) : forecast.empty ? (
-            <EmptyState
-              icon={<BrainCircuit className="h-6 w-6" />}
-              title="No historical data"
-              description={forecast.message ?? 'No historical data available. Upload data first.'}
-            />
-          ) : (
-            <>
-              {forecast.warning && !forecastWarningDismissed && (
-                <div className="mb-4 flex items-start gap-3 rounded-lg border border-ochre/30 bg-ochre/10 px-4 py-3 text-sm text-ochre">
-                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
-                  <div className="flex-1">
-                    <p>{forecast.warning}</p>
-                    {forecast.lowConfidence && (
-                      <p className="mt-1 text-xs text-on-glass-muted">
-                        Confidence intervals may be wider with limited historical data.
-                      </p>
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setForecastWarningDismissed(true)}
-                    className="shrink-0 rounded p-1 hover:bg-ochre/20"
-                    aria-label="Dismiss warning"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              )}
-              <div data-export-chart data-export-chart-title="7-Day Demand Forecast">
-                <ResponsiveContainer width="100%" height={400}>
-                  <ComposedChart data={forecast.chart}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} />
-                    <XAxis dataKey="date" tick={CHART_TICK} tickFormatter={(v) => horizon === 'daily' && String(v).includes('-') ? String(v).slice(5) : String(v)} />
-                    <YAxis tick={CHART_TICK} label={{ value: 'Units', angle: -90, position: 'insideLeft', fill: CHART_TICK.fill }} />
-                    <Tooltip contentStyle={CHART_TOOLTIP} />
-                    <Area type="monotone" dataKey="upper" stroke="none" fill="rgba(184,115,51,0.18)" name="Confidence Upper" />
-                    <Area type="monotone" dataKey="lower" stroke="none" fill="#2c2a28" name="Confidence Lower" />
-                    <Line type="monotone" dataKey="actual" stroke="#3D7A5C" strokeWidth={2.5} dot={{ fill: '#3D7A5C', r: 4 }} name="Actual Sales" connectNulls={false} />
-                    <Line type="monotone" dataKey="predicted" stroke="#B87333" strokeWidth={2} strokeDasharray="6 4" dot={{ fill: '#B87333', r: 3 }} name="Predicted Sales" connectNulls={false} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-on-glass-muted">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-forest-light" />Actual Sales</span>
-                <span className="flex items-center gap-1.5"><span className="h-4 w-5 border-t-2 border-dashed border-copper" />Predicted</span>
-                <span className="flex items-center gap-1.5"><span className="h-3 w-5 rounded bg-copper/20" />Confidence Interval</span>
-              </div>
-              {forecast.fallbackUsed && (
-                <p className="mt-3 text-xs text-steel-light">Using database fallback — AI service was unavailable.</p>
-              )}
-            </>
+          {forecast && (
+            <StatusBadge variant={forecast.lowConfidence ? 'warning' : 'success'}>
+              MAPE Score: {forecast.mape}%
+            </StatusBadge>
           )}
-        </GlassCard>
+        </div>
+
+        {generating ? (
+          <LoadingSkeleton rows={4} />
+        ) : generateError ? (
+          <ErrorState message={generateError} onRetry={generateForecast} />
+        ) : !forecast ? (
+          <EmptyState
+            icon={<BrainCircuit className="h-6 w-6" />}
+            title="No forecast generated yet"
+            description="Select parameters and click Generate Forecast."
+          />
+        ) : forecast.empty ? (
+          <EmptyState
+            icon={<BrainCircuit className="h-6 w-6" />}
+            title="No historical data"
+            description={forecast.message ?? 'No historical data available. Upload data first.'}
+          />
+        ) : (
+          <>
+            {forecast.warning && !forecastWarningDismissed && (
+              <div className="mb-4 flex items-start gap-3 rounded-lg border border-ochre/30 bg-ochre/10 px-4 py-3 text-sm text-ochre">
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+                <div className="flex-1">
+                  <p>{forecast.warning}</p>
+                  {forecast.lowConfidence && (
+                    <p className="mt-1 text-xs text-on-glass-muted">
+                      Confidence intervals may be wider with limited historical data.
+                    </p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setForecastWarningDismissed(true)}
+                  className="shrink-0 rounded p-1 hover:bg-ochre/20"
+                  aria-label="Dismiss warning"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+            <div data-export-chart data-export-chart-title="7-Day Demand Forecast">
+              <ResponsiveContainer width="100%" height={400}>
+                <ComposedChart data={forecast.chart}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} />
+                  <XAxis dataKey="date" tick={CHART_TICK} tickFormatter={(v) => horizon === 'daily' && String(v).includes('-') ? String(v).slice(5) : String(v)} />
+                  <YAxis tick={CHART_TICK} label={{ value: 'Units', angle: -90, position: 'insideLeft', fill: CHART_TICK.fill }} />
+                  <Tooltip contentStyle={CHART_TOOLTIP} />
+                  <Area type="monotone" dataKey="upper" stroke="none" fill="rgba(184,115,51,0.18)" name="Confidence Upper" />
+                  <Area type="monotone" dataKey="lower" stroke="none" fill="#2c2a28" name="Confidence Lower" />
+                  <Line type="monotone" dataKey="actual" stroke="#3D7A5C" strokeWidth={2.5} dot={{ fill: '#3D7A5C', r: 4 }} name="Actual Sales" connectNulls={false} />
+                  <Line type="monotone" dataKey="predicted" stroke="#B87333" strokeWidth={2} strokeDasharray="6 4" dot={{ fill: '#B87333', r: 3 }} name="Predicted Sales" connectNulls={false} />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-on-glass-muted">
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-forest-light" />Actual Sales</span>
+              <span className="flex items-center gap-1.5"><span className="h-4 w-5 border-t-2 border-dashed border-copper" />Predicted</span>
+              <span className="flex items-center gap-1.5"><span className="h-3 w-5 rounded bg-copper/20" />Confidence Interval</span>
+            </div>
+            {forecast.fallbackUsed && (
+              <p className="mt-3 text-xs text-steel-light">Using database fallback — AI service was unavailable.</p>
+            )}
+          </>
+        )}
+      </GlassCard>
 
       {/* Section 6: Product-Level Forecast Table */}
       <GlassCard className="overflow-hidden p-0">
@@ -478,9 +506,8 @@ export function AIPredictivePage() {
             <button
               type="button"
               onClick={() => { setAlertsOnly((v) => !v); setCurrentPage(1); }}
-              className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
-                alertsOnly ? 'bg-copper/20 text-copper-light' : 'border border-white/15 text-on-glass-muted'
-              }`}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium ${alertsOnly ? 'bg-copper/20 text-copper-light' : 'border border-white/15 text-on-glass-muted'
+                }`}
             >
               View Alerts Only
             </button>
@@ -508,58 +535,58 @@ export function AIPredictivePage() {
         ) : (
           <>
             <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/10 text-left text-on-glass-muted">
-                  <th className="px-6 py-3 font-medium">Product</th>
-                  <th className="px-4 py-3 font-medium">Category</th>
-                  <th className="px-4 py-3 font-medium text-right">Current Stock</th>
-                  <th className="px-4 py-3 font-medium text-right">
-                    {horizon === 'weekly' ? 'Predicted Demand (Weekly)' : horizon === 'monthly' ? 'Predicted Demand (Monthly)' : 'Predicted Demand (Daily)'}
-                  </th>
-                  <th className="px-4 py-3 font-medium text-right">Reorder</th>
-                  <th className="px-4 py-3 font-medium">Confidence</th>
-                  <th className="px-6 py-3 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedRows.map((row: ProductForecastRow) => (
-                  <tr key={row.productId} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="px-6 py-3.5 font-medium text-on-glass">{row.productName}</td>
-                    <td className="px-4 py-3.5 text-on-glass-muted">{row.category}</td>
-                    <td className="px-4 py-3.5 text-right text-on-glass">{row.currentStock}</td>
-                    <td className="whitespace-nowrap px-4 py-3 text-right text-copper-light">
-                      {row.predictedDemand}
-                    </td>
-                    <td className="px-4 py-3.5 text-right text-on-glass-muted">
-                      {row.reorderDelta != null ? `+${row.reorderDelta}` : '—'}
-                    </td>
-                    <td className="px-4 py-3.5">
-                      <div className="flex items-center gap-2">
-                        <ProgressBar value={row.confidence} color="#B87333" thin className="w-16" />
-                        <span className="font-mono text-xs text-on-glass-muted">
-                          {row.confidence}% {confidenceBlocks(row.confidence)}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3.5">
-                      <StatusBadge variant={STATUS_VARIANT[row.status]}>
-                        {STATUS_LABEL[row.status]}
-                      </StatusBadge>
-                    </td>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/10 text-left text-on-glass-muted">
+                    <th className="px-6 py-3 font-medium">Product</th>
+                    <th className="px-4 py-3 font-medium">Category</th>
+                    <th className="px-4 py-3 font-medium text-right">Current Stock</th>
+                    <th className="px-4 py-3 font-medium text-right">
+                      Total Predicted Demand ({HORIZONS.find(h => h.id === horizon)?.label || 'Period'})
+                    </th>
+                    <th className="px-4 py-3 font-medium text-right">Reorder</th>
+                    <th className="px-4 py-3 font-medium">Confidence</th>
+                    <th className="px-6 py-3 font-medium">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Pagination 
-            currentPage={currentPage} 
-            totalItems={tableRows.length} 
-            pageSize={itemsPerPage} 
-            onPageChange={setCurrentPage} 
-            onPageSizeChange={setItemsPerPage} 
-            className="mt-4 px-6 pb-4" 
-          />
+                </thead>
+                <tbody>
+                  {paginatedRows.map((row: ProductForecastRow) => (
+                    <tr key={row.productId} className="border-b border-white/5 hover:bg-white/5">
+                      <td className="px-6 py-3.5 font-medium text-on-glass">{row.productName}</td>
+                      <td className="px-4 py-3.5 text-on-glass-muted">{row.category}</td>
+                      <td className="px-4 py-3.5 text-right text-on-glass">{row.currentStock}</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-right text-copper-light">
+                        {row.predictedDemand}
+                      </td>
+                      <td className="px-4 py-3.5 text-right text-on-glass-muted">
+                        {row.reorderDelta != null ? `+${row.reorderDelta}` : '—'}
+                      </td>
+                      <td className="px-4 py-3.5">
+                        <div className="flex items-center gap-2">
+                          <ProgressBar value={row.confidence} color="#B87333" thin className="w-16" />
+                          <span className="font-mono text-xs text-on-glass-muted">
+                            {row.confidence}% {confidenceBlocks(row.confidence)}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-3.5">
+                        <StatusBadge variant={STATUS_VARIANT[row.status]}>
+                          {STATUS_LABEL[row.status]}
+                        </StatusBadge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalItems={tableRows.length}
+              pageSize={itemsPerPage}
+              onPageChange={setCurrentPage}
+              onPageSizeChange={setItemsPerPage}
+              className="mt-4 px-6 pb-4"
+            />
           </>
         )}
       </GlassCard>

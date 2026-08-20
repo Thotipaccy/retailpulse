@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     @Query("SELECT p FROM Product p JOIN FETCH p.category WHERE p.isActive = true ORDER BY p.productName")
     List<Product> findAllActiveWithCategoryOrdered();
+    @Query("SELECT p FROM Product p JOIN FETCH p.category")
+    List<Product> findAllWithCategory();
 }

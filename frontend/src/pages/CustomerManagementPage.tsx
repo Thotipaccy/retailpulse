@@ -28,7 +28,7 @@ function customerToRecord(c: Customer): CustomerRecord {
     lifetimeValue: Number(c.lifetimeValue ?? 0),
     rfmSegment: c.rfmSegment ?? 'New',
     churnRisk: Number(c.churnRiskScore ?? 0),
-    isActive: true,
+    isActive: Boolean(c.isActive ?? true),
   }
 }
 
@@ -41,6 +41,7 @@ export function CustomerManagementPage() {
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState('all')
   const [segmentFilter, setSegmentFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('active')
   const [modalOpen, setModalOpen] = useState(false)
   const [editCustomer, setEditCustomer] = useState<CustomerRecord | null>(null)
   const [deactivateTarget, setDeactivateTarget] = useState<CustomerRecord | null>(null)
@@ -51,7 +52,7 @@ export function CustomerManagementPage() {
   const load = useCallback(() => {
     setLoading(true)
     setError(null)
-    customerApi.getAll()
+    customerApi.search()
       .then((data) => setCustomers(data.map(customerToRecord)))
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setLoading(false))
@@ -59,7 +60,7 @@ export function CustomerManagementPage() {
 
   useEffect(() => {
     let cancelled = false
-    customerApi.getAll()
+    customerApi.search()
       .then((data) => {
         if (!cancelled) setCustomers(data.map(customerToRecord))
       })
@@ -78,9 +79,11 @@ export function CustomerManagementPage() {
     const q = search.toLowerCase()
     if (typeFilter !== 'all' && c.type !== typeFilter) return false
     if (segmentFilter !== 'all' && c.rfmSegment !== segmentFilter) return false
+    if (statusFilter === 'active' && !c.isActive) return false
+    if (statusFilter === 'inactive' && c.isActive) return false
     if (q && !c.name.toLowerCase().includes(q) && !c.phone.includes(q) && !c.email.toLowerCase().includes(q)) return false
     return true
-  }), [customers, search, typeFilter, segmentFilter])
+  }), [customers, search, typeFilter, segmentFilter, statusFilter])
 
 
   const pagedItems = useMemo(() => {
@@ -152,6 +155,11 @@ export function CustomerManagementPage() {
           </select>
           <select value={segmentFilter} onChange={(e) => { setSegmentFilter(e.target.value); setCurrentPage(1); }} title="Filter by segment" className="glass-input rounded-lg px-3 py-2 text-sm">
             {segments.map((s) => <option key={s} value={s}>{s === 'all' ? 'All Segments' : s}</option>)}
+          </select>
+          <select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value as 'all'|'active'|'inactive'); setCurrentPage(1); }} title="Filter by status" className="glass-input rounded-lg px-3 py-2 text-sm">
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
       </GlassCard>

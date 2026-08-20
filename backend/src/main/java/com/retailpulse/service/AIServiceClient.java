@@ -144,6 +144,31 @@ public class AIServiceClient {
     }
 
     @SuppressWarnings("unchecked")
+    public Optional<Map<String, Object>> getTrainingStatus() {
+        if (!enabled) return Optional.empty();
+        try {
+            Map<String, Object> response = restTemplate.getForObject(
+                    baseUrl.replace("/ml", "") + "/ml/training/status", Map.class);
+            return Optional.ofNullable(response);
+        } catch (RestClientException ex) {
+            log.debug("Could not fetch training status: {}", ex.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    public void notifyNewRecord(int count) {
+        if (!enabled) return;
+        try {
+            restTemplate.postForObject(
+                    baseUrl.replace("/ml", "") + "/ml/training/notify",
+                    Map.of("count", count),
+                    Map.class);
+        } catch (RestClientException ex) {
+            log.debug("notifyNewRecord failed (non-critical): {}", ex.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     private Optional<List<Map<String, Object>>> postForDataList(String path, Map<String, Object> body) {
         if (!enabled) return Optional.empty();
         try {

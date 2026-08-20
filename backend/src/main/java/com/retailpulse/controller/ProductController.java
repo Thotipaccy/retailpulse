@@ -34,4 +34,10 @@ public class ProductController {
         productService.deactivate(id);
         return ApiResponse.ok(null, "Product deactivated");
     }
+
+    @PutMapping("/{id}/reactivate")
+    public ApiResponse<?> reactivate(@PathVariable String id) {
+        productService.reactivate(id);
+        return ApiResponse.ok(null, "Product activated");
+    }
 }

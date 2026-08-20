@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import html2pdf from 'html2pdf.js'
+import { printReceiptPdf, downloadReceiptPdf } from '../utils/receiptPdf'
 import { CheckoutModal } from '../components/modals/CheckoutModal'
 import { PageHeader } from '../components/ui/PageHeader'
 import { GlassCard } from '../components/ui/GlassCard'
@@ -71,21 +71,24 @@ export function RecordSalePage() {
     setCart(prev => {
       const existing = prev.find(item => item.productId === product.productId)
       if (existing) {
-        if (existing.quantity >= product.quantityOnHand) return prev
-        return prev.map(item => item.productId === product.productId ? { ...item, quantity: item.quantity + 1 } : item)
+        return prev // Item is already in cart; user adjusts qty manually
       }
       if (product.quantityOnHand <= 0) return prev
       return [...prev, { productId: product.productId, productName: product.productName, unitPrice: product.unitPrice, quantity: 1 }]
     })
   }
 
-  const updateCartQty = (productId: string, delta: number) => {
+  const updateCartQty = (productId: string, newQty: number | string) => {
     setCart(prev => prev.map(item => {
       if (item.productId === productId) {
         const product = products.find(p => p.productId === productId)
         const maxQty = product?.quantityOnHand || 0
-        const newQty = Math.max(1, Math.min(item.quantity + delta, maxQty))
-        return { ...item, quantity: newQty }
+        
+        let parsedQty = typeof newQty === 'string' ? parseInt(newQty, 10) : newQty
+        if (isNaN(parsedQty)) parsedQty = 1
+        
+        const finalQty = Math.max(1, Math.min(parsedQty, maxQty))
+        return { ...item, quantity: finalQty }
       }
       return item
     }))
@@ -143,8 +146,24 @@ export function RecordSalePage() {
   }
 
   const handlePrint = () => {
-    // Standard browser print (we handle layout in CSS via @media print)
-    window.print();
+    if (!confirmation) return
+    printReceiptPdf({
+      transactionId: confirmation.transactionId,
+      transactionDate: confirmation.transactionDate,
+      cashierName: 'Administrator',
+      customerName: confirmation.customerName,
+      customerPhone: confirmation.customerPhone,
+      paymentMethod: confirmation.paymentMethod,
+      dueDate: confirmation.dueDate,
+      totalAmount: confirmation.total,
+      discountAmount: confirmation.discount,
+      items: confirmation.cart.map(item => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        lineTotal: item.quantity * item.unitPrice,
+      })),
+    })
   }
 
   const generateReceiptText = () => {
@@ -176,21 +195,23 @@ export function RecordSalePage() {
     if (!confirmation) return
 
     // 1. Generate and download PDF
-    const element = document.getElementById('receipt-print-area')
-    if (element) {
-      const opt = {
-        margin:       3,
-        filename:     `Receipt_${confirmation.transactionId.substring(0, 8).toUpperCase()}.pdf`,
-        image:        { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: [80, 200] as [number, number], orientation: 'portrait' as const }
-      }
-      // Unhide for PDF generation
-      element.classList.remove('opacity-0')
-      await html2pdf().set(opt).from(element).save()
-      // Re-hide
-      element.classList.add('opacity-0')
-    }
+    downloadReceiptPdf({
+      transactionId: confirmation.transactionId,
+      transactionDate: confirmation.transactionDate,
+      cashierName: 'Administrator',
+      customerName: confirmation.customerName,
+      customerPhone: confirmation.customerPhone,
+      paymentMethod: confirmation.paymentMethod,
+      dueDate: confirmation.dueDate,
+      totalAmount: confirmation.total,
+      discountAmount: confirmation.discount,
+      items: confirmation.cart.map(item => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        lineTotal: item.quantity * item.unitPrice,
+      })),
+    })
 
     // 2. Send WhatsApp message
     const text = generateReceiptText()
@@ -220,9 +241,7 @@ export function RecordSalePage() {
     }
 
     return (
-      <>
-        {/* ─── ON-SCREEN CONFIRMATION ─── */}
-        <div className="space-y-6 min-h-screen pb-10 print:hidden">
+      <div className="space-y-6 min-h-screen pb-10">
           <PageHeader title="Record Sale" description="Direct sales processing" />
 
         <div className="max-w-2xl mx-auto px-2">
@@ -342,105 +361,6 @@ export function RecordSalePage() {
           </GlassCard>
         </div>
       </div>
-
-        {/* ─── THERMAL RECEIPT PRINT LAYOUT ─── */}
-        <div
-          id="receipt-print-area"
-          className="opacity-0"
-          style={{
-            position: 'fixed', left: 0, top: 0, pointerEvents: 'none', zIndex: -100,
-            width: '80mm', padding: '4mm', backgroundColor: '#ffffff', color: '#000000',
-            fontFamily: 'monospace, "Courier New"', fontSize: '12px', lineHeight: '1.4',
-          }}
-        >
-          {/* Header */}
-          <div style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '15px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Quincaillerie du Rwamagana
-            </div>
-            <div style={{ color: '#555', fontSize: '11px' }}>Rwamagana, Eastern Province</div>
-            <div style={{ marginTop: '6px', paddingTop: '6px', borderTop: '1px dashed #999', textAlign: 'left', fontSize: '11px' }}>
-              <div><strong>Receipt:</strong> #{confirmation.transactionId?.substring(0, 8).toUpperCase()}</div>
-              <div><strong>Date:</strong> {new Date(confirmation.transactionDate).toLocaleString()}</div>
-              <div><strong>Cashier:</strong> Administrator</div>
-            </div>
-          </div>
-
-          {/* Items table */}
-          <table style={{ width: '100%', fontSize: '11px', marginBottom: '8px', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px dashed #999' }}>
-                <th style={{ textAlign: 'left', paddingBottom: '3px', fontWeight: 'bold' }}>Item</th>
-                <th style={{ textAlign: 'center', paddingBottom: '3px', fontWeight: 'bold' }}>Qty</th>
-                <th style={{ textAlign: 'right', paddingBottom: '3px', fontWeight: 'bold' }}>Price</th>
-                <th style={{ textAlign: 'right', paddingBottom: '3px', fontWeight: 'bold' }}>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {confirmation.cart.map((item: CartItem, i: number) => (
-                <tr key={i} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '3px 2px 3px 0', wordBreak: 'break-word' }}>{item.productName}</td>
-                  <td style={{ padding: '3px', textAlign: 'center' }}>{item.quantity}</td>
-                  <td style={{ padding: '3px', textAlign: 'right' }}>{item.unitPrice.toLocaleString()}</td>
-                  <td style={{ padding: '3px', textAlign: 'right', fontWeight: 'bold' }}>{(item.quantity * item.unitPrice).toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Totals */}
-          <div style={{ borderTop: '1px dashed #999', paddingTop: '6px', marginBottom: '8px' }}>
-            {confirmation.discount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '2px' }}>
-                <span>Subtotal</span>
-                <span>{(confirmation.total + confirmation.discount).toLocaleString()}</span>
-              </div>
-            )}
-            {confirmation.discount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '2px' }}>
-                <span>Discount</span>
-                <span>-{confirmation.discount.toLocaleString()}</span>
-              </div>
-            )}
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '14px', paddingTop: '4px' }}>
-              <span>TOTAL</span>
-              <span>{confirmation.total.toLocaleString()} RWF</span>
-            </div>
-          </div>
-
-          {/* Payment & Customer */}
-          <div style={{ borderTop: '1px dashed #999', paddingTop: '6px', marginBottom: '12px', fontSize: '11px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
-              <span>Payment Method:</span>
-              <span style={{ fontWeight: 'bold' }}>{paymentLabel[confirmation.paymentMethod] ?? confirmation.paymentMethod}</span>
-            </div>
-            {confirmation.customerName && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
-                <span>Customer:</span>
-                <span style={{ fontWeight: 'bold' }}>{confirmation.customerName}</span>
-              </div>
-            )}
-            {confirmation.customerPhone && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
-                <span>Phone:</span>
-                <span style={{ fontWeight: 'bold' }}>{confirmation.customerPhone}</span>
-              </div>
-            )}
-            {confirmation.dueDate && isCredit && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#c00', fontWeight: 'bold' }}>
-                <span>Due by:</span>
-                <span>{confirmation.dueDate}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Footer */}
-          <div style={{ textAlign: 'center', fontSize: '11px', borderTop: '1px dashed #999', paddingTop: '8px', paddingBottom: '8px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '12px' }}>Thank you for your business!</div>
-            <div style={{ color: '#777', marginTop: '3px' }}>Goods once sold are not returnable.</div>
-          </div>
-        </div>
-      </>
     )
   }
 
@@ -571,13 +491,19 @@ export function RecordSalePage() {
                     {/* Name */}
                     <span className="text-sm font-medium text-on-glass truncate pr-1" title={item.productName}>{item.productName}</span>
 
-                    {/* Qty stepper */}
+                    {/* Qty stepper & input */}
                     <div className="flex items-center bg-charcoal-800 rounded-md border border-white/10 overflow-hidden shrink-0">
-                      <button onClick={() => updateCartQty(item.productId, -1)} aria-label="Decrease" className="w-6 h-7 flex items-center justify-center hover:bg-white/10 text-on-glass">
+                      <button onClick={() => updateCartQty(item.productId, item.quantity - 1)} aria-label="Decrease" className="w-6 h-7 flex items-center justify-center hover:bg-white/10 text-on-glass">
                         <Minus className="w-2.5 h-2.5" />
                       </button>
-                      <span className="w-7 text-center text-xs font-bold text-on-glass">{item.quantity}</span>
-                      <button onClick={() => updateCartQty(item.productId, 1)} aria-label="Increase" className="w-6 h-7 flex items-center justify-center hover:bg-white/10 text-on-glass">
+                      <input 
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => updateCartQty(item.productId, e.target.value)}
+                        className="w-8 text-center text-xs font-bold text-on-glass bg-transparent outline-none p-0 hide-spin-button"
+                      />
+                      <button onClick={() => updateCartQty(item.productId, item.quantity + 1)} aria-label="Increase" className="w-6 h-7 flex items-center justify-center hover:bg-white/10 text-on-glass">
                         <Plus className="w-2.5 h-2.5" />
                       </button>
                     </div>

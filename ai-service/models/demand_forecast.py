@@ -15,7 +15,7 @@ from config import (
     MODELS_DIR,
 )
 from data.feature_engineering import FeatureEngineer
-from utils.metrics import calculate_mape
+from utils.metrics import calculate_mape_capped, calculate_weekly_precision, calculate_seasonal_score
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +39,8 @@ class DemandForecastModel:
         self.lstm_sequence_length: int = LSTM_SEQUENCE_LENGTH
         self.feature_columns: list[str] = FeatureEngineer.forecast_feature_columns()
         self.mape: float = 12.5
+        self.weekly_precision: float = 0.0
+        self.seasonal_score: float = 0.0
         self.is_trained = False
 
     def _build_lstm(self, n_features: int, sequence_length: int | None = None):
@@ -80,8 +82,16 @@ class DemandForecastModel:
 
         self.gboost = GradientBoostingRegressor(**GBOOST_FORECAST_PARAMS)
         self.gboost.fit(X_train, y_train)
-        g_pred = self.gboost.predict(X_val)
-        self.mape = calculate_mape(y_val, g_pred) if len(y_val) else 12.5
+        g_pred = self.gboost.predict(X_val) if len(y_val) else np.array([])
+
+        # Use capped MAPE so near-zero actuals don't blow the metric past 100
+        self.mape = calculate_mape_capped(y_val, g_pred) if len(y_val) else 12.5
+
+        # Real 7-day precision: accuracy on the last 7 validation points
+        self.weekly_precision = calculate_weekly_precision(y_val, g_pred, n=7)
+
+        # Real seasonal detection: Pearson R² between actual monthly means and seasonal multipliers
+        self.seasonal_score = calculate_seasonal_score(df)
 
         if TF_AVAILABLE and len(X_train) > 12:
             self.lstm_sequence_length = min(
@@ -98,7 +108,12 @@ class DemandForecastModel:
 
         self.is_trained = True
         self.save()
-        return {"mape": round(self.mape, 2), "trained": True}
+        return {
+            "mape": round(self.mape, 2),
+            "weekly_precision": round(self.weekly_precision, 1),
+            "seasonal_score": round(self.seasonal_score, 1),
+            "trained": True,
+        }
 
     def _data_points(self, historical: list[dict]) -> int:
         if not historical:
@@ -358,7 +373,13 @@ class DemandForecastModel:
             joblib.dump(self.gboost, MODELS_DIR / "demand_gboost.joblib")
         if self.lstm is not None:
             self.lstm.save(MODELS_DIR / "demand_lstm.keras")
-        joblib.dump({"mape": self.mape, "feature_columns": self.feature_columns, "lstm_sequence_length": self.lstm_sequence_length}, MODELS_DIR / "demand_meta.joblib")
+        joblib.dump({
+            "mape": self.mape,
+            "weekly_precision": self.weekly_precision,
+            "seasonal_score": self.seasonal_score,
+            "feature_columns": self.feature_columns,
+            "lstm_sequence_length": self.lstm_sequence_length,
+        }, MODELS_DIR / "demand_meta.joblib")
 
     def load(self) -> bool:
         gboost_path = MODELS_DIR / "demand_gboost.joblib"
@@ -369,6 +390,8 @@ class DemandForecastModel:
         if meta_path.exists():
             meta = joblib.load(meta_path)
             self.mape = meta.get("mape", 12.5)
+            self.weekly_precision = meta.get("weekly_precision", 0.0)
+            self.seasonal_score = meta.get("seasonal_score", 0.0)
             self.feature_columns = meta.get("feature_columns", self.feature_columns)
             self.lstm_sequence_length = meta.get("lstm_sequence_length", LSTM_SEQUENCE_LENGTH)
         lstm_path = MODELS_DIR / "demand_lstm.keras"

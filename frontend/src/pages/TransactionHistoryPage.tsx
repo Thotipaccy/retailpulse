@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo, useRef } from 'react'
-import html2pdf from 'html2pdf.js'
+import { useState, useEffect, useMemo, Fragment } from 'react'
+import { printReceiptPdf, downloadReceiptPdf } from '../utils/receiptPdf'
 import { PageHeader } from '../components/ui/PageHeader'
 import { GlassCard } from '../components/ui/GlassCard'
 import { Pagination } from '../components/ui/Pagination'
 import {
   Search, Filter, Download, Phone, Printer, Eye, EyeOff,
-  CheckCircle, AlertTriangle, Clock, Calendar, User, CreditCard, Receipt
+  CheckCircle, AlertTriangle, Clock, Calendar, Receipt
 } from 'lucide-react'
 import { salesApi } from '../services/salesApi'
 
@@ -68,6 +68,7 @@ function StatusBadge({ status }: { status: string }) {
 export function TransactionHistoryPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
@@ -75,26 +76,35 @@ export function TransactionHistoryPage() {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [receiptTx, setReceiptTx] = useState<Transaction | null>(null)
   const PAGE_SIZE = 15
-  const receiptRef = useRef<HTMLDivElement>(null)
 
-  const fetchHistory = async () => {
-    setLoading(true)
+
+  useEffect(() => { 
+    const loadInitial = async () => {
+      setLoading(true)
+      try {
+        const data = await salesApi.getHistory({})
+        setTransactions(data as unknown as Transaction[])
+      } catch (err) {
+        console.error('Failed to load transaction history', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    void loadInitial()
+  }, [])
+
+  const refreshInBackground = async () => {
+    setLoadingMore(true)
     try {
-      const data = await salesApi.getHistory({
-        startDate: startDate || undefined,
-        endDate: endDate || undefined,
-      })
+      const data = await salesApi.getHistory({ startDate: startDate || undefined, endDate: endDate || undefined })
       setTransactions(data as unknown as Transaction[])
     } catch (err) {
-      console.error('Failed to load transaction history', err)
+      console.error('Failed to refresh', err)
     } finally {
-      setLoading(false)
+      setLoadingMore(false)
     }
   }
-
-  useEffect(() => { void fetchHistory() }, [])
 
   const filtered = useMemo(() => {
     return transactions.filter(tx => {
@@ -108,34 +118,19 @@ export function TransactionHistoryPage() {
     })
   }, [transactions, search, statusFilter, pmFilter])
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const paginated = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   const handleApplyDate = () => {
     setCurrentPage(1)
-    void fetchHistory()
+    void refreshInBackground()
   }
 
   const printOrDownloadPdf = async (tx: Transaction, mode: 'print' | 'download') => {
-    setReceiptTx(tx)
-    await new Promise(r => setTimeout(r, 100)) // let DOM render
     if (mode === 'print') {
-      window.print()
+      printReceiptPdf(tx)
     } else {
-      const el = document.getElementById('history-receipt-area')
-      if (!el) return
-      
-      el.classList.remove('opacity-0')
-      await html2pdf().set({
-        margin: 3,
-        filename: `Receipt_${tx.transactionId.substring(3, 11).toUpperCase()}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: [80, 200], orientation: 'portrait' },
-      }).from(el).save()
-      el.classList.add('opacity-0')
+      downloadReceiptPdf(tx)
     }
-    setReceiptTx(null)
   }
 
   const shareWhatsApp = async (tx: Transaction) => {
@@ -169,8 +164,9 @@ export function TransactionHistoryPage() {
   }
 
   return (
-    <div className="space-y-6 pb-10 print:hidden">
-      <PageHeader
+    <>
+      <div className="space-y-6 pb-10 print:hidden">
+        <PageHeader
         title="Transaction History"
         description="Browse, filter and re-print all past sales receipts"
       />
@@ -232,17 +228,31 @@ export function TransactionHistoryPage() {
           </div>
         </div>
 
-        <p className="text-xs text-on-glass-muted">
+        <p className="text-xs text-on-glass-muted flex items-center gap-2">
           Showing <span className="text-copper-light font-semibold">{filtered.length}</span> transaction{filtered.length !== 1 ? 's' : ''}
+          {loadingMore && (
+            <span className="inline-flex items-center gap-1 text-copper-light/70">
+              <span className="w-3 h-3 border border-copper/40 border-t-copper rounded-full animate-spin" />
+              refreshing…
+            </span>
+          )}
         </p>
       </GlassCard>
 
       {/* Table */}
       <GlassCard strong className="overflow-hidden p-0">
         {loading ? (
-          <div className="py-20 flex items-center justify-center gap-3 text-on-glass-muted">
-            <div className="w-5 h-5 border-2 border-copper/30 border-t-copper rounded-full animate-spin" />
-            Loading transactions…
+          // Skeleton rows — show immediately so page never looks empty
+          <div className="divide-y divide-white/5">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-4 px-4 py-3 animate-pulse">
+                <div className="h-4 w-24 bg-white/10 rounded" />
+                <div className="h-4 w-32 bg-white/8 rounded" />
+                <div className="h-4 w-28 bg-white/6 rounded" />
+                <div className="h-4 w-20 bg-white/8 rounded ml-auto" />
+                <div className="h-6 w-14 bg-white/6 rounded-full" />
+              </div>
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center text-on-glass-muted">
@@ -266,8 +276,8 @@ export function TransactionHistoryPage() {
                 </thead>
                 <tbody>
                   {paginated.map(tx => (
-                    <>
-                      <tr key={tx.transactionId}
+                    <Fragment key={tx.transactionId}>
+                      <tr
                         className="border-b border-white/5 hover:bg-white/3 transition-colors cursor-pointer"
                         onClick={() => setExpandedId(expandedId === tx.transactionId ? null : tx.transactionId)}
                       >
@@ -380,90 +390,19 @@ export function TransactionHistoryPage() {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </Fragment>
                   ))}
                 </tbody>
               </table>
             </div>
             <div className="px-4 py-3 border-t border-white/10">
-              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+              <Pagination currentPage={currentPage} totalItems={filtered.length} pageSize={PAGE_SIZE} onPageChange={setCurrentPage} />
             </div>
           </>
         )}
       </GlassCard>
 
-      {/* Hidden receipt area for PDF/print generation */}
-      {receiptTx && (
-        <div
-          id="history-receipt-area"
-          className="fixed left-0 top-0 bg-white text-black font-sans opacity-0 print:opacity-100"
-          style={{ width: '80mm', padding: '4mm', zIndex: -100, pointerEvents: 'none' }}
-        >
-          <div className="text-center mb-4">
-            <h1 className="text-xl font-bold uppercase tracking-tight">Quincaillerie du Rwamagana</h1>
-            <p className="text-sm text-gray-600">Rwamagana, Eastern Province</p>
-            <div className="mt-3 pt-3 border-t border-dashed border-gray-400 text-xs text-left">
-              <p><strong>Receipt:</strong> #{receiptTx.transactionId.substring(3, 11).toUpperCase()}</p>
-              <p><strong>Date:</strong> {new Date(receiptTx.transactionDate).toLocaleString()}</p>
-              <p><strong>Cashier:</strong> {receiptTx.cashierName}</p>
-            </div>
-          </div>
-
-          <table className="w-full text-sm mb-4">
-            <thead>
-              <tr className="border-b border-dashed border-gray-400">
-                <th className="text-left py-1 font-semibold">Item</th>
-                <th className="text-center py-1 font-semibold">Qty</th>
-                <th className="text-right py-1 font-semibold">Price</th>
-                <th className="text-right py-1 font-semibold">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {receiptTx.items.map((item, i) => (
-                <tr key={i} className="border-b border-gray-100 last:border-none">
-                  <td className="py-1.5 pr-1 break-words">{item.productName}</td>
-                  <td className="py-1.5 text-center">{item.quantity}</td>
-                  <td className="py-1.5 text-right">{Number(item.unitPrice).toLocaleString()}</td>
-                  <td className="py-1.5 text-right font-medium">{Number(item.lineTotal).toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className="border-t border-dashed border-gray-400 pt-2 mb-4 space-y-1">
-            {Number(receiptTx.discountAmount) > 0 && (
-              <>
-                <div className="flex justify-between text-sm">
-                  <span>Subtotal</span>
-                  <span>{(Number(receiptTx.totalAmount) + Number(receiptTx.discountAmount)).toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Discount</span>
-                  <span>-{Number(receiptTx.discountAmount).toLocaleString()}</span>
-                </div>
-              </>
-            )}
-            <div className="flex justify-between font-bold text-lg pt-1">
-              <span>TOTAL</span>
-              <span>{Number(receiptTx.totalAmount).toLocaleString()} RWF</span>
-            </div>
-          </div>
-
-          <div className="border-t border-dashed border-gray-400 pt-2 mb-6 text-xs space-y-1">
-            <p className="flex justify-between">
-              <span>Payment Method:</span>
-              <span className="font-medium">{PM_LABELS[receiptTx.paymentMethod] ?? receiptTx.paymentMethod}</span>
-            </p>
-            {receiptTx.customerName && <p className="flex justify-between"><span>Customer:</span><span className="font-medium">{receiptTx.customerName}</span></p>}
-            {receiptTx.customerPhone && <p className="flex justify-between"><span>Phone:</span><span className="font-medium">{receiptTx.customerPhone}</span></p>}
-          </div>
-
-          <div className="text-center text-xs border-t border-dashed border-gray-400 pt-4 pb-4">
-            <p className="font-semibold text-sm">Thank you for your business!</p>
-            <p className="text-gray-500 mt-1">Goods once sold are not returnable.</p>
-          </div>
-        </div>
-      )}
-    </div>
+      </div>
+    </>
   )
 }

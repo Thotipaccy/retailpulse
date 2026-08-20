@@ -1,7 +1,6 @@
 package com.retailpulse.repository;
 
 import com.retailpulse.model.Transaction;
-import com.retailpulse.model.enums.PaymentMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

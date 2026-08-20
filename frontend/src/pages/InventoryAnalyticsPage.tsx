@@ -125,11 +125,24 @@ export function InventoryAnalyticsPage() {
   const [stockCards, setStockCards] = useState<StockCard[]>([])
   const [stockPage, setStockPage] = useState(1)
   const [stockPageSize, setStockPageSize] = useState(8)
+  const [bestTimePage, setBestTimePage] = useState(1)
+  const [bestTimePageSize, setBestTimePageSize] = useState(6)
+  const [riskPage, setRiskPage] = useState(1)
+  const [riskPageSize, setRiskPageSize] = useState(6)
+  const [reorderPage, setReorderPage] = useState(1)
+  const [reorderPageSize, setReorderPageSize] = useState(10)
+  const [pendingPoPage, setPendingPoPage] = useState(1)
+  const [pendingPoPageSize, setPendingPoPageSize] = useState(5)
   const [risks, setRisks] = useState<RiskCard[]>([])
   const [riskDays, setRiskDays] = useState<7 | 14 | 30>(7)
   const [reorders, setReorders] = useState<ReorderRow[]>([])
   const [velocity, setVelocity] = useState<Array<{ category: string; unitsSold: number; type: string }>>([])
   const [stockSearch, setStockSearch] = useState('')
+  const [riskSearch, setRiskSearch] = useState('')
+  const [riskLevelFilter, setRiskLevelFilter] = useState<'all' | 'CRITICAL' | 'HIGH'>('all')
+  const [reorderSearch, setReorderSearch] = useState('')
+  const [reorderPriorityFilter, setReorderPriorityFilter] = useState<'all' | 'URGENT' | 'HIGH' | 'MEDIUM'>('all')
+  const [reorderStatusFilter, setReorderStatusFilter] = useState<'all' | 'active' | 'inactive'>('active')
   const [purchasePrefill, setPurchasePrefill] = useState<PurchaseLinePrefill[] | undefined>()
   const [pendingPOs, setPendingPOs] = useState<Array<{
     orderId: string
@@ -203,12 +216,12 @@ export function InventoryAnalyticsPage() {
 
   useEffect(() => {
     if (stockCards.length === 0) {
-      void Promise.resolve().then(() => setBestTimeSuggestions([]))
+      setTimeout(() => setBestTimeSuggestions([]), 0)
       return
     }
     let cancelled = false
-    const results: Array<{ productName: string; bestMonth?: string; avgUnitCost?: number; supplier?: string }> = []
     const fetchAll = async () => {
+      const results: Array<{ productName: string; bestMonth?: string; avgUnitCost?: number; supplier?: string }> = []
       for (const card of stockCards) {
         if (cancelled) return
         try {
@@ -220,18 +233,48 @@ export function InventoryAnalyticsPage() {
               avgUnitCost: res.avgUnitCost,
               supplier: res.recommendedSupplier,
             })
-            setBestTimeSuggestions([...results])
           }
         } catch {
           // skip products with no data
         }
       }
+      if (!cancelled) setBestTimeSuggestions(results)
     }
     void fetchAll()
     return () => { cancelled = true }
   }, [stockCards])
 
-  const filteredRisks = useMemo(() => risks.filter(r => r.daysLeft <= riskDays), [risks, riskDays])
+  const filteredRisks = useMemo(() => {
+    let result = risks.filter(r => r.daysLeft <= riskDays)
+    if (riskLevelFilter !== 'all') {
+      result = result.filter(r => r.level === riskLevelFilter)
+    }
+    const q = riskSearch.trim().toLowerCase()
+    if (q) {
+      result = result.filter(r => 
+        r.productName.toLowerCase().includes(q) || 
+        r.category.toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [risks, riskDays, riskLevelFilter, riskSearch])
+
+  const filteredReorders = useMemo(() => {
+    let result = reorders
+    if (reorderStatusFilter === 'active') result = result.filter(r => r.isActive)
+    if (reorderStatusFilter === 'inactive') result = result.filter(r => !r.isActive)
+    if (reorderPriorityFilter !== 'all') result = result.filter(r => r.priority === reorderPriorityFilter)
+    
+    const q = reorderSearch.trim().toLowerCase()
+    if (q) {
+      result = result.filter(r => 
+        r.productName.toLowerCase().includes(q) || 
+        r.category.toLowerCase().includes(q) ||
+        (r.skuCode ?? '').toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [reorders, reorderStatusFilter, reorderPriorityFilter, reorderSearch])
 
   const filteredStockCards = useMemo(() => {
     const q = stockSearch.trim().toLowerCase()
@@ -253,6 +296,19 @@ export function InventoryAnalyticsPage() {
   const startIndex = (stockPage - 1) * stockPageSize
   const endIndex = Math.min(filteredStockCards.length, startIndex + stockPageSize)
   const paginatedStockCards = filteredStockCards.slice(startIndex, endIndex)
+  
+  const bestTimeStartIndex = (bestTimePage - 1) * bestTimePageSize
+  const paginatedBestTime = bestTimeSuggestions.slice(bestTimeStartIndex, bestTimeStartIndex + bestTimePageSize)
+
+  const riskStartIndex = (riskPage - 1) * riskPageSize
+  const paginatedRisks = filteredRisks.slice(riskStartIndex, riskStartIndex + riskPageSize)
+
+  const reorderStartIndex = (reorderPage - 1) * reorderPageSize
+  const paginatedReorders = filteredReorders.slice(reorderStartIndex, reorderStartIndex + reorderPageSize)
+
+  const pendingPoStartIndex = (pendingPoPage - 1) * pendingPoPageSize
+  const paginatedPendingPOs = pendingPOs.slice(pendingPoStartIndex, pendingPoStartIndex + pendingPoPageSize)
+
   const activeReorders = reorders.filter((r) => r.isActive)
   const reorderTotal = activeReorders.reduce((sum, r) => sum + r.estCost, 0)
 
@@ -436,7 +492,7 @@ export function InventoryAnalyticsPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {bestTimeSuggestions.map((item, i) => (
+            {paginatedBestTime.map((item, i) => (
               <div key={`${item.productName}-${i}`} className="rounded-xl border border-forest/20 bg-forest/5 p-4">
                 <p className="text-sm font-semibold text-on-glass line-clamp-2">{item.productName}</p>
                 {item.bestMonth && (
@@ -457,96 +513,177 @@ export function InventoryAnalyticsPage() {
               </div>
             ))}
           </div>
+          <Pagination
+            currentPage={bestTimePage}
+            totalItems={bestTimeSuggestions.length}
+            pageSize={bestTimePageSize}
+            onPageChange={setBestTimePage}
+            onPageSizeChange={setBestTimePageSize}
+            pageSizeOptions={[6, 12, 24]}
+            className="mt-4"
+          />
         </GlassCard>
       )}
 
       <GlassCard className="border-rust/20 bg-gradient-to-br from-rust/10 to-ochre/10 p-5">
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-rust-light" />
             <div>
-              <h3 className="text-lg font-semibold text-on-glass">Stockout Risk Assessment</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-on-glass">Stockout Risk Assessment</h3>
+                <span className="rounded-full bg-rust/20 px-2 py-0.5 text-xs font-medium text-rust-light">{filteredRisks.length}</span>
+              </div>
               <p className="text-sm text-on-glass-muted">Products at risk of running out within {riskDays} days</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
-            {([7, 14, 30] as const).map((d) => (
-              <button
-                key={d}
-                type="button"
-                onClick={() => setRiskDays(d)}
-                className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                  riskDays === d
-                    ? 'bg-rust/80 text-white shadow'
-                    : 'text-on-glass-muted hover:text-on-glass'
-                }`}
-              >
-                {d}d
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-glass-muted" />
+              <input
+                type="text"
+                placeholder="Search risks..."
+                value={riskSearch}
+                onChange={(e) => setRiskSearch(e.target.value)}
+                className="w-full rounded-lg border border-white/10 bg-black/20 py-2 pl-9 pr-4 text-sm text-on-glass placeholder:text-on-glass-muted focus:border-rust-light focus:outline-none focus:ring-1 focus:ring-rust-light sm:w-64"
+              />
+            </div>
+            <select
+              value={riskLevelFilter}
+              onChange={(e) => setRiskLevelFilter(e.target.value as 'all' | 'CRITICAL' | 'HIGH')}
+              className="rounded-lg border border-white/10 bg-[#0d1411] px-3 py-2 text-sm text-on-glass focus:border-rust-light focus:outline-none focus:ring-1 focus:ring-rust-light"
+            >
+              <option value="all">All Levels</option>
+              <option value="CRITICAL">Critical Risk</option>
+              <option value="HIGH">High Risk</option>
+            </select>
+            <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
+              {([7, 14, 30] as const).map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setRiskDays(d)}
+                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                    riskDays === d
+                      ? 'bg-rust/80 text-white shadow'
+                      : 'text-on-glass-muted hover:text-on-glass'
+                  }`}
+                >
+                  {d}d
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         {filteredRisks.length === 0 ? (
           <EmptyState icon={<AlertTriangle className="h-6 w-6" />} title={`No stockout risks within ${riskDays} days`} description="All products have sufficient stock for this period." />
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {filteredRisks.map((risk, i) => (
-              <div key={`${risk.productName}-${i}`} className="rounded-xl border border-white/10 bg-white/5 p-4">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-medium text-on-glass">{risk.productName}</p>
-                    <p className="text-xs text-on-glass-muted">{risk.category}</p>
+          <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {paginatedRisks.map((risk, i) => (
+                <div key={`${risk.productName}-${i}`} className="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-medium text-on-glass">{risk.productName}</p>
+                      <p className="text-xs text-on-glass-muted">{risk.category}</p>
+                    </div>
+                    {getPriorityBadge(risk.level)}
                   </div>
-                  {getPriorityBadge(risk.level)}
+                  <div className="mt-3 flex gap-6 text-sm">
+                    <div><p className="text-on-glass-muted">On hand</p><p className="font-semibold text-on-glass">{risk.quantityOnHand}</p></div>
+                    <div><p className="text-on-glass-muted">Days left</p><p className={`font-semibold ${risk.daysLeft <= 2 ? 'text-rust-light' : risk.daysLeft <= 7 ? 'text-ochre' : 'text-forest-light'}`}>{risk.daysLeft} days</p></div>
+                  </div>
                 </div>
-                <div className="mt-3 flex gap-6 text-sm">
-                  <div><p className="text-on-glass-muted">On hand</p><p className="font-semibold text-on-glass">{risk.quantityOnHand}</p></div>
-                  <div><p className="text-on-glass-muted">Days left</p><p className={`font-semibold ${risk.daysLeft <= 2 ? 'text-rust-light' : risk.daysLeft <= 7 ? 'text-ochre' : 'text-forest-light'}`}>{risk.daysLeft} days</p></div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <Pagination
+              currentPage={riskPage}
+              totalItems={filteredRisks.length}
+              pageSize={riskPageSize}
+              onPageChange={setRiskPage}
+              onPageSizeChange={setRiskPageSize}
+              pageSizeOptions={[6, 12, 20]}
+              className="mt-4"
+            />
+          </>
         )}
       </GlassCard>
 
       <GlassCard className="p-5">
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-on-glass">Reorder Recommendations</h3>
-            <p className="text-sm text-on-glass-muted">Suggested purchase orders based on stock levels</p>
-          </div>
-          {reorders.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setAutoReorderOpen(true)}
-                className="inline-flex items-center gap-2 rounded-lg border border-copper/40 bg-copper/10 px-4 py-2 text-sm font-medium text-copper-light hover:bg-copper/20"
-              >
-                <ShoppingCart className="h-4 w-4" />
-                Auto-Create POs
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setPurchasePrefill(activeReorders.map((r) => ({
-                    productId: r.productId,
-                    quantity: r.orderQty,
-                    unitCost: Number(r.unitPrice),
-                  })))
-                  setRecordPurchaseOpen(true)
-                }}
-                className="inline-flex items-center gap-2 rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:bg-copper-light"
-              >
-                <ShoppingCart className="h-4 w-4" />
-                Create Purchase Orders
-              </button>
+        <div className="mb-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-on-glass">Reorder Recommendations</h3>
+                <span className="rounded-full bg-copper/20 px-2 py-0.5 text-xs font-medium text-copper-light">{filteredReorders.length}</span>
+              </div>
+              <p className="text-sm text-on-glass-muted">Suggested purchase orders based on stock levels</p>
             </div>
-          )}
+            {reorders.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAutoReorderOpen(true)}
+                  className="inline-flex items-center gap-2 rounded-lg border border-copper/40 bg-copper/10 px-4 py-2 text-sm font-medium text-copper-light hover:bg-copper/20"
+                >
+                  <ShoppingCart className="h-4 w-4" />
+                  Auto-Create POs
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPurchasePrefill(activeReorders.map((r) => ({
+                      productId: r.productId,
+                      quantity: r.orderQty,
+                      unitCost: Number(r.unitPrice),
+                    })))
+                    setRecordPurchaseOpen(true)
+                  }}
+                  className="inline-flex items-center gap-2 rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:bg-copper-light"
+                >
+                  <ShoppingCart className="h-4 w-4" />
+                  Create Purchase Orders
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-glass-muted" />
+              <input
+                type="text"
+                placeholder="Search products or SKU..."
+                value={reorderSearch}
+                onChange={(e) => setReorderSearch(e.target.value)}
+                className="w-full rounded-lg border border-white/10 bg-black/20 py-2 pl-9 pr-4 text-sm text-on-glass placeholder:text-on-glass-muted focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper sm:w-64"
+              />
+            </div>
+            <select
+              value={reorderPriorityFilter}
+              onChange={(e) => setReorderPriorityFilter(e.target.value as 'all' | 'URGENT' | 'HIGH' | 'MEDIUM')}
+              className="rounded-lg border border-white/10 bg-[#0d1411] px-3 py-2 text-sm text-on-glass focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper"
+            >
+              <option value="all">All Priorities</option>
+              <option value="URGENT">Urgent Priority</option>
+              <option value="HIGH">High Priority</option>
+              <option value="MEDIUM">Medium Priority</option>
+            </select>
+            <select
+              value={reorderStatusFilter}
+              onChange={(e) => setReorderStatusFilter(e.target.value as 'all' | 'active' | 'inactive')}
+              className="rounded-lg border border-white/10 bg-[#0d1411] px-3 py-2 text-sm text-on-glass focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper"
+            >
+              <option value="all">All Statuses</option>
+              <option value="active">Active Only</option>
+              <option value="inactive">Removed Only</option>
+            </select>
+          </div>
         </div>
         {reorders.length === 0 ? (
           <EmptyState icon={<ShoppingCart className="h-6 w-6" />} title="No reorder recommendations" description="All products are adequately stocked." />
         ) : (
-          <div className="overflow-x-auto">
+          <>
+            <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] text-sm">
               <thead>
                 <tr className="border-b border-white/10 text-left text-on-glass-muted">
@@ -563,7 +700,7 @@ export function InventoryAnalyticsPage() {
                 </tr>
               </thead>
               <tbody>
-                {reorders.map((row) => (
+                {paginatedReorders.map((row) => (
                   <tr key={row.productId} className={`border-b border-white/5 transition-colors hover:bg-white/5 ${!row.isActive ? 'opacity-70' : ''}`}>
                     <td className="py-3 pr-4 font-medium text-on-glass">
                       <div>{row.productName}{!row.isActive && <StatusBadge variant="neutral">Inactive</StatusBadge>}</div>
@@ -607,6 +744,15 @@ export function InventoryAnalyticsPage() {
               </tfoot>
             </table>
           </div>
+          <Pagination
+            currentPage={reorderPage}
+            totalItems={reorders.length}
+            pageSize={reorderPageSize}
+            onPageChange={setReorderPage}
+            onPageSizeChange={setReorderPageSize}
+            className="mt-4 px-2"
+          />
+          </>
         )}
       </GlassCard>
 
@@ -628,7 +774,7 @@ export function InventoryAnalyticsPage() {
                 </tr>
               </thead>
               <tbody>
-                {pendingPOs.map((po) => (
+                {paginatedPendingPOs.map((po) => (
                   <tr key={po.orderId} className="border-b border-white/5 transition-colors hover:bg-white/5">
                     <td className="py-3 pr-4 font-medium text-on-glass">{po.orderId}</td>
                     <td className="py-3 pr-4 text-on-glass-muted">{new Date(po.createdAt).toLocaleDateString()}</td>
@@ -656,6 +802,15 @@ export function InventoryAnalyticsPage() {
               </tbody>
             </table>
           </div>
+          <Pagination
+            currentPage={pendingPoPage}
+            totalItems={pendingPOs.length}
+            pageSize={pendingPoPageSize}
+            onPageChange={setPendingPoPage}
+            onPageSizeChange={setPendingPoPageSize}
+            pageSizeOptions={[5, 10, 20]}
+            className="mt-4 px-2"
+          />
         </GlassCard>
       )}
 

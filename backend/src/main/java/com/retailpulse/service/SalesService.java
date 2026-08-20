@@ -33,6 +33,7 @@ public class SalesService {
     private final PaymentHistoryRepository paymentHistoryRepository;
     private final CustomUserDetailsService userDetailsService;
     private final AuditLogService auditLogService;
+    private final ModelRetrainingScheduler retrainingScheduler;
 
     private LocalDateTime parseDate(String dateStr, boolean endOfDay) {
         if (dateStr == null || dateStr.isBlank() || "undefined".equals(dateStr)) return null;
@@ -448,6 +449,12 @@ public class SalesService {
         transaction.setItems(items);
 
         transactionRepository.save(transaction);
+
+        // Notify the retraining scheduler — increments counter toward 30-record threshold.
+        // Fire-and-forget: never throws, never blocks the sale response.
+        try {
+            retrainingScheduler.notifyNewRecord(items.size());
+        } catch (Exception ignored) { }
 
         auditLogService.log(userId, "SALE_RECORDED", "Recorded sale " + transactionId + ", Total: " + totalAmount, "transactions", transactionId);
 

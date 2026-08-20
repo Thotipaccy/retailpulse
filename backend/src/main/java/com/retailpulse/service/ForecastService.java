@@ -31,6 +31,7 @@ public class ForecastService {
     private final CategoryRepository categoryRepository;
     private final StoreRepository storeRepository;
     private final AIServiceClient aiServiceClient;
+    private final AuditLogService auditLogService;
 
     @Transactional(readOnly = true)
     public Map<String, Object> getStatus() {
@@ -529,5 +530,42 @@ public class ForecastService {
 
     private double round1(double value) {
         return BigDecimal.valueOf(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    // ── Admin / IT methods (not exposed to regular users) ──────────────────
+
+    /**
+     * Manually trigger background retraining.
+     * Returns immediately with the AI service's response.
+     * Training happens in AI service daemon thread.
+     */
+    public Map<String, Object> triggerRetrain(String reason) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        if (!aiServiceClient.isHealthy()) {
+            result.put("status", "unavailable");
+            result.put("message", "AI service is not reachable");
+            return result;
+        }
+        Optional<Map<String, Object>> response = aiServiceClient.retrain(
+                Map.of("reason", reason != null ? reason : "manual", "min_records", 0));
+        result = response.orElseGet(() -> Map.of("status", "no_response", "message", "AI service did not respond"));
+        auditLogService.logSystem("AI_RETRAIN_MANUAL",
+                "Manual retrain triggered via API (reason=" + reason + ")",
+                "ai_models", reason);
+        return result;
+    }
+
+    /**
+     * Get current training pipeline state from the AI service.
+     * Returns idle/training/completed/failed with metrics.
+     */
+    public Map<String, Object> getTrainingStatus() {
+        return aiServiceClient.getTrainingStatus().orElseGet(() -> {
+            Map<String, Object> fallback = new LinkedHashMap<>();
+            fallback.put("status", "unknown");
+            fallback.put("message", "AI service not reachable");
+            fallback.put("aiServiceHealthy", false);
+            return fallback;
+        });
     }
 }

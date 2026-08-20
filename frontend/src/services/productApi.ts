@@ -43,4 +43,9 @@ export const productApi = {
     const { data } = await api.delete(`/products/${id}`)
     unwrap({ data })
   },
+
+  async reactivate(id: string): Promise<void> {
+    const { data } = await api.put(`/products/${id}/reactivate`)
+    unwrap({ data })
+  },
 }

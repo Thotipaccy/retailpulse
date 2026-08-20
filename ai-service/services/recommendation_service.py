@@ -117,6 +117,7 @@ class RecommendationService:
 
         product_histories = payload.get("product_histories") or {}
         product_names = payload.get("product_names") or {}
+        product_categories = payload.get("product_categories") or {}
         per_season_limit = max(5, limit // 4)  # top N products per season
 
         if not product_histories:
@@ -145,8 +146,34 @@ class RecommendationService:
                 trend = self._recent_trend_multiplier(p_history)
                 pred = self.demand_model.predict_product(p_history, horizon="weekly", product_id=pid)
                 overall_predicted = max(0.0, pred.get("predicted_demand", 0) * 12)
-                confidence = max(0.5, 1.0 - (pred.get("model_mape", 10) / 100.0))
+
+                # ── Multi-factor confidence (no artificial floor) ─────────────
+                model_mape = pred.get("model_mape", 50.0)
+                # 1. Model accuracy score: decreases as MAPE rises. 0% MAPE → 1.0, 100% MAPE → 0.0
+                model_score = max(0.0, 1.0 - (model_mape / 100.0))
+
+                # 2. Data volume score: more unique sales dates = higher trust
+                n_data_points = len(p_history)  # unique date records for this product
+                data_score = min(1.0, n_data_points / 60.0)  # 60 records → full score
+
+                # 3. Seasonal concentration score: if a product clearly peaks in
+                #    one season (high share), that seasonal recommendation is reliable.
+                #    A flat distribution (0.25 per season) → low score.
+                max_season_share = max(breakdown.values(), default=0.0) / total_qty
+                # Scale: 0.25 (uniform) → 0.0, 1.0 (all in one season) → 1.0
+                concentration_score = max(0.0, (max_season_share - 0.25) / 0.75)
+
+                # Weighted combination (model 40%, data quality 30%, seasonality 30%)
+                confidence = (
+                    0.40 * model_score
+                    + 0.30 * data_score
+                    + 0.30 * concentration_score
+                )
+                # Clamp to [0.10, 0.95] — never claim perfection or zero knowledge
+                confidence = max(0.10, min(0.95, confidence))
+                # ─────────────────────────────────────────────────────────────
                 product_name = product_names.get(str(pid), f"Product {pid}")
+                product_category = product_categories.get(str(pid), "General")
                 results = []
                 for season in ("Spring", "Summer", "Autumn", "Winter"):
                     share = breakdown.get(season, 0) / total_qty
@@ -154,8 +181,11 @@ class RecommendationService:
                     results.append({
                         "product_id": pid,
                         "product_name": product_name,
+                        "category": product_category,
                         "_score": score,
                         "predicted_demand": round(share * overall_predicted, 1),
+                        "seasonal_share": round(share, 3),
+                        "n_data_points": n_data_points,
                         "confidence": round(confidence, 3),
                         "season": season,
                         "type": "seasonal_forecast",

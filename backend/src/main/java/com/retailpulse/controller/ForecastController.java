@@ -37,4 +37,24 @@ public class ForecastController {
     public ApiResponse<?> getAccuracy() {
         return ApiResponse.ok(forecastService.getAccuracy());
     }
+
+    /**
+     * IT/Admin endpoint — triggers background model retraining.
+     * Returns immediately. Training runs in AI service daemon thread.
+     * Not linked to any user-facing page.
+     */
+    @PostMapping("/retrain")
+    public ApiResponse<?> triggerRetrain(
+            @RequestParam(defaultValue = "manual_api") String reason) {
+        return ApiResponse.ok(forecastService.triggerRetrain(reason));
+    }
+
+    /**
+     * IT/Admin endpoint — polls AI training pipeline state.
+     * Returns: {status, started_at, completed_at, mape, weekly_precision, seasonal_score}
+     */
+    @GetMapping("/training-status")
+    public ApiResponse<?> getTrainingStatus() {
+        return ApiResponse.ok(forecastService.getTrainingStatus());
+    }
 }

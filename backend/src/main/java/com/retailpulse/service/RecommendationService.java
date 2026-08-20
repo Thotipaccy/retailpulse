@@ -265,6 +265,9 @@ public class RecommendationService {
         m.put("category", ai.getOrDefault("category", "General"));
         m.put("confidenceScore", ai.getOrDefault("confidence", 0.0));
         m.put("predictedDemand", ai.getOrDefault("predicted_demand", 0));
+        m.put("seasonalShare", ai.getOrDefault("seasonal_share", null));
+        m.put("nDataPoints", ai.getOrDefault("n_data_points", null));
+        m.put("totalQuantity", ai.getOrDefault("predicted_demand", null)); // use predicted demand as proxy for qty
         m.put("aiPowered", true);
         return m;
     }

@@ -30,7 +30,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<Map<String, Object>> list() {
-        List<Product> products = productRepository.findAllActiveWithCategory();
+        List<Product> products = productRepository.findAllWithCategory();
         Map<String, Integer> stockByProduct = inventoryRecordRepository.findAllWithDetails().stream()
                 .collect(Collectors.groupingBy(
                         ir -> ir.getProduct().getProductId(),
@@ -116,6 +116,14 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         product.setIsActive(false);
+        productRepository.save(product);
+    }
+
+    @Transactional
+    public void reactivate(String id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        product.setIsActive(true);
         productRepository.save(product);
     }
 
