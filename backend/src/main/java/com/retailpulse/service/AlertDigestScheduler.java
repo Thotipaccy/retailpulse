@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -25,8 +26,8 @@ public class AlertDigestScheduler {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
-    // Disabled in development — digest emails consume Gmail daily quota
-    // @Scheduled(cron = "0 0 * * * *")
+    // Enabled for production
+    @Scheduled(cron = "0 0 * * * *")
     @Transactional
     public void sendScheduledDigests() {
         sendDigestsForFrequency("hourly");

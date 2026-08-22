@@ -41,8 +41,8 @@ public class CustomerMonitorJob {
                 // we'll just leverage that method and filter for VIPs.
             }
             
-            // Let's actually use the existing getChurnRisks method which already calls the AI service
             List<java.util.Map<String, Object>> risks = customerService.getChurnRisks();
+            List<String> atRiskVIPs = new java.util.ArrayList<>();
             
             for (java.util.Map<String, Object> riskMap : risks) {
                 Boolean isActive = (Boolean) riskMap.getOrDefault("isActive", true);
@@ -56,7 +56,6 @@ public class CustomerMonitorJob {
                                 lifetimeValue.compareTo(new BigDecimal("300000")) > 0;
                 
                 if (isVIP) {
-                    // Check AI refined probability if available, otherwise fallback to DB churn risk
                     String churnProbStr = riskMap.containsKey("churnProbability") ? 
                             riskMap.get("churnProbability").toString() : 
                             riskMap.getOrDefault("churnRisk", "0").toString();
@@ -65,17 +64,22 @@ public class CustomerMonitorJob {
                     
                     if (churnRisk > 0.60) {
                         String name = (String) riskMap.get("customerName");
-                        String msg = String.format("URGENT: VIP Customer '%s' has a high churn risk of %.0f%%. Immediate outreach recommended.", 
-                                name, churnRisk * 100);
-                        
-                        log.warn(msg);
-                        alertService.createSystemAlert(
-                                "High Churn Risk - VIP", 
-                                msg, 
-                                "CRITICAL"
-                        );
+                        atRiskVIPs.add(String.format("%s (%.0f%% risk)", name, churnRisk * 100));
                     }
                 }
+            }
+
+            if (!atRiskVIPs.isEmpty()) {
+                String msg = String.format("URGENT: %d VIP Customers have a high churn risk. Immediate outreach recommended. (e.g. %s)", 
+                        atRiskVIPs.size(),
+                        String.join(", ", atRiskVIPs.subList(0, Math.min(3, atRiskVIPs.size()))));
+                
+                log.warn(msg);
+                alertService.createSystemAlert(
+                        "High Churn Risk - VIP Summary", 
+                        msg, 
+                        "CRITICAL"
+                );
             }
             
             log.info("Finished scanning VIP customers.");

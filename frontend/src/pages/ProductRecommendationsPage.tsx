@@ -478,12 +478,11 @@ export function ProductRecommendationsPage() {
                       {activeTab === 'fbt' ? 'Source Product' : activeTab === 'upsell' ? 'Current Product' : 'Recommended Product'}
                     </th>
                     {(activeTab === 'fbt' || activeTab === 'upsell') && <th className="px-4 py-3 font-medium">Recommended Product</th>}
-                    <th className="px-4 py-3 font-medium">Category</th>
+                    {activeTab !== 'fbt' && <th className="px-4 py-3 font-medium">Category</th>}
                     <th className="px-4 py-3 font-medium">Confidence</th>
                     {activeTab === 'fbt' && <th className="px-4 py-3 text-right font-medium">Co-occurrences</th>}
                     {activeTab === 'seasonal' && <th className="px-4 py-3 text-right font-medium">Predicted Demand</th>}
-                    {activeTab === 'seasonal' && <th className="px-4 py-3 text-right font-medium">Season Share</th>}
-                    <th className="px-4 py-3 font-medium">AI</th>
+                    {activeTab === 'seasonal' && <th className="px-4 py-3 text-right font-medium">% of Annual Demand</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -520,7 +519,7 @@ export function ProductRecommendationsPage() {
                         </td>
                       )}
 
-                      <td className="px-4 py-3 text-on-glass-muted">{str(row.category) || '—'}</td>
+                      {activeTab !== 'fbt' && <td className="px-4 py-3 text-on-glass-muted">{str(row.category) || '—'}</td>}
 
                       <td className="px-4 py-3">{confidenceBadge(row.confidenceScore)}</td>
 
@@ -541,12 +540,6 @@ export function ProductRecommendationsPage() {
                             : <span className="text-xs text-on-glass-muted">—</span>}
                         </td>
                       )}
-
-                      <td className="px-4 py-3">
-                        {row.aiPowered
-                          ? <span className="flex items-center gap-1 text-xs text-steel-light"><Brain className="h-3 w-3" />AI</span>
-                          : <span className="text-xs text-on-glass-muted">Local</span>}
-                      </td>
                     </tr>
                   ))}
                 </tbody>

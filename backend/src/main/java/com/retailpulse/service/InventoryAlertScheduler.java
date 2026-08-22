@@ -45,6 +45,9 @@ public class InventoryAlertScheduler {
             Map<String, Object> prefs = preferenceService.getPreferences(admin.getUserId());
             int lowStockThreshold = ((Number) preferenceService.thresholds(prefs).get("lowStock")).intValue();
 
+            List<String> criticalProducts = new java.util.ArrayList<>();
+            List<String> lowStockProducts = new java.util.ArrayList<>();
+
             for (InventoryRecord record : records) {
                 int qty = record.getQuantityOnHand();
                 int reorderPoint = record.getProduct().getReorderPoint();
@@ -52,36 +55,47 @@ public class InventoryAlertScheduler {
                 String productName = record.getProduct().getProductName();
                 String productId = record.getProduct().getProductId();
 
-                if (qty < reorderPoint || qty <= lowStockThreshold) {
-                    String message = "Low stock: " + productName + " (" + productId + ") has " + qty
-                            + " units (reorder point: " + reorderPoint + ", threshold: " + lowStockThreshold + ")";
-                    if (!recentAlertExists(recentAlerts, admin.getUserId(), "LOW_STOCK", productId)) {
-                        boolean delivered = deliveryService.deliverInAppOnly(
-                                admin.getUserId(), "LOW_STOCK", AlertSeverity.HIGH, message);
-                        if (delivered) {
-                            auditLogService.logSystem("INVENTORY_ALERT", message, "inventory_records", "LOW_STOCK");
-                        }
+                boolean isLowStock = qty < reorderPoint || qty <= lowStockThreshold;
+                boolean isCritical = stockoutRisk.compareTo(new BigDecimal("0.7")) >= 0;
+
+                if (isCritical) {
+                    criticalProducts.add(productName + " (" + productId + ")");
+                } else if (isLowStock) {
+                    lowStockProducts.add(productName + " (" + productId + ")");
+                }
+            }
+
+            if (!criticalProducts.isEmpty()) {
+                String message = String.format("Inventory Summary: %d items are at critical stockout risk. (e.g. %s)", 
+                        criticalProducts.size(), 
+                        String.join(", ", criticalProducts.subList(0, Math.min(3, criticalProducts.size()))));
+                if (!recentAlertExists(recentAlerts, admin.getUserId(), "CRITICAL_STOCKOUT_SUMMARY")) {
+                    boolean delivered = deliveryService.deliverInAppOnly(
+                            admin.getUserId(), "CRITICAL_STOCKOUT_SUMMARY", AlertSeverity.CRITICAL, message);
+                    if (delivered) {
+                        auditLogService.logSystem("INVENTORY_ALERT", message, "inventory_records", "CRITICAL_STOCKOUT");
                     }
                 }
+            }
 
-                if (stockoutRisk.compareTo(new BigDecimal("0.7")) >= 0) {
-                    String message = "Critical stockout risk: " + productName + " (risk " + stockoutRisk + ")";
-                    if (!recentAlertExists(recentAlerts, admin.getUserId(), "CRITICAL_STOCKOUT", productId)) {
-                        boolean delivered = deliveryService.deliverInAppOnly(
-                                admin.getUserId(), "CRITICAL_STOCKOUT", AlertSeverity.CRITICAL, message);
-                        if (delivered) {
-                            auditLogService.logSystem("INVENTORY_ALERT", message, "inventory_records", "CRITICAL_STOCKOUT");
-                        }
+            if (!lowStockProducts.isEmpty()) {
+                String message = String.format("Inventory Summary: %d items have low stock. (e.g. %s)", 
+                        lowStockProducts.size(), 
+                        String.join(", ", lowStockProducts.subList(0, Math.min(3, lowStockProducts.size()))));
+                if (!recentAlertExists(recentAlerts, admin.getUserId(), "LOW_STOCK_SUMMARY")) {
+                    boolean delivered = deliveryService.deliverInAppOnly(
+                            admin.getUserId(), "LOW_STOCK_SUMMARY", AlertSeverity.HIGH, message);
+                    if (delivered) {
+                        auditLogService.logSystem("INVENTORY_ALERT", message, "inventory_records", "LOW_STOCK");
                     }
                 }
             }
         }
     }
 
-    private boolean recentAlertExists(List<com.retailpulse.model.Alert> recentAlerts, String userId, String alertType, String productId) {
+    private boolean recentAlertExists(List<com.retailpulse.model.Alert> recentAlerts, String userId, String alertType) {
         return recentAlerts.stream()
                 .anyMatch(a -> alertType.equals(a.getAlertType())
-                        && a.getUser().getUserId().equals(userId)
-                        && a.getMessage() != null && a.getMessage().contains(productId));
+                        && a.getUser().getUserId().equals(userId));
     }
 }

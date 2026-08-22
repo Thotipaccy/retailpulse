@@ -5,7 +5,6 @@ import com.retailpulse.model.Alert;
 import com.retailpulse.model.User;
 import com.retailpulse.model.enums.AlertSeverity;
 import com.retailpulse.repository.AlertRepository;
-import com.retailpulse.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +18,9 @@ import java.util.Map;
 public class AlertService {
 
     private final AlertRepository alertRepository;
-    private final CustomUserDetailsService userDetailsService;
     private final AlertPreferenceService preferenceService;
     private final AlertDeliveryService deliveryService;
+    private final com.retailpulse.repository.UserRepository userRepository;
 
     public List<Map<String, Object>> getAlerts(String userId, String filter) {
         Map<String, Object> prefs = preferenceService.getPreferences(userId);
@@ -50,6 +49,22 @@ public class AlertService {
         alerts.forEach(a -> a.setIsRead(true));
         alertRepository.saveAll(alerts);
         return Map.of("markedRead", alerts.size());
+    }
+
+    @Transactional
+    public Map<String, Object> deleteAlert(String alertId) {
+        if (!alertRepository.existsById(alertId)) {
+            throw new ResourceNotFoundException("Alert not found");
+        }
+        alertRepository.deleteById(alertId);
+        return Map.of("alertId", alertId, "deleted", true);
+    }
+
+    @Transactional
+    public Map<String, Object> clearAllAlerts(String userId) {
+        long count = alertRepository.countByUserUserId(userId);
+        alertRepository.deleteByUserUserId(userId);
+        return Map.of("deleted", count);
     }
 
     public List<Map<String, Object>> getRules(String userId) {
@@ -85,6 +100,9 @@ public class AlertService {
         } else if ("forecast-update".equals(ruleId)) {
             thresholdKey = "aiAccuracy";
             alertTypeKey = "system";
+        } else if ("target-deviation".equals(ruleId)) {
+            thresholdKey = "targetDeviation";
+            alertTypeKey = "sales";
         } else {
             throw new IllegalArgumentException("Unknown rule ID: " + ruleId);
         }
@@ -124,14 +142,20 @@ public class AlertService {
 
     @Transactional
     public void createSystemAlert(String title, String message, String severity) {
-        User admin = userDetailsService.loadEntityById("u1");
         AlertSeverity sev = switch (severity != null ? severity.toLowerCase() : "medium") {
             case "critical" -> AlertSeverity.CRITICAL;
             case "high" -> AlertSeverity.HIGH;
             case "low" -> AlertSeverity.LOW;
             default -> AlertSeverity.MEDIUM;
         };
-        deliveryService.deliver(admin.getUserId(), title, sev, message);
+
+        List<User> admins = userRepository.findAll().stream()
+                .filter(u -> com.retailpulse.model.enums.UserRole.ADMIN.equals(u.getRole()))
+                .toList();
+
+        for (User admin : admins) {
+            deliveryService.deliver(admin.getUserId(), title, sev, message);
+        }
     }
 
     public Map<String, Object> getPreferences(String userId) {

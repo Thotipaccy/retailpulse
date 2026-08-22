@@ -37,6 +37,7 @@ public class RecommendationService {
         return summary;
     }
 
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getCrossSell() {
         Optional<List<Map<String, Object>>> aiRecs = aiServiceClient.getRecommendations("cross_sell", 10);
         if (aiRecs.isPresent() && !aiRecs.get().isEmpty()) {
@@ -243,6 +244,7 @@ public class RecommendationService {
         return results.stream().limit(10).toList();
     }
 
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getPersonalized() {
         Optional<List<Map<String, Object>>> aiRecs = aiServiceClient.getRecommendations("personalized", 10);
         if (aiRecs.isPresent() && !aiRecs.get().isEmpty()) {
@@ -257,12 +259,24 @@ public class RecommendationService {
 
     private Map<String, Object> mapAiRecommendation(Map<String, Object> ai) {
         Map<String, Object> m = new LinkedHashMap<>();
-        m.put("recommendationId", "ai-" + ai.get("product_id"));
+        String productId = String.valueOf(ai.get("product_id"));
+        m.put("recommendationId", "ai-" + productId);
         m.put("sourceProduct", "AI Forecast");
-        m.put("recommendedProduct", ai.getOrDefault("product_name", ai.get("product_id")));
+        m.put("recommendedProduct", ai.getOrDefault("product_name", productId));
         m.put("season", ai.getOrDefault("season", MONTH_TO_SEASON.getOrDefault(
                 java.time.LocalDate.now().getMonthValue(), "Summer")));
-        m.put("category", ai.getOrDefault("category", "General"));
+        
+        String category = String.valueOf(ai.getOrDefault("category", "General"));
+        if ("General".equals(category) && !productId.isEmpty() && !"null".equals(productId)) {
+            productRepository.findById(productId).ifPresent(p -> {
+                if (p.getCategory() != null && p.getCategory().getCategoryName() != null) {
+                    m.put("category", p.getCategory().getCategoryName());
+                }
+            });
+        } else {
+            m.put("category", category);
+        }
+
         m.put("confidenceScore", ai.getOrDefault("confidence", 0.0));
         m.put("predictedDemand", ai.getOrDefault("predicted_demand", 0));
         m.put("seasonalShare", ai.getOrDefault("seasonal_share", null));

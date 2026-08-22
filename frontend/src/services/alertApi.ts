@@ -19,6 +19,16 @@ export const alertApi = {
     unwrap({ data })
   },
 
+  async deleteAlert(id: string): Promise<void> {
+    const { data } = await api.delete(`/alerts/${id}`)
+    unwrap({ data })
+  },
+
+  async clearAllAlerts(): Promise<void> {
+    const { data } = await api.delete('/alerts/clear-all')
+    unwrap({ data })
+  },
+
   async getRules(): Promise<Record<string, unknown>[]> {
     const { data } = await api.get('/alerts/rules')
     return unwrap<Record<string, unknown>[]>({ data })

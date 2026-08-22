@@ -27,6 +27,16 @@ public class AlertController {
         return ApiResponse.ok(alertService.markAsRead(id), "Alert marked as read");
     }
 
+    @DeleteMapping("/{id}")
+    public ApiResponse<?> deleteAlert(@PathVariable String id) {
+        return ApiResponse.ok(alertService.deleteAlert(id), "Alert deleted");
+    }
+
+    @DeleteMapping("/clear-all")
+    public ApiResponse<?> clearAllAlerts(Authentication auth) {
+        return ApiResponse.ok(alertService.clearAllAlerts(resolveUserId(auth)), "All alerts cleared");
+    }
+
     @PutMapping("/read-all")
     public ApiResponse<?> markAllRead(Authentication auth) {
         return ApiResponse.ok(alertService.markAllRead(resolveUserId(auth)), "All alerts marked as read");

@@ -62,5 +62,165 @@
       "seasonal_score": 3.9,
       "overall": 39.5
     }
+  },
+  {
+    "session_id": 3,
+    "reason": "daily_schedule",
+    "status": "completed",
+    "started_at": "2026-08-21T09:04:29.334425Z",
+    "completed_at": "2026-08-21T09:06:30.303085Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 60.54,
+        "weekly_precision": 17.5,
+        "seasonal_score": 3.9,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "mape": 60.54,
+      "weekly_precision": 17.5,
+      "seasonal_score": 3.9,
+      "overall": 39.5
+    }
+  },
+  {
+    "session_id": 4,
+    "reason": "record_threshold_82",
+    "status": "completed",
+    "started_at": "2026-08-22T14:23:44.821034Z",
+    "completed_at": "2026-08-22T14:25:17.778020Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 61.41,
+        "weekly_precision": 14.6,
+        "seasonal_score": 6.2,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "mape": 61.41,
+      "weekly_precision": 14.6,
+      "seasonal_score": 6.2,
+      "overall": 38.6
+    }
+  },
+  {
+    "session_id": 5,
+    "reason": "record_threshold_74",
+    "status": "completed",
+    "started_at": "2026-08-22T14:36:42.598499Z",
+    "completed_at": "2026-08-22T14:38:34.578917Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 63.05,
+        "weekly_precision": 12.7,
+        "seasonal_score": 6.7,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "mape": 63.05,
+      "weekly_precision": 12.7,
+      "seasonal_score": 6.7,
+      "overall": 37.0
+    }
+  },
+  {
+    "session_id": 6,
+    "reason": "record_threshold_68",
+    "status": "completed",
+    "started_at": "2026-08-22T14:39:49.344129Z",
+    "completed_at": "2026-08-22T14:41:45.984402Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 67.51,
+        "weekly_precision": 31.0,
+        "seasonal_score": 6.4,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "mape": 67.51,
+      "weekly_precision": 31.0,
+      "seasonal_score": 6.4,
+      "overall": 32.5
+    }
+  },
+  {
+    "session_id": 7,
+    "reason": "record_threshold_61",
+    "status": "completed",
+    "started_at": "2026-08-22T15:08:18.281623Z",
+    "completed_at": "2026-08-22T15:09:57.984854Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 73.07,
+        "weekly_precision": 53.8,
+        "seasonal_score": 6.4,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "mape": 73.07,
+      "weekly_precision": 53.8,
+      "seasonal_score": 6.4,
+      "overall": 26.9
+    }
   }
 ]

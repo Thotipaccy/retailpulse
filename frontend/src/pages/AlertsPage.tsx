@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
-  Bell, Settings, X, AlertTriangle, AlertCircle, CheckCircle2, Info,
-  Package, TrendingDown, RefreshCw, Target, Users, Pencil, Eye,
+  Bell, Settings, Trash2, AlertTriangle, AlertCircle, CheckCircle2, Info,
+  Package, TrendingDown, RefreshCw, Target, Users, Pencil, Eye, X,
 } from 'lucide-react'
 import { alertApi } from '../services/alertApi'
 import { formatRelativeTime } from '../utils/format'
@@ -63,14 +63,14 @@ function mapRule(row: Record<string, unknown>, index: number): AlertRule {
 function severityIcon(severity: Alert['severity']) {
   switch (severity) {
     case 'critical': return { Icon: AlertTriangle, color: 'text-rust-light bg-rust/15' }
-    case 'high': return { Icon: AlertCircle, color: 'text-ochre bg-ochre/15' }
-    case 'medium': return { Icon: Info, color: 'text-steel-light bg-steel/15' }
-    default: return { Icon: CheckCircle2, color: 'text-forest-light bg-forest/15' }
+    case 'high':     return { Icon: AlertCircle,   color: 'text-ochre bg-ochre/15' }
+    case 'medium':   return { Icon: Info,          color: 'text-steel-light bg-steel/15' }
+    default:         return { Icon: CheckCircle2,  color: 'text-forest-light bg-forest/15' }
   }
 }
 
-function severityToStat(severity: Alert['severity']): 'critical' | 'warning' | 'success' | 'info' {
-  if (severity === 'critical') return 'critical'
+function severityBadge(severity: Alert['severity']): 'danger' | 'warning' | 'success' | 'info' {
+  if (severity === 'critical') return 'danger'
   if (severity === 'high') return 'warning'
   if (severity === 'low') return 'success'
   return 'info'
@@ -89,94 +89,125 @@ export function AlertsPage() {
   const [editRuleId, setEditRuleId] = useState<string | null>(null)
   const [editThreshold, setEditThreshold] = useState('')
   const [editChannel, setEditChannel] = useState('In-app + Email')
-  const [dismissed, setDismissed] = useState<Set<string>>(new Set())
   const [deactivateRule, setDeactivateRule] = useState<AlertRule | null>(null)
+  const [confirmClearOpen, setConfirmClearOpen] = useState(false)
+  const [clearing, setClearing] = useState(false)
 
-  const loadAlerts = useCallback(() => {
+  /** Manual retry — called by ErrorState onRetry */
+  const loadAlerts = () => {
     setLoading(true)
     setError(null)
     alertApi.getAlerts('all')
       .then((data) => setAlerts(data))
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setLoading(false))
-  }, [])
+  }
 
-  const loadRules = useCallback(() => {
+  /** Manual retry for rules */
+  const loadRules = () => {
     setRulesLoading(true)
     setRulesError(null)
     alertApi.getRules()
       .then((data) => setRules(data.map(mapRule)))
       .catch((err) => setRulesError(getErrorMessage(err)))
       .finally(() => setRulesLoading(false))
-  }, [])
-
-  useEffect(() => {
-    loadAlerts()
-  }, [loadAlerts])
-
-  useEffect(() => {
-    if (tab === 'rules') loadRules()
-  }, [tab, loadRules])
-
-  useEffect(() => {
-    alertApi.getPreferences().catch(() => {})
-  }, [])
-
-  const visibleAlerts = useMemo(
-    () => {
-      const active = alerts.filter((a) => !dismissed.has(a.alertId))
-      return tab === 'unread' ? active.filter((a) => !a.isRead) : active
-    },
-    [alerts, dismissed, tab],
-  )
-
-  const unreadCount = alerts.filter((a) => !a.isRead && !dismissed.has(a.alertId)).length
-
-  const stats = useMemo(() => {
-    const active = alerts.filter((a) => !dismissed.has(a.alertId))
-    return {
-      critical: active.filter((a) => a.severity === 'critical').length,
-      warning: active.filter((a) => a.severity === 'high').length,
-      success: active.filter((a) => a.severity === 'low').length,
-      info: active.filter((a) => a.severity === 'medium').length,
-    }
-  }, [alerts, dismissed])
-
-  const handleMarkRead = async (id: string) => {
-    try {
-      await alertApi.markRead(id)
-    } catch { /* local update still applies */ }
-    setAlerts((prev) => prev.map((a) => (a.alertId === id ? { ...a, isRead: true } : a)))
   }
 
+  // Initial alerts load — no synchronous setState inside body
+  useEffect(() => {
+    let cancelled = false
+    alertApi.getAlerts('all')
+      .then((data) => { if (!cancelled) { setAlerts(data); setError(null) } })
+      .catch((err) => { if (!cancelled) setError(getErrorMessage(err)) })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [])
+
+  // Load rules when the rules tab is opened
+  // setRulesLoading(true) is triggered from the tab onChange event handler below
+  useEffect(() => {
+    if (tab !== 'rules') return
+    let cancelled = false
+    alertApi.getRules()
+      .then((data) => { if (!cancelled) { setRules(data.map(mapRule)); setRulesError(null) } })
+      .catch((err) => { if (!cancelled) setRulesError(getErrorMessage(err)) })
+      .finally(() => { if (!cancelled) setRulesLoading(false) })
+    return () => { cancelled = true }
+  }, [tab])
+
+  // Pre-warm preferences cache
+  useEffect(() => { alertApi.getPreferences().catch(() => {}) }, [])
+
+
+  const visibleAlerts = useMemo(
+    () => tab === 'unread' ? alerts.filter((a) => !a.isRead) : alerts,
+    [alerts, tab],
+  )
+
+  const unreadCount = useMemo(() => alerts.filter((a) => !a.isRead).length, [alerts])
+
+  const stats = useMemo(() => ({
+    critical: alerts.filter((a) => a.severity === 'critical').length,
+    warning:  alerts.filter((a) => a.severity === 'high').length,
+    success:  alerts.filter((a) => a.severity === 'low').length,
+    info:     alerts.filter((a) => a.severity === 'medium').length,
+  }), [alerts])
+
+  /** Mark a single alert as read */
+  const handleMarkRead = async (id: string) => {
+    try { await alertApi.markRead(id) } catch { /* optimistic */ }
+    setAlerts((prev) => prev.map((a) => a.alertId === id ? { ...a, isRead: true } : a))
+  }
+
+  /** Mark all as read */
   const handleMarkAll = async () => {
     try {
       await alertApi.markAllRead()
+      setAlerts((prev) => prev.map((a) => ({ ...a, isRead: true })))
       toast('All alerts marked as read', 'success')
     } catch {
       toast('Failed to mark all as read', 'error')
-      return
     }
-    setAlerts((prev) => prev.map((a) => ({ ...a, isRead: true })))
   }
 
-  const handleDismiss = (id: string) => {
-    setDismissed((prev) => new Set(prev).add(id))
-    void handleMarkRead(id)
-    toast('Alert dismissed', 'info')
+  /** Permanently delete a single alert from the database */
+  const handleDelete = async (id: string) => {
+    // Optimistic removal
+    setAlerts((prev) => prev.filter((a) => a.alertId !== id))
+    try {
+      await alertApi.deleteAlert(id)
+    } catch {
+      // Reload if deletion failed
+      toast('Failed to delete alert', 'error')
+      loadAlerts()
+    }
+  }
+
+  /** Permanently delete ALL alerts for this user */
+  const handleClearAll = async () => {
+    setClearing(true)
+    try {
+      await alertApi.clearAllAlerts()
+      setAlerts([])
+      toast('All notifications cleared', 'success')
+    } catch {
+      toast('Failed to clear alerts', 'error')
+    } finally {
+      setClearing(false)
+      setConfirmClearOpen(false)
+    }
   }
 
   const toggleRule = async (id: string) => {
     const rule = rules.find((r) => r.id === id)
     if (!rule) return
     const newEnabled = !rule.enabled
-    setRules((prev) => prev.map((r) => (r.id === id ? { ...r, enabled: newEnabled } : r)))
+    setRules((prev) => prev.map((r) => r.id === id ? { ...r, enabled: newEnabled } : r))
     try {
       await alertApi.updateRule(id, { isActive: newEnabled })
       toast(`Alert rule ${newEnabled ? 'enabled' : 'disabled'}`, 'success')
     } catch {
-      // Rollback on failure
-      setRules((prev) => prev.map((r) => (r.id === id ? { ...r, enabled: rule.enabled } : r)))
+      setRules((prev) => prev.map((r) => r.id === id ? { ...r, enabled: rule.enabled } : r))
       toast('Failed to update alert rule', 'error')
     }
   }
@@ -190,8 +221,8 @@ export function AlertsPage() {
     <div>
       <ModulePageHeader
         icon={Bell}
-        title="Alerts"
-        subtitle="System notifications and risk monitoring"
+        title="Alerts & Notifications"
+        subtitle="Real-time system notifications and risk monitoring"
         badge={
           unreadCount > 0 ? (
             <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-rust px-1 text-[10px] font-bold text-white">
@@ -205,49 +236,70 @@ export function AlertsPage() {
               <Settings className="h-4 w-4" />
               Preferences
             </button>
-            <button type="button" onClick={() => void handleMarkAll()} className="rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:bg-copper-light">
-              Mark All as Read
-            </button>
+            {unreadCount > 0 && (
+              <button type="button" onClick={() => void handleMarkAll()} className="rounded-lg glass-subtle px-4 py-2 text-sm font-medium text-on-glass hover:glass">
+                Mark All Read
+              </button>
+            )}
+            {alerts.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setConfirmClearOpen(true)}
+                className="inline-flex items-center gap-2 rounded-lg bg-rust/20 px-4 py-2 text-sm font-medium text-rust-light hover:bg-rust/30"
+              >
+                <Trash2 className="h-4 w-4" />
+                Clear All
+              </button>
+            )}
           </>
         }
       />
 
+      {/* KPI summary */}
       <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <TintedKPICard label="Critical" value={stats.critical} subtitle="Immediate action required" tint="red" />
         <TintedKPICard label="Warning" value={stats.warning} subtitle="Review soon" tint="amber" />
-        <TintedKPICard label="Success" value={stats.success} subtitle="Positive updates" tint="green" />
         <TintedKPICard label="Info" value={stats.info} subtitle="Informational notices" tint="blue" />
+        <TintedKPICard label="Positive" value={stats.success} subtitle="Positive updates" tint="green" />
       </div>
 
       <TabNav
         tabs={[
-          { id: 'all' as Tab, label: 'All Alerts', count: alerts.filter((a) => !dismissed.has(a.alertId)).length },
-          { id: 'unread' as Tab, label: 'Unread', count: unreadCount },
-          { id: 'rules' as Tab, label: 'Alert Rules' },
+          { id: 'all' as Tab,    label: 'All Alerts', count: alerts.length },
+          { id: 'unread' as Tab, label: 'Unread',     count: unreadCount },
+          { id: 'rules' as Tab,  label: 'Alert Rules' },
         ]}
         active={tab}
-        onChange={setTab}
+        onChange={(id) => {
+          const next = id as Tab
+          if (next === 'rules' && tab !== 'rules') setRulesLoading(true)
+          setTab(next)
+        }}
       />
 
+      {/* Alerts list */}
       {(tab === 'all' || tab === 'unread') && (
         <div className="space-y-3">
           {visibleAlerts.length === 0 ? (
             <EmptyState
               icon={<CheckCircle2 className="h-6 w-6" />}
               title="All caught up"
-              description={`No ${tab === 'unread' ? 'unread ' : ''}alerts to show`}
+              description={tab === 'unread' ? 'No unread alerts.' : 'No notifications. New alerts will appear here automatically.'}
             />
           ) : (
             visibleAlerts.map((alert) => {
               const { Icon, color } = severityIcon(alert.severity)
               return (
-                <GlassCard key={alert.alertId} className={`flex items-start gap-4 p-4 ${!alert.isRead ? 'border-l-2 border-l-steel-light' : ''}`}>
+                <GlassCard
+                  key={alert.alertId}
+                  className={`flex items-start gap-4 p-4 transition-all ${!alert.isRead ? 'border-l-2 border-l-steel-light' : ''}`}
+                >
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${color}`}>
                     <Icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <StatusBadge variant={severityToStat(alert.severity) === 'critical' ? 'danger' : severityToStat(alert.severity) === 'warning' ? 'warning' : severityToStat(alert.severity) === 'success' ? 'success' : 'info'}>
+                      <StatusBadge variant={severityBadge(alert.severity)}>
                         {alert.severity}
                       </StatusBadge>
                       <span className="text-xs text-on-glass-muted">{alert.alertType}</span>
@@ -264,14 +316,18 @@ export function AlertsPage() {
                         type="button"
                         onClick={() => void handleMarkRead(alert.alertId)}
                         className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] font-medium text-forest-light hover:bg-forest/10"
-                        aria-label="Mark as read"
                         title="Mark as read"
                       >
                         <Eye className="h-3 w-3" />
                         Mark read
                       </button>
                     )}
-                    <button type="button" onClick={() => handleDismiss(alert.alertId)} className="rounded-lg p-1.5 text-on-glass-muted hover:bg-white/10 hover:text-on-glass" aria-label="Dismiss alert">
+                    <button
+                      type="button"
+                      onClick={() => void handleDelete(alert.alertId)}
+                      className="rounded-lg p-1.5 text-on-glass-muted hover:bg-rust/10 hover:text-rust-light"
+                      title="Delete notification"
+                    >
                       <X className="h-4 w-4" />
                     </button>
                   </div>
@@ -282,6 +338,7 @@ export function AlertsPage() {
         </div>
       )}
 
+      {/* Rules tab */}
       {tab === 'rules' && (
         rulesLoading ? <LoadingSkeleton rows={5} /> :
         rulesError ? <ErrorState message={rulesError} onRetry={loadRules} /> :
@@ -309,7 +366,11 @@ export function AlertsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       {rule.isActive && <Switch checked={rule.enabled} onChange={() => toggleRule(rule.id)} />}
-                      <button type="button" onClick={() => { setEditRuleId(rule.id); setEditThreshold(rule.threshold); setEditChannel('In-app + Email') }} className="inline-flex items-center gap-1.5 rounded-lg glass-subtle px-3 py-1.5 text-sm text-on-glass hover:glass">
+                      <button
+                        type="button"
+                        onClick={() => { setEditRuleId(rule.id); setEditThreshold(rule.threshold); setEditChannel('In-app + Email') }}
+                        className="inline-flex items-center gap-1.5 rounded-lg glass-subtle px-3 py-1.5 text-sm text-on-glass hover:glass"
+                      >
                         <Pencil className="h-3.5 w-3.5" />
                         Edit
                       </button>
@@ -335,14 +396,14 @@ export function AlertsPage() {
         )
       )}
 
+      {/* Preferences modal */}
       <AlertPreferencesModal
         open={prefsOpen}
         onClose={() => setPrefsOpen(false)}
-        onSaved={() => {
-          if (tab !== 'rules') loadAlerts()
-        }}
+        onSaved={() => { if (tab !== 'rules') loadAlerts() }}
       />
 
+      {/* Edit rule modal */}
       <Dialog
         open={!!editRuleId}
         onClose={() => setEditRuleId(null)}
@@ -376,10 +437,6 @@ export function AlertsPage() {
               <input id="editRuleName" type="text" value={editRule.name} readOnly className="glass-input mt-1 w-full rounded-lg px-3 py-2 text-sm opacity-80" />
             </div>
             <div>
-              <label htmlFor="editRuleDescription" className="text-sm text-on-glass-muted">Description</label>
-              <input id="editRuleDescription" type="text" value={editRule.description} readOnly className="glass-input mt-1 w-full rounded-lg px-3 py-2 text-sm opacity-80" />
-            </div>
-            <div>
               <label htmlFor="editRuleThreshold" className="text-sm text-on-glass-muted">Threshold</label>
               <input id="editRuleThreshold" type="text" value={editThreshold} onChange={(e) => setEditThreshold(e.target.value)} className="glass-input mt-1 w-full rounded-lg px-3 py-2 text-sm" />
             </div>
@@ -395,6 +452,32 @@ export function AlertsPage() {
         )}
       </Dialog>
 
+      {/* Confirm clear all dialog */}
+      <Dialog
+        open={confirmClearOpen}
+        onClose={() => setConfirmClearOpen(false)}
+        title="Clear All Notifications"
+        footer={
+          <>
+            <button type="button" onClick={() => setConfirmClearOpen(false)} className="rounded-lg px-4 py-2 text-sm text-on-glass-muted hover:text-on-glass">Cancel</button>
+            <button
+              type="button"
+              disabled={clearing}
+              onClick={() => void handleClearAll()}
+              className="inline-flex items-center gap-2 rounded-lg bg-rust px-4 py-2 text-sm font-medium text-white hover:bg-rust/80 disabled:opacity-60"
+            >
+              <Trash2 className="h-4 w-4" />
+              {clearing ? 'Clearing…' : 'Clear All'}
+            </button>
+          </>
+        }
+      >
+        <p className="text-sm text-on-glass-muted">
+          This will permanently delete all <strong className="text-on-glass">{alerts.length}</strong> notifications from your account. This action cannot be undone.
+        </p>
+      </Dialog>
+
+      {/* Deactivate rule modal */}
       <DeactivateConfirmModal
         isOpen={!!deactivateRule}
         itemName={deactivateRule?.name ?? 'this rule'}

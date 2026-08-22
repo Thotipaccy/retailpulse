@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  CheckCircle2,
   Database,
   FileSpreadsheet,
   Loader2,
@@ -115,8 +114,8 @@ export function DataCollectionPage() {
   const [quality, setQuality] = useState<DataQualityMetrics>({ completeness: 94, accuracy: 97, consistency: 89, timeliness: 92 })
 
   const [dragOver, setDragOver] = useState(false)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState<{ headers: string[]; rows: string[][] } | null>(null)
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [previews, setPreviews] = useState<Array<{ name: string; headers: string[]; rows: string[][] }>>([])
   const [uploading, setUploading] = useState(false)
   const [importProgress, setImportProgress] = useState(0)
   const [importMessage, setImportMessage] = useState('')
@@ -157,60 +156,89 @@ export function DataCollectionPage() {
   const syncingCount = sources.filter((s) => s.status === 'syncing').length
   const errorCount = sources.filter((s) => s.status === 'error').length
 
-  const handleFileSelect = async (file: File) => {
-    const ext = file.name.toLowerCase()
-    const valid = ext.endsWith('.csv') || ext.endsWith('.json') || ext.endsWith('.xlsx') || ext.endsWith('.xls')
-      || ACCEPTED_MIME.includes(file.type)
-    if (!valid) {
-      toast('Unsupported file type. Use .csv, .xlsx, .xls, or .json', 'error')
-      return
+  const handleFileSelect = async (files: FileList | File[]) => {
+    const validFiles: File[] = []
+    const newPreviews: Array<{ name: string; headers: string[]; rows: string[][] }> = []
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+      const ext = file.name.toLowerCase()
+      const valid = ext.endsWith('.csv') || ext.endsWith('.json') || ext.endsWith('.xlsx') || ext.endsWith('.xls') || ACCEPTED_MIME.includes(file.type)
+      
+      if (!valid) {
+        toast(`Unsupported file type for ${file.name}. Use .csv, .xlsx, .xls, or .json`, 'error')
+        continue
+      }
+      validFiles.push(file)
+      try {
+        const previewData = await previewFile(file)
+        newPreviews.push({ name: file.name, ...previewData })
+      } catch {
+        newPreviews.push({ name: file.name, headers: ['preview'], rows: [['Unable to parse preview']] })
+      }
     }
-    setSelectedFile(file)
-    try {
-      setPreview(await previewFile(file))
-    } catch {
-      setPreview({ headers: ['preview'], rows: [['Unable to parse preview']] })
+
+    if (validFiles.length > 0) {
+      setSelectedFiles(prev => [...prev, ...validFiles])
+      setPreviews(prev => [...prev, ...newPreviews])
     }
   }
 
   const handleImport = async () => {
-    if (!selectedFile) return
+    if (selectedFiles.length === 0) return
     setUploading(true)
     setImportProgress(0)
-    setImportMessage('Starting import...')
-    try {
-      const result = await dataApi.uploadFile(selectedFile, (status) => {
-        const total = status.totalRecords || 0
-        const processed = status.processedRecords || 0
-        const pct = total > 0 ? Math.round((processed / total) * 100) : status.status === 'RUNNING' ? 10 : 0
-        setImportProgress(Math.min(Math.max(pct, status.status === 'COMPLETED' ? 100 : 5), 100))
-        setImportMessage(status.message || `Processing batch ${status.currentBatch} of ${status.totalBatches}...`)
-      })
-      setImportProgress(100)
-      
-      const rejectedCount = result.rejectedRows?.length || 0;
-      toast(
-        `Imported ${result.transactions.toLocaleString()} transactions. Skipped ${result.duplicatesSkipped.toLocaleString()} duplicates.` + 
-        (rejectedCount > 0 ? ` Rejected ${rejectedCount} rows.` : ''),
-        rejectedCount > 0 ? 'error' : 'success',
-      )
+    
+    let totalImported = 0
+    let totalSkipped = 0
+    let totalRejected = 0
 
-      if (rejectedCount > 0) {
-        const reportContent = JSON.stringify(result.rejectedRows, null, 2);
-        const blob = new Blob([reportContent], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `rejection_report_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+    try {
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i]
+        setImportMessage(`Uploading ${file.name} (${i + 1}/${selectedFiles.length})...`)
+        
+        const result = await dataApi.uploadFile(file, (status) => {
+          const total = status.totalRecords || 0
+          const processed = status.processedRecords || 0
+          const pct = total > 0 ? Math.round((processed / total) * 100) : status.status === 'RUNNING' ? 10 : 0
+          
+          // Calculate overall progress across files
+          const baseProgress = (i / selectedFiles.length) * 100
+          const fileProgress = (pct / 100) * (100 / selectedFiles.length)
+          
+          setImportProgress(Math.min(Math.round(baseProgress + fileProgress), 100))
+          setImportMessage(`[${file.name}] ${status.message || `Processing batch ${status.currentBatch} of ${status.totalBatches}...`}`)
+        })
+        
+        totalImported += result.transactions || 0
+        totalSkipped += result.duplicatesSkipped || 0
+        totalRejected += result.rejectedRows?.length || 0
+
+        if ((result.rejectedRows?.length ?? 0) > 0) {
+          const reportContent = JSON.stringify(result.rejectedRows, null, 2);
+          const blob = new Blob([reportContent], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `rejection_report_${file.name}_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
       }
 
+      setImportProgress(100)
+      toast(
+        `Successfully imported ${totalImported.toLocaleString()} transactions across ${selectedFiles.length} file(s). Skipped ${totalSkipped.toLocaleString()} duplicates.` + 
+        (totalRejected > 0 ? ` Rejected ${totalRejected} total rows.` : ''),
+        totalRejected > 0 ? 'info' : 'success',
+      )
+
       notifyDashboardRefresh()
-      setSelectedFile(null)
-      setPreview(null)
+      setSelectedFiles([])
+      setPreviews([])
       load()
     } catch (err) {
       toast(getErrorMessage(err), 'error')
@@ -395,8 +423,7 @@ export function DataCollectionPage() {
           onDrop={(e) => {
             e.preventDefault()
             setDragOver(false)
-            const file = e.dataTransfer.files[0]
-            if (file) void handleFileSelect(file)
+            if (e.dataTransfer.files.length > 0) void handleFileSelect(e.dataTransfer.files)
           }}
           className={`mt-4 rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
             dragOver ? 'border-copper bg-copper/10' : 'border-white/20 bg-white/5'
@@ -408,12 +435,12 @@ export function DataCollectionPage() {
           <input
             ref={fileInputRef}
             type="file"
-            title="Upload data file"
+            multiple
+            title="Upload data file(s)"
             accept={ACCEPTED_TYPES}
             className="hidden"
             onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) void handleFileSelect(file)
+              if (e.target.files && e.target.files.length > 0) void handleFileSelect(e.target.files)
             }}
           />
           <button
@@ -426,49 +453,82 @@ export function DataCollectionPage() {
           </button>
         </div>
 
-        {selectedFile && preview && (
-          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-medium text-on-glass">{selectedFile.name}</p>
-              <p className="text-xs text-on-glass-muted">Preview (first 5 rows)</p>
-            </div>
-            <div className="mt-3 overflow-x-auto">
-              <table className="w-full min-w-[320px] text-left text-xs">
-                <thead>
-                  <tr className="border-b border-white/10 text-on-glass-muted">
-                    {preview.headers.map((h) => (
-                      <th key={h} className="px-2 py-2 font-medium">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {preview.rows.map((row, i) => (
-                    <tr key={i} className="border-b border-white/5 text-on-glass">
-                      {row.map((cell, j) => (
-                        <td key={j} className="px-2 py-2">{cell}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {uploading && (
-              <div className="mt-4">
-                <div className="mb-1 flex justify-between text-xs text-on-glass-muted">
-                  <span>{importMessage || 'Importing...'}</span>
-                  <span>{importProgress}%</span>
+        {previews.length > 0 && (
+          <div className="mt-4 space-y-4">
+            {previews.map((preview, idx) => (
+              <div key={`${preview.name}-${idx}`} className="rounded-xl border border-white/10 bg-white/5 p-4 relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedFiles(prev => prev.filter((_, i) => i !== idx))
+                    setPreviews(prev => prev.filter((_, i) => i !== idx))
+                  }}
+                  className="absolute top-4 right-4 text-on-glass-muted hover:text-danger transition-colors"
+                  title="Remove file"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+                <div className="flex flex-wrap items-center justify-between gap-2 pr-8">
+                  <p className="text-sm font-medium text-on-glass">{preview.name}</p>
+                  <p className="text-xs text-on-glass-muted">Preview (first 5 rows)</p>
                 </div>
-                <ProgressBar value={importProgress} />
+                <div className="mt-3 overflow-x-auto">
+                  <table className="w-full min-w-[320px] text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-white/10 text-on-glass-muted">
+                        {preview.headers.map((h, i) => (
+                          <th key={i} className="px-2 py-2 font-medium">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {preview.rows.map((row, i) => (
+                        <tr key={i} className="border-b border-white/5 text-on-glass">
+                          {row.map((cell, j) => (
+                            <td key={j} className="px-2 py-2">{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            )}
+            ))}
+          </div>
+        )}
+
+        {uploading && (
+          <div className="mt-4">
+            <div className="mb-1 flex justify-between text-xs text-on-glass-muted">
+              <span>{importMessage || 'Importing...'}</span>
+              <span>{importProgress}%</span>
+            </div>
+            <ProgressBar value={importProgress} />
+          </div>
+        )}
+
+        {selectedFiles.length > 0 && (
+          <div className="mt-6 flex justify-end gap-3">
             <button
               type="button"
-              disabled={uploading}
-              onClick={() => void handleImport()}
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-forest px-4 py-2 text-sm font-medium text-white hover:bg-forest-light disabled:opacity-50"
+              onClick={() => {
+                setSelectedFiles([])
+                setPreviews([])
+                if (fileInputRef.current) fileInputRef.current.value = ''
+              }}
+              disabled={uploading || selectedFiles.length === 0}
+              className="rounded-lg px-4 py-2 text-sm font-medium text-on-glass-muted hover:bg-white/5 disabled:opacity-50 transition-colors"
             >
-              {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-              {uploading ? 'Importing...' : 'Import Data'}
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => void handleImport()}
+              disabled={uploading || selectedFiles.length === 0}
+              className="inline-flex items-center gap-2 rounded-lg bg-copper px-6 py-2 text-sm font-medium text-white hover:bg-copper-light disabled:opacity-50 transition-colors"
+            >
+              {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+              {uploading ? 'Importing...' : `Import ${selectedFiles.length} File${selectedFiles.length !== 1 ? 's' : ''}`}
             </button>
           </div>
         )}
