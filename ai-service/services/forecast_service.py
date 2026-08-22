@@ -34,7 +34,8 @@ class ForecastService:
                 p_history = product_histories.get(pid)
             if not p_history:
                 p_history = historical
-            forecasts.append(self.model.predict_product(p_history, horizon=horizon, product_id=pid))
+            forecasts.append(self.model.predict_product(p_history, horizon=horizon, product_id=pid,
+                                                        store_history=historical))
 
         product_names = payload.get("product_names") or {}
         product_categories = payload.get("product_categories") or {}

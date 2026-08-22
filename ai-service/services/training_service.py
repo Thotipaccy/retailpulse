@@ -223,10 +223,18 @@ class TrainingService:
 
         # Flatten key metrics for convenience
         demand_result = metrics.get("demand", {})
-        metrics["mape"] = demand_result.get("mape", None)
+        metrics["wape"] = demand_result.get("wape", None)
+        metrics["smape"] = demand_result.get("smape", None)
+        metrics["accuracy"] = demand_result.get("accuracy", None)
+        # Legacy keys kept for the dashboard
+        metrics["mape"] = demand_result.get("wape", None)
         metrics["weekly_precision"] = demand_result.get("weekly_precision", None)
         metrics["seasonal_score"] = demand_result.get("seasonal_score", None)
-        metrics["overall"] = round(max(0, 100 - (metrics["mape"] or 100)), 1) if metrics["mape"] is not None else 0
+        metrics["overall"] = (
+            round(demand_result["accuracy"], 1)
+            if demand_result.get("accuracy") is not None
+            else 0
+        )
 
         return metrics
 

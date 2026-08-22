@@ -147,10 +147,11 @@ def reload_models():
     demand: DemandForecastModel = registry["demand"]
     return {
         "status": "reloaded",
-        "mape": round(demand.mape, 2),
+        "mape": round(demand.wape, 2),
+        "accuracy": round(demand.accuracy, 1) if demand.is_trained else 0.0,
         "weeklyPrecision": demand.weekly_precision,
         "seasonalDetection": demand.seasonal_score,
-        "overall": round(max(0, 100 - demand.mape), 1),
+        "overall": round(demand.accuracy, 1) if demand.is_trained else 0.0,
     }
 
 
@@ -165,8 +166,9 @@ def models_status():
         "models": {
             "demand_forecast": {
                 "loaded": demand.is_trained,
-                "accuracy_mape": demand.mape,
-                "type": "GradientBoosting + LSTM ensemble",
+                "accuracy_mape": round(demand.wape, 2),
+                "accuracy": round(demand.accuracy, 1),
+                "type": "GradientBoosting (log-target, recency-weighted) + LSTM (experimental)",
             },
             "churn_prediction": {
                 "loaded": churn.is_trained,
@@ -183,10 +185,13 @@ def models_status():
                 "type": "Poisson probability model",
             },
         },
-        "overall": round(max(0, 100 - demand.mape), 1),
+        "overall": round(demand.accuracy, 1) if demand.is_trained else 0.0,
         "weeklyPrecision": demand.weekly_precision,
         "seasonalDetection": demand.seasonal_score,
-        "mape": round(demand.mape, 2),
+        "seasonalReliable": demand.seasonal_reliable,
+        "dataDays": demand.data_days,
+        "wape": round(demand.wape, 2) if demand.is_trained else None,
+        "mape": round(demand.mape, 2) if demand.is_trained else None,
     }
 
 

@@ -1,6 +1,62 @@
 import numpy as np
 
 
+def calculate_wape(actual: np.ndarray, predicted: np.ndarray) -> float:
+    """
+    Weighted Absolute Percentage Error — the retail-industry standard accuracy metric.
+    WAPE = sum|actual - predicted| / sum|actual|.
+    Unlike MAPE, it is stable when actuals contain zeros or small intermittent values.
+    Range: [0, inf), typically reported alongside accuracy = 100 - WAPE.
+    """
+    actual = np.asarray(actual, dtype=float)
+    predicted = np.asarray(predicted, dtype=float)
+    total = np.abs(actual).sum()
+    if total == 0:
+        return 100.0
+    return float(np.abs(actual - predicted).sum() / total * 100)
+
+
+def seasonality_strength(daily: "pd.Series") -> tuple[float, bool]:
+    """
+    Data-driven seasonality detection: variance explained (%) by calendar effects
+    on the log1p-transformed daily demand series (day-of-week always; month effects
+    added once >= 120 days of history exist).
+
+    Returns (score_0_to_100, reliable).
+    reliable=False means the history window is too short to trust monthly patterns.
+    """
+    try:
+        import pandas as pd
+
+        s = daily.dropna()
+        if len(s) < 28 or not isinstance(s.index, pd.DatetimeIndex):
+            return 0.0, False
+
+        y = np.log1p(np.asarray(s.values, dtype=float))
+        y = y - y.mean()
+
+        dow = pd.get_dummies(s.index.dayofweek, prefix="dow", drop_first=True, dtype=float)
+        design = dow.values
+        reliable = len(s) >= 60
+
+        # Monthly effects need coverage of multiple months to mean anything
+        if len(s) >= 120 and s.index.month.nunique() >= 3:
+            month = pd.get_dummies(s.index.month, prefix="m", drop_first=True, dtype=float)
+            design = np.column_stack([design, month.values])
+            reliable = len(s) >= 180
+
+        coefficients, _, _, _ = np.linalg.lstsq(design, y, rcond=None)
+        fitted = design @ coefficients
+        ss_res = float(((y - fitted) ** 2).sum())
+        ss_tot = float((y**2).sum())
+        if ss_tot <= 0:
+            return 0.0, reliable
+        r_squared = max(0.0, 1.0 - ss_res / ss_tot)
+        return round(r_squared * 100, 1), reliable
+    except Exception:
+        return 0.0, False
+
+
 def calculate_mape(actual: np.ndarray, predicted: np.ndarray) -> float:
     """Raw MAPE (can exceed 100 on tiny actuals)."""
     actual = np.asarray(actual, dtype=float)
