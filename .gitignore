@@ -46,3 +46,16 @@ frontend/.vite/
 # Java build output
 backend/target/
 
+# Runtime data & secrets - never commit
+backend/backups/
+backend/reports/
+backend/curl_output.txt
+*.env
+!.env.example
+
+# Real POS exports (keep only synthetic demo files referenced by seeders)
+backend/src/main/resources/sample/*
+!backend/src/main/resources/sample/generate_90days_data.py
+!backend/src/main/resources/sample/retailpulse_90days_transactions.csv
+!backend/src/main/resources/sample/pos_upload_sample.csv
+
