@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:retailpulse_db}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:1234}
+    password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -45,29 +45,29 @@ server:
 
 retailpulse:
   jwt:
-    secret: ${JWT_SECRET:RetailPulseSuperSecretKeyForJWTSigningMustBe256BitsLongMinimum!!}
+    secret: ${JWT_SECRET:}
     access-expiration-ms: 3600000
     refresh-expiration-ms: 2592000000
     temp-token-expiration-ms: 600000
   cors:
-    allowed-origins: http://localhost:5173
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
   two-factor:
     code-length: 6
     expiration-minutes: 10
   ai-service:
-    base-url: http://localhost:8000/ml
-    enabled: true
+    base-url: ${AI_SERVICE_BASE_URL:http://localhost:8000/ml}
+    enabled: ${AI_SERVICE_ENABLED:true}
   backup:
     dir: backups
   seed:
-    admin-email: ${RETAILPULSE_ADMIN_EMAIL:thotipaccy@gmail.com}
-    admin-password: ${RETAILPULSE_ADMIN_PASSWORD:admin123}
+    admin-email: ${RETAILPULSE_ADMIN_EMAIL:}
+    admin-password: ${RETAILPULSE_ADMIN_PASSWORD:}
   alerts:
-    recipient: ${ALERT_EMAIL:thotipaccy@gmail.com}
+    recipient: ${ALERT_EMAIL:}
   email:
     daily-limit: 50
     auto-alerts-enabled: false
-    log-otp-to-console: true
+    log-otp-to-console: ${LOG_OTP_TO_CONSOLE:false}
 
 logging:
   level:

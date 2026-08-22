@@ -3,7 +3,6 @@ package com.retailpulse.security;
 import com.retailpulse.config.JwtConfig;
 import com.retailpulse.model.enums.UserRole;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,17 +94,12 @@ public class JwtTokenProvider {
     }
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = jwtConfig.getSecret().getBytes(StandardCharsets.UTF_8);
+        String secret = jwtConfig.getSecret();
+        byte[] keyBytes = secret == null ? new byte[0] : secret.getBytes(StandardCharsets.UTF_8);
         if (keyBytes.length < 32) {
-            keyBytes = Decoders.BASE64.decode(
-                    java.util.Base64.getEncoder().encodeToString(keyBytes));
+            throw new IllegalStateException(
+                    "JWT_SECRET is missing or weaker than 32 characters. Set a strong JWT_SECRET environment variable.");
         }
-        return Keys.hmacShaKeyFor(keyBytes.length >= 32 ? keyBytes : padKey(keyBytes));
-    }
-
-    private byte[] padKey(byte[] key) {
-        byte[] padded = new byte[32];
-        System.arraycopy(key, 0, padded, 0, Math.min(key.length, 32));
-        return padded;
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

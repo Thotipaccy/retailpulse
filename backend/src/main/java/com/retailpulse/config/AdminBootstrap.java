@@ -34,10 +34,10 @@ public class AdminBootstrap implements CommandLineRunner {
     private final com.retailpulse.repository.ProductRepository productRepository;
     private final com.retailpulse.repository.CategoryRepository categoryRepository;
 
-    @Value("${retailpulse.seed.admin-email:${RETAILPULSE_ADMIN_EMAIL:thotipaccy@gmail.com}}")
+    @Value("${retailpulse.seed.admin-email:}")
     private String adminEmail;
 
-    @Value("${retailpulse.seed.admin-password:${RETAILPULSE_ADMIN_PASSWORD:admin123}}")
+    @Value("${retailpulse.seed.admin-password:}")
     private String adminPassword;
 
     @Override
@@ -45,6 +45,10 @@ public class AdminBootstrap implements CommandLineRunner {
     public void run(String... args) {
         cleanupBlankProducts();
         if (userRepository.count() > 0) {
+            return;
+        }
+        if (adminEmail == null || adminEmail.isBlank() || adminPassword == null || adminPassword.isBlank()) {
+            log.warn("RETAILPULSE_ADMIN_EMAIL / RETAILPULSE_ADMIN_PASSWORD not set - skipping default admin creation");
             return;
         }
         log.info("Empty database detected — creating default admin user");

@@ -38,11 +38,19 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TrustedDeviceService trustedDeviceService;
     private final AuditLogService auditLogService;
+    private final LoginRateLimiter loginRateLimiter;
 
     @Transactional
     public LoginResponse login(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        loginRateLimiter.checkAllowed(request.getEmail());
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        } catch (org.springframework.security.core.AuthenticationException e) {
+            loginRateLimiter.recordFailure(request.getEmail());
+            throw e;
+        }
+        loginRateLimiter.recordSuccess(request.getEmail());
 
         User user = userDetailsService.loadEntityByEmail(request.getEmail());
         if (!Boolean.TRUE.equals(user.getIsActive())) {

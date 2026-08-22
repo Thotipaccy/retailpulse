@@ -1,0 +1,8 @@
+target/
+.env
+backups/
+reports/
+*.log
+curl_output.txt
+.idea/
+.vscode/
