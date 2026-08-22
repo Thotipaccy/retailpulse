@@ -8,6 +8,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler
 
 from config import (
+    CHAMPION_TOLERANCE_PTS,
     ENSEMBLE_WEIGHTS,
     GBOOST_FORECAST_PARAMS,
     LSTM_BATCH_SIZE,
@@ -167,7 +168,7 @@ class DemandForecastModel:
         self._train_lstm(train_feat)
 
         self.is_trained = True
-        self.save()
+        replaced = self.save()
         return {
             "mape": self.wape,
             "wape": self.wape,
@@ -179,6 +180,7 @@ class DemandForecastModel:
             "seasonal_reliable": self.seasonal_reliable,
             "data_days": self.data_days,
             "lstm_trained": self.lstm is not None,
+            "replaced_champion": replaced,
             "trained": True,
         }
 
@@ -547,12 +549,39 @@ class DemandForecastModel:
 
     # ── Persistence ──────────────────────────────────────────────────────
 
-    def save(self) -> None:
+    def _beats_champion(self) -> bool:
+        """Champion/challenger gate.
+
+        A freshly trained model only replaces the deployed one if its backtest
+        accuracy matches or improves the incumbent (within tolerance). Bad data
+        days (bulk imports, stockouts) can produce a worse candidate — this gate
+        guarantees deployed accuracy ratchets up over time instead of drifting.
+        """
+        meta_path = MODELS_DIR / "demand_meta.joblib"
+        if not meta_path.exists():
+            return True
+        try:
+            champ_acc = float(joblib.load(meta_path).get("accuracy", 0.0))
+        except Exception:
+            return True
+        if self.accuracy >= champ_acc - CHAMPION_TOLERANCE_PTS:
+            return True
+        logger.info(
+            "Challenger rejected: backtest %.1f%% < champion %.1f%% "
+            "(tolerance %.1f pts). Keeping existing model.",
+            self.accuracy, champ_acc, CHAMPION_TOLERANCE_PTS,
+        )
+        return False
+
+    def save(self) -> bool:
+        if not self._beats_champion():
+            return False
         MODELS_DIR.mkdir(parents=True, exist_ok=True)
         if self.gboost is not None:
             joblib.dump(self.gboost, MODELS_DIR / "demand_gboost.joblib")
         if self.lstm is not None:
             self.lstm.save(MODELS_DIR / "demand_lstm.keras")
+        logger.info("Champion updated: backtest accuracy %.1f%% saved.", self.accuracy)
         joblib.dump({
             "wape": self.wape,
             "mape": self.mape,
@@ -570,6 +599,7 @@ class DemandForecastModel:
             "log_target": self._log_target,
             "ensemble_weights": ENSEMBLE_WEIGHTS,
         }, MODELS_DIR / "demand_meta.joblib")
+        return True
 
     def load(self) -> bool:
         gboost_path = MODELS_DIR / "demand_gboost.joblib"

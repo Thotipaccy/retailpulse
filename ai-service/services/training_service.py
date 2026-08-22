@@ -223,6 +223,18 @@ class TrainingService:
 
         # Flatten key metrics for convenience
         demand_result = metrics.get("demand", {})
+        if demand_result.get("trained") and not demand_result.get("replaced_champion", True):
+            # Challenger rejected — report the deployed champion's real numbers
+            try:
+                import joblib
+                from config import MODELS_DIR
+                champ = joblib.load(MODELS_DIR / "demand_meta.joblib")
+                for key in ("wape", "daily_wape", "smape", "accuracy",
+                            "weekly_precision", "seasonal_score", "data_days"):
+                    if champ.get(key) is not None:
+                        demand_result[key] = champ[key]
+            except Exception as exc:
+                logger.warning("Could not read champion meta: %s", exc)
         metrics["wape"] = demand_result.get("wape", None)
         metrics["smape"] = demand_result.get("smape", None)
         metrics["accuracy"] = demand_result.get("accuracy", None)

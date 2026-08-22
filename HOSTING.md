@@ -104,6 +104,35 @@ git add models/saved && git commit && git push   # Render redeploys with new art
 - Login brute-force lockout (5 fails → 15 min) via `LoginRateLimiter`
 - Public `/api/health` endpoint for platform health checks
 
+---
+
+## CI/CD and automatic model retraining
+
+### Continuous Integration (`.github/workflows/ci.yml`)
+Runs on every push/PR to `main`, three parallel jobs:
+| Job | Does |
+|---|---|
+| `backend` | `mvn test` on JDK 17 |
+| `frontend` | `npm ci` + type-check + production build |
+| `ai-service` | byte-compiles every module + **trains & predicts on synthetic data** end-to-end (no DB needed) — catches training-pipeline regressions before they deploy |
+
+### Continuous Deployment
+Already wired natively: pushing to `main` triggers Render (`autoDeploy: true`) and Vercel automatically. CI is the quality gate in front of it.
+
+### Automatic retraining — how accuracy improves over time
+Three layers:
+1. **In-app triggers** (work while services are awake): backend fires retraining after every 30 new sales records (`ModelRetrainingScheduler.notifyNewRecord`) and daily at 02:00.
+2. **GitHub-scheduled retrain** (`.github/workflows/retrain.yml`, daily 06:00 Kigali): solves the free-tier sleep problem — GitHub Actions *wakes* the sleeping Render AI service, POSTs `/ml/retrain`, polls `/ml/training/status` until done, then prints the new accuracy. Enable by adding a repository **Variable** `AI_SERVICE_URL` if your Render URL differs from `https://retailpulse-ai.onrender.com`.
+3. **Champion/challenger gate** (`DemandForecastModel._beats_champion`): a freshly trained model only replaces the deployed one if its backtest accuracy matches or beats the incumbent (within 2 pts tolerance). Accuracy ratchets up; a bad data day (bulk test imports, stockouts) can never degrade the live model.
+
+For layer 2 to reach the database, set these env vars on the `retailpulse-ai` Render service: `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` from your Neon credentials (`DB_SSL_MODE=require` and port are preset in `render.yaml`). Without them the AI service still serves predictions but logs a clear error when asked to retrain.
+
+Tuning without code changes (env vars on Render or locally): `TRAINING_WINDOW_DAYS` (default 45), `RECENCY_HALF_LIFE_DAYS` (45), `SPIKE_CAP_FACTOR` (2.5).
+
+> Why not train on ALL history? Your June test-imports poisoned early models (33% accuracy era). The model uses full history for seasonality detection, and trains demand forecasts on the current business regime — once your recent data is all genuine sales, that window IS all your data.
+
+
+
 ### Known limitations (documented, not blockers for a demo)
 - Refresh tokens are stateless (no server-side revocation); 2FA codes are in-memory — both acceptable single-instance; would need Redis/DB-backed store for multi-instance
 - Schema management relies on Hibernate `ddl-auto: update`; Flyway is the long-term fix

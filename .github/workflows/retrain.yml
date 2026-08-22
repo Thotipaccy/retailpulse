@@ -1,0 +1,64 @@
+name: Scheduled model retraining
+
+# Keeps models fresh on the free-tier deployment:
+# Render free services sleep after 15 minutes, so the app's internal
+# 02:00 cron cannot fire reliably. Instead GitHub wakes the service,
+# triggers POST /ml/retrain and polls until training completes.
+#
+# Set a repository VARIABLE named AI_SERVICE_URL to override the default
+# (Settings -> Secrets and variables -> Actions -> Variables).
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # daily 04:00 UTC (06:00 Kigali) — after any overnight imports
+  workflow_dispatch: {}
+
+concurrency:
+  group: retrain
+  cancel-in-progress: false
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    env:
+      AI_URL: ${{ vars.AI_SERVICE_URL || 'https://retailpulse-ai.onrender.com' }}
+    steps:
+      - name: Wake AI service (Render cold start can take ~60s)
+        run: |
+          for i in $(seq 1 12); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$AI_URL/health" || true)
+            echo "attempt $i -> HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 10
+          done
+          echo "::error::AI service did not wake up"
+          exit 1
+
+      - name: Trigger retraining
+        run: |
+          resp=$(curl -s --max-time 30 -X POST "$AI_URL/ml/retrain")
+          echo "$resp"
+          echo "$resp" | grep -qE '"status": ?"(training_started|already_training)"' || {
+            echo "::error::Retrain not accepted: $resp"
+            exit 1
+          }
+
+      - name: Wait for training to finish (max 25 min)
+        run: |
+          for i in $(seq 1 50); do
+            sleep 30
+            status=$(curl -s --max-time 30 "$AI_URL/ml/training/status")
+            state=$(echo "$status" | python3 -c "import sys,json;print(json.load(sys.stdin).get('status','unknown'))" 2>/dev/null || echo unknown)
+            echo "poll $i -> $state"
+            case "$state" in
+              completed) exit 0 ;;
+              failed)    echo "::error::Training failed"; exit 1 ;;
+            esac
+          done
+          echo "::error::Timed out waiting for training"
+          exit 1
+
+      - name: Report accuracy
+        if: always()
+        run: |
+          curl -s --max-time 30 "$AI_URL/ml/models/status" | python3 -m json.tool || true

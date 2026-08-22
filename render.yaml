@@ -41,3 +41,18 @@ services:
     region: frankfurt
     healthCheckPath: /health
     autoDeploy: true
+    envVars:
+      # DB access enables automatic retraining against the production database.
+      # Set these to your Neon/managed Postgres credentials in the Render dashboard.
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_SSL_MODE
+        value: require
