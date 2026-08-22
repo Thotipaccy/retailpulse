@@ -33,6 +33,14 @@ public class Report {
     @Column(name = "file_path", length = 500)
     private String filePath;
 
+    /** Download-facing file name (e.g. sales_summary_2026-08-22_1445.pdf). */
+    @Column(name = "file_name", length = 255)
+    private String fileName;
+
+    /** Serialized ReportFilter params the report was generated with. */
+    @Column(name = "filters_json", columnDefinition = "TEXT")
+    private String filtersJson;
+
     @Column(name = "generated_at", nullable = false)
     private LocalDateTime generatedAt;
 }

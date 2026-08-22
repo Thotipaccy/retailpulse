@@ -36,6 +36,10 @@ public class ScheduledReport {
     @Column(columnDefinition = "TEXT")
     private String recipients;
 
+    /** Serialized ReportFilter params (period/dateStart/dateEnd/category) reused on every run. */
+    @Column(name = "filters_json", columnDefinition = "TEXT")
+    private String filtersJson;
+
     @Column(nullable = false)
     private Boolean active;
 

@@ -450,7 +450,13 @@ export function SalesAnalyticsPage() {
         onClose={() => setExportOpen(false)}
         title="Export Sales Analytics"
         fileName="sales-analytics"
-        resolveExportData={fetchSalesExportData}
+        resolveExportData={(opts) =>
+          fetchSalesExportData(opts, {
+            period: period === 'custom' ? 'custom' : period,
+            startDate: period === 'custom' && startDate ? startDate : undefined,
+            endDate: period === 'custom' && endDate ? endDate : undefined,
+          })
+        }
       />
       <SetSalesGoalModal
         open={goalOpen}

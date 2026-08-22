@@ -88,8 +88,9 @@ export interface Report {
   reportType: string
   format: 'pdf' | 'excel' | 'csv' | 'pptx'
   generatedAt: string
-  status: 'ready' | 'generating' | 'failed'
-  filePath?: string
+  status: 'ready' | 'generating' | 'failed' | 'expired'
+  fileName?: string
+  filterSummary?: string
 }
 
 export interface ForecastPoint {

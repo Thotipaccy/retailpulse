@@ -9,4 +9,5 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, String> {
     List<AuditLog> findTop50ByOrderByCreatedAtDesc();
     List<AuditLog> findByUserUserIdOrderByCreatedAtDesc(String userId);
     List<AuditLog> findByActionType(String actionType);
+    List<AuditLog> findTop1000ByOrderByCreatedAtDesc();
 }

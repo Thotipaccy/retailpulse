@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   FileText, Plus, BarChart3, Package, Users, TrendingUp, Wallet,
-  Settings2, Download,
+  Settings2, Download, Receipt, ShieldCheck,
 } from 'lucide-react'
 import { reportApi } from '../services/reportApi'
 import { dashboardApi } from '../services/dashboardApi'
@@ -11,8 +11,6 @@ import { ModulePageHeader } from '../components/ui/ModulePageHeader'
 import { GlassCard } from '../components/ui/GlassCard'
 import { TabNav } from '../components/ui/TabNav'
 import { StatusBadge } from '../components/ui/StatusBadge'
-import { ExportModal } from '../components/ui/ExportModal'
-import { fetchReportExportData } from '../services/exportDataService'
 import { ReportConfigModal } from '../components/modals/ReportConfigModal'
 import { DeleteConfirmModal } from '../components/ui/DeleteConfirmModal'
 import { useToast } from '../contexts/ToastContext'
@@ -29,12 +27,22 @@ const TEMPLATE_ICONS: Record<string, typeof BarChart3> = {
   'customer-insights': Users,
   'store-comparison': TrendingUp,
   'financial-overview': Wallet,
+  'transaction-history': Receipt,
+  'audit-trail': ShieldCheck,
 }
 
-interface BuilderSection {
-  id: string
-  label: string
-  description: string
+/** Maps Custom Builder sections to the closest real backend report type. */
+const BUILDER_TYPE_MAP: Record<string, string> = {
+  sales: 'sales-summary',
+  inventory: 'inventory-status',
+  customers: 'customer-analytics',
+  forecasts: 'forecast-report',
+}
+
+interface BuilderFilters {
+  startDate: string
+  endDate: string
+  category: string
 }
 
 interface ScheduledReport {
@@ -68,12 +76,12 @@ export function ReportingPage() {
   const [error, setError] = useState<string | null>(null)
   const [templates, setTemplates] = useState<ReportTemplate[]>([])
   const [history, setHistory] = useState<Report[]>([])
-  const [builderSections, setBuilderSections] = useState<BuilderSection[]>([])
+  const [builderSections, setBuilderSections] = useState<Array<{ id: string; label: string; description: string }>>([])
   const [generating, setGenerating] = useState(false)
   const [configureId, setConfigureId] = useState<string | null>(null)
-  const [exportOpen, setExportOpen] = useState(false)
-  const [selectedSections, setSelectedSections] = useState<string[]>(['sales', 'inventory'])
+  const [selectedSections, setSelectedSections] = useState<string[]>(['sales'])
   const [format, setFormat] = useState<'pdf' | 'excel' | 'csv' | 'pptx'>('pdf')
+  const [builderFilters, setBuilderFilters] = useState<BuilderFilters>({ startDate: '', endDate: '', category: '' })
   const [scheduled, setScheduled] = useState<ScheduledReport[]>([])
   const [scheduleForm, setScheduleForm] = useState({
     name: '',
@@ -81,6 +89,9 @@ export function ReportingPage() {
     format: 'pdf',
     frequency: 'weekly',
     recipients: '',
+    startDate: '',
+    endDate: '',
+    category: '',
   })
   const [historyPage, setHistoryPage] = useState(1)
   const [pageSize, setPageSize] = useState(25)
@@ -156,18 +167,41 @@ export function ReportingPage() {
     }
   }
 
-  const handleGenerate = async (templateId: string, fmt = 'pdf') => {
+  const handleGenerate = async (
+    templateId: string,
+    fmt = 'pdf',
+    filters?: { startDate?: string; endDate?: string; category?: string },
+  ) => {
     setGenerating(true)
     try {
-      await reportApi.generate({ reportType: templateId, format: fmt })
+      const params: Record<string, string> = { reportType: templateId, format: fmt }
+      if (filters?.startDate) params.startDate = filters.startDate
+      if (filters?.endDate) params.endDate = filters.endDate
+      if (filters?.category) params.category = filters.category
+      await reportApi.generate(params)
       toast('Report generation started', 'success')
       await load()
       toast('Report ready — open Report History to download', 'info')
-    } catch {
-      toast('Failed to generate report', 'error')
+    } catch (err) {
+      toast(getErrorMessage(err) || 'Failed to generate report', 'error')
     } finally {
       setGenerating(false)
     }
+  }
+
+  const builderReportType = () => {
+    for (const id of ['sales', 'inventory', 'customers', 'forecasts']) {
+      if (selectedSections.includes(id)) return BUILDER_TYPE_MAP[id]
+    }
+    return 'dashboard-summary'
+  }
+
+  const handleBuilderGenerate = async () => {
+    await handleGenerate(builderReportType(), format, {
+      startDate: builderFilters.startDate || undefined,
+      endDate: builderFilters.endDate || undefined,
+      category: builderFilters.category || undefined,
+    })
   }
 
   const toggleSection = (id: string) => {
@@ -180,9 +214,19 @@ export function ReportingPage() {
       return
     }
     try {
-      await reportApi.createSchedule(scheduleForm)
+      const payload: Record<string, string> = {
+        name: scheduleForm.name,
+        reportType: scheduleForm.reportType,
+        format: scheduleForm.format,
+        frequency: scheduleForm.frequency,
+        recipients: scheduleForm.recipients,
+      }
+      if (scheduleForm.startDate) payload.startDate = scheduleForm.startDate
+      if (scheduleForm.endDate) payload.endDate = scheduleForm.endDate
+      if (scheduleForm.category) payload.category = scheduleForm.category
+      await reportApi.createSchedule(payload)
       toast('Report scheduled successfully', 'success')
-      setScheduleForm({ name: '', reportType: 'sales-summary', format: 'pdf', frequency: 'weekly', recipients: '' })
+      setScheduleForm({ name: '', reportType: 'sales-summary', format: 'pdf', frequency: 'weekly', recipients: '', startDate: '', endDate: '', category: '' })
       load()
     } catch {
       toast('Failed to schedule report', 'error')
@@ -274,7 +318,7 @@ export function ReportingPage() {
       {tab === 'builder' && (
         <GlassCard className="p-6">
           <h3 className="font-semibold text-on-glass">Custom Report Builder</h3>
-          <p className="mt-1 text-sm text-on-glass-muted">Select data sections and output format</p>
+          <p className="mt-1 text-sm text-on-glass-muted">Select data sections, optional filters, and output format</p>
 
           <div className="mt-6 space-y-3">
             <p className="text-sm font-medium text-on-glass-muted">Include Sections</p>
@@ -287,6 +331,43 @@ export function ReportingPage() {
                 </div>
               </label>
             ))}
+            {selectedSections.length > 1 && (
+              <p className="text-xs text-on-glass-muted">
+                Multiple sections selected — the generated report will focus on{' '}
+                <span className="font-medium text-on-glass">
+                  {builderSections.find((s) => s.id === selectedSections.find((id) => BUILDER_TYPE_MAP[id]))?.label ?? 'the first selected section'}
+                </span>.
+              </p>
+            )}
+          </div>
+
+          <div className="mt-6">
+            <p className="text-sm font-medium text-on-glass-muted">Filters (optional)</p>
+            <div className="mt-2 grid gap-3 sm:grid-cols-3">
+              <input
+                type="date"
+                title="Start date"
+                value={builderFilters.startDate}
+                onChange={(e) => setBuilderFilters((f) => ({ ...f, startDate: e.target.value }))}
+                className="glass-input rounded-lg px-3 py-2 text-sm"
+              />
+              <input
+                type="date"
+                title="End date"
+                value={builderFilters.endDate}
+                min={builderFilters.startDate || undefined}
+                onChange={(e) => setBuilderFilters((f) => ({ ...f, endDate: e.target.value }))}
+                className="glass-input rounded-lg px-3 py-2 text-sm"
+              />
+              <input
+                type="text"
+                title="Category"
+                placeholder="Category (e.g. Tools)"
+                value={builderFilters.category}
+                onChange={(e) => setBuilderFilters((f) => ({ ...f, category: e.target.value }))}
+                className="glass-input rounded-lg px-3 py-2 text-sm"
+              />
+            </div>
           </div>
 
           <div className="mt-6">
@@ -299,11 +380,20 @@ export function ReportingPage() {
           </div>
 
           <div className="mt-6 flex gap-3">
-            <button type="button" disabled={generating || !selectedSections.length} onClick={() => void handleGenerate('custom', format)} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white hover:bg-copper-light disabled:opacity-50">Generate Report</button>
+            <button type="button" disabled={generating || !selectedSections.length || (!!builderFilters.startDate && !!builderFilters.endDate && builderFilters.startDate > builderFilters.endDate)} onClick={() => void handleBuilderGenerate()} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white hover:bg-copper-light disabled:opacity-50">Generate Report</button>
             <button type="button" onClick={() => {
-              setScheduleForm({ name: 'Custom Report', reportType: 'custom', format, frequency: 'weekly', recipients: '' })
+              setScheduleForm({
+                name: 'Custom Report',
+                reportType: builderReportType(),
+                format,
+                frequency: 'weekly',
+                recipients: '',
+                startDate: builderFilters.startDate,
+                endDate: builderFilters.endDate,
+                category: builderFilters.category,
+              })
               setTab('scheduled')
-            }} className="rounded-lg glass-subtle px-5 py-2.5 text-sm font-medium text-on-glass hover:glass">Schedule</button>
+            }} className="rounded-lg glass-subtle px-5 py-2.5 text-sm font-medium text-on-glass hover:glass">Schedule This Report</button>
           </div>
         </GlassCard>
       )}
@@ -323,7 +413,19 @@ export function ReportingPage() {
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
               </select>
+              <select title="Format" value={scheduleForm.format} onChange={(e) => setScheduleForm((f) => ({ ...f, format: e.target.value }))} className="glass-input rounded-lg px-3 py-2 text-sm sm:col-span-2">
+                <option value="pdf">PDF</option>
+                <option value="excel">Excel (.xlsx)</option>
+                <option value="csv">CSV</option>
+                <option value="pptx">PowerPoint (.pptx)</option>
+              </select>
+              <input type="date" title="Start date (optional)" value={scheduleForm.startDate} onChange={(e) => setScheduleForm((f) => ({ ...f, startDate: e.target.value }))} className="glass-input rounded-lg px-3 py-2 text-sm" />
+              <div className="grid grid-cols-2 gap-3">
+                <input type="date" title="End date (optional)" value={scheduleForm.endDate} min={scheduleForm.startDate || undefined} onChange={(e) => setScheduleForm((f) => ({ ...f, endDate: e.target.value }))} className="glass-input rounded-lg px-3 py-2 text-sm" />
+                <input type="text" title="Category (optional)" placeholder="Category" value={scheduleForm.category} onChange={(e) => setScheduleForm((f) => ({ ...f, category: e.target.value }))} className="glass-input rounded-lg px-3 py-2 text-sm" />
+              </div>
             </div>
+            <p className="mt-2 text-xs text-on-glass-muted">Filters apply to every run of this schedule. Leave blank to include all data.</p>
             <button type="button" onClick={() => void handleCreateSchedule()} className="mt-4 rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:bg-copper-light">Add Schedule</button>
           </GlassCard>
 
@@ -384,6 +486,7 @@ export function ReportingPage() {
                   <tr className="border-b border-white/10 text-left text-on-glass-muted">
                     <th className="px-5 py-3 font-medium">Report</th>
                     <th className="px-5 py-3 font-medium">Format</th>
+                    <th className="px-5 py-3 font-medium">Filters</th>
                     <th className="px-5 py-3 font-medium">Status</th>
                     <th className="px-5 py-3 font-medium">Generated</th>
                     <th className="px-5 py-3 font-medium">Action</th>
@@ -392,8 +495,9 @@ export function ReportingPage() {
                 <tbody className="divide-y divide-white/5">
                   {history.slice((historyPage - 1) * pageSize, historyPage * pageSize).map((r) => (
                     <tr key={r.reportId} className="text-on-glass">
-                      <td className="px-5 py-3 font-medium">{r.reportType}</td>
+                      <td className="px-5 py-3 font-medium">{r.fileName ?? r.reportType}</td>
                       <td className="px-5 py-3"><StatusBadge variant="neutral">{r.format.toUpperCase()}</StatusBadge></td>
+                      <td className="px-5 py-3 max-w-[220px] truncate text-on-glass-muted" title={r.filterSummary}>{r.filterSummary ?? 'All data'}</td>
                       <td className="px-5 py-3">
                         <StatusBadge variant={r.status === 'ready' ? 'success' : r.status === 'failed' ? 'danger' : 'warning'}>{r.status}</StatusBadge>
                       </td>
@@ -424,13 +528,6 @@ export function ReportingPage() {
       )}
 
       <ReportConfigModal open={!!configureId} onClose={() => setConfigureId(null)} templateName={configureTemplate?.name} onSave={handleConfigureSave} />
-      <ExportModal
-        isOpen={exportOpen}
-        onClose={() => setExportOpen(false)}
-        title="Download Report"
-        fileName="report-export"
-        resolveExportData={(opts) => fetchReportExportData('sales-summary', opts)}
-      />
       <DeleteConfirmModal
         isOpen={!!deletingSchedule}
         onCancel={() => setDeletingSchedule(null)}

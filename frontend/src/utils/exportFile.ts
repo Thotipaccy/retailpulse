@@ -1,7 +1,8 @@
 import { jsPDF } from 'jspdf'
-import type { ExportData, ExportSection } from '../types/export'
+import * as XLSX from 'xlsx'
+import type { ExportData } from '../types/export'
 
-export type ExportFormat = 'pdf' | 'excel' | 'csv' | 'pptx' | 'png'
+export type ExportFormat = 'pdf' | 'excel' | 'csv' | 'png'
 
 export interface ExportPayload {
   title: string
@@ -11,35 +12,12 @@ export interface ExportPayload {
   data: ExportData
 }
 
-function escapeHtml(value: string): string {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+export function exportTimestamp(date = new Date()): string {
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}_${p(date.getHours())}${p(date.getMinutes())}`
 }
 
-function sectionToHtml(section: ExportSection): string {
-  let html = `<h3>${escapeHtml(section.heading)}</h3>`
-  if (section.lines?.length) {
-    html += `<ul>${section.lines.map((l) => `<li>${escapeHtml(l)}</li>`).join('')}</ul>`
-  }
-  if (section.table) {
-    html += '<table border="1" cellpadding="4"><thead><tr>'
-    html += section.table.headers.map((h) => `<th>${escapeHtml(String(h))}</th>`).join('')
-    html += '</tr></thead><tbody>'
-    html += section.table.rows.map((row) =>
-      `<tr>${row.map((cell) => `<td>${escapeHtml(String(cell))}</td>`).join('')}</tr>`,
-    ).join('')
-    html += '</tbody></table>'
-  }
-  return html
-}
-
-function chartsToHtml(charts: ExportData['charts']): string {
-  if (!charts?.length) return ''
-  return charts.map((chart) =>
-    `<h3>${escapeHtml(chart.title)}</h3><img src="${chart.dataUrl}" alt="${escapeHtml(chart.title)}" style="max-width:100%;margin-bottom:16px;border:1px solid #ddd;" />`,
-  ).join('')
-}
-
-export function createPdfBlob(data: ExportData, options: Record<string, boolean>): Blob {
+export function createPdfBlob(data: ExportData): Blob {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true })
   const margin = 12
   const pageHeight = doc.internal.pageSize.getHeight()
@@ -71,14 +49,9 @@ export function createPdfBlob(data: ExportData, options: Record<string, boolean>
   writeln('RetailPulse - Quincaillerie du Rwamagana', 9)
   y += 3
 
-  for (const [key, enabled] of Object.entries(options)) {
-    writeln(`${key}: ${enabled ? 'Yes' : 'No'}`, 8)
-  }
-  y += 4
-
   for (const section of data.sections) {
     ensureSpace(10)
-    writeln(`-- ${section.heading} --`, 11, true)
+    writeln(section.heading, 11, true)
     section.lines?.forEach((line) => writeln(line, 9))
     if (section.table) {
       writeln(section.table.headers.join(' | '), 8, true)
@@ -90,7 +63,7 @@ export function createPdfBlob(data: ExportData, options: Record<string, boolean>
   }
 
   if (data.charts?.length) {
-    writeln('-- Chart Visualizations --', 11, true)
+    writeln('Chart Visualizations', 11, true)
     y += 2
     for (const chart of data.charts) {
       const displayWidth = maxWidth
@@ -107,14 +80,24 @@ export function createPdfBlob(data: ExportData, options: Record<string, boolean>
     writeln('No data sections were available for this export.', 10)
   }
 
+  // Page footer with page numbers
+  const pageCount = doc.getNumberOfPages()
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i)
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(7.5)
+    doc.setTextColor(140)
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 6, { align: 'right' })
+    doc.text('RetailPulse', margin, pageHeight - 6)
+  }
+
   return doc.output('blob')
 }
 
-function createCsvBlob(data: ExportData, options: Record<string, boolean>): Blob {
+function createCsvBlob(data: ExportData): Blob {
   const rows: string[][] = [
     ['Report', data.title],
     ['Generated At', new Date().toISOString()],
-    ...Object.entries(options).map(([key, value]) => [key, value ? 'Yes' : 'No']),
     [],
   ]
 
@@ -133,7 +116,7 @@ function createCsvBlob(data: ExportData, options: Record<string, boolean>): Blob
   if (data.charts?.length) {
     rows.push(['Chart Images'])
     for (const chart of data.charts) {
-      rows.push([chart.title, 'Embedded in PDF/Excel/PNG exports'])
+      rows.push([chart.title, 'Embedded in PDF/PNG exports'])
     }
   }
 
@@ -143,39 +126,73 @@ function createCsvBlob(data: ExportData, options: Record<string, boolean>): Blob
   return new Blob(['\ufeff', csv], { type: 'text/csv;charset=utf-8' })
 }
 
+/** Real multi-sheet .xlsx workbook via SheetJS. */
 function createExcelBlob(data: ExportData): Blob {
-  const body = [
-    `<h2>${escapeHtml(data.title)}</h2>`,
-    data.subtitle ? `<p>${escapeHtml(data.subtitle)}</p>` : '',
-    `<p>Generated: ${escapeHtml(new Date().toLocaleString())}</p>`,
-    ...data.sections.map(sectionToHtml),
-    chartsToHtml(data.charts),
-  ].join('')
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>${body}</body></html>`
-  return new Blob([html], { type: 'application/vnd.ms-excel' })
-}
+  const wb = XLSX.utils.book_new()
+  const usedNames = new Set<string>()
 
-function createPptxBlob(data: ExportData): Blob {
-  const slides = [
-    `<h1>${escapeHtml(data.title)}</h1>`,
-    data.subtitle ? `<p>${escapeHtml(data.subtitle)}</p>` : '',
-    ...data.sections.map((section) => {
-      const lines = [
-        `<h2>${escapeHtml(section.heading)}</h2>`,
-        ...(section.lines?.map((l) => `<p>${escapeHtml(l)}</p>`) ?? []),
-      ]
-      if (section.table && section.table.rows.length) {
-        lines.push(`<p>${escapeHtml(section.table.headers.join(' - '))}</p>`)
-        const preview = section.table.rows.slice(0, 8)
-        lines.push(`<ul>${preview.map((row) => `<li>${escapeHtml(row.join(' | '))}</li>`).join('')}</ul>`)
-      }
-      return lines.join('')
-    }),
-    chartsToHtml(data.charts),
-  ].join('<hr/>')
+  const safeSheetName = (base: string): string => {
+    const name = base.replace(/[\\/*?:[\]]/g, '').trim().slice(0, 28) || 'Sheet'
+    let candidate = name
+    let i = 2
+    while (usedNames.has(candidate.toLowerCase())) {
+      candidate = `${name.slice(0, 26)}_${i++}`
+    }
+    usedNames.add(candidate.toLowerCase())
+    return candidate
+  }
 
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escapeHtml(data.title)}</title></head><body>${slides}</body></html>`
-  return new Blob([html], { type: 'application/vnd.ms-powerpoint' })
+  const autoWidths = (aoa: (string | number)[][]): XLSX.ColInfo[] => {
+    const widths: number[] = []
+    for (const row of aoa.slice(0, 200)) {
+      row.forEach((cell, c) => {
+        const len = String(cell ?? '').length + 2
+        widths[c] = Math.min(Math.max(widths[c] ?? 10, len), 52)
+      })
+    }
+    return widths.map((wch) => ({ wch }))
+  }
+
+  // Summary sheet: title, metadata and every line-based section.
+  const summaryAoa: (string | number)[][] = [
+    [data.title],
+    ['Generated', new Date().toLocaleString()],
+    ['Source', data.subtitle ?? 'RetailPulse live API data'],
+    [],
+  ]
+  for (const s of data.sections) {
+    if (s.lines?.length) {
+      summaryAoa.push([s.heading], ...s.lines.map((l) => [l]), [])
+    }
+  }
+  if (data.charts?.length) {
+    summaryAoa.push(
+      ['Charts'],
+      ...data.charts.map((c) => [c.title, '(image included in PDF/PNG exports)']),
+    )
+  }
+  const summaryWs = XLSX.utils.aoa_to_sheet(summaryAoa)
+  summaryWs['!cols'] = autoWidths(summaryAoa)
+  XLSX.utils.book_append_sheet(wb, summaryWs, safeSheetName('Summary'))
+
+  // One sheet per table section.
+  for (const s of data.sections) {
+    if (!s.table || !s.table.rows.length) continue
+    const aoa: (string | number)[][] = [
+      [s.table.title || s.heading],
+      [],
+      [...s.table.headers],
+      ...s.table.rows,
+    ]
+    const ws = XLSX.utils.aoa_to_sheet(aoa)
+    ws['!cols'] = autoWidths(aoa)
+    XLSX.utils.book_append_sheet(wb, ws, safeSheetName(s.table.title || s.heading))
+  }
+
+  const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+  return new Blob([out], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
 }
 
 async function loadImage(dataUrl: string): Promise<HTMLImageElement> {
@@ -246,21 +263,19 @@ export async function createPngBlob(data: ExportData): Promise<Blob> {
 }
 
 export async function createExportBlob(payload: ExportPayload): Promise<{ blob: Blob; extension: string }> {
-  const { format, options, data } = payload
+  const { format, data } = payload
 
   switch (format) {
     case 'pdf':
-      return { blob: createPdfBlob(data, options), extension: 'pdf' }
+      return { blob: createPdfBlob(data), extension: 'pdf' }
     case 'csv':
-      return { blob: createCsvBlob(data, options), extension: 'csv' }
+      return { blob: createCsvBlob(data), extension: 'csv' }
     case 'excel':
-      return { blob: createExcelBlob(data), extension: 'xls' }
-    case 'pptx':
-      return { blob: createPptxBlob(data), extension: 'ppt' }
+      return { blob: createExcelBlob(data), extension: 'xlsx' }
     case 'png':
       return { blob: await createPngBlob(data), extension: 'png' }
     default:
-      return { blob: createPdfBlob(data, options), extension: 'pdf' }
+      return { blob: createPdfBlob(data), extension: 'pdf' }
   }
 }
 
@@ -268,7 +283,7 @@ export function downloadBlob(blob: Blob, fileName: string, extension: string) {
   const url = URL.createObjectURL(blob)
   const anchor = document.createElement('a')
   anchor.href = url
-  anchor.download = `${fileName}.${extension}`
+  anchor.download = `${fileName}_${exportTimestamp()}.${extension}`
   anchor.click()
   URL.revokeObjectURL(url)
 }

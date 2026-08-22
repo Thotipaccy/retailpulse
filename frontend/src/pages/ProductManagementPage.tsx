@@ -357,7 +357,7 @@ export function ProductManagementPage() {
         onClose={() => setExportOpen(false)}
         title="Export Products"
         fileName="products"
-        resolveExportData={fetchProductsExportData}
+        resolveExportData={(opts) => fetchProductsExportData(opts, { category: category === 'all' ? undefined : category })}
       />
     </div>
   )

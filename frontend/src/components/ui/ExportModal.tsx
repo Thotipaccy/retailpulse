@@ -1,19 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { CheckCircle2, Download, FileSpreadsheet, FileText, Image, Loader2, Presentation, X } from 'lucide-react'
+import { useCallback, useRef, useState } from 'react'
+import { CheckCircle2, Download, FileSpreadsheet, FileText, Image, Loader2, X } from 'lucide-react'
 import { GlassCard } from './GlassCard'
-import { ProgressBar } from './ProgressBar'
 import { useToast } from '../../contexts/ToastContext'
 import { useEscapeKey } from '../../hooks/useEscapeKey'
 import type { ExportData } from '../../types/export'
 import { captureChartImages } from '../../utils/chartCapture'
 import { createExportBlob, downloadBlob, type ExportFormat } from '../../utils/exportFile'
 
-const FORMATS = [
-  { id: 'pdf', label: 'PDF', size: '2.4 MB', icon: FileText, recommended: true },
-  { id: 'excel', label: 'Excel', size: '5.1 MB', icon: FileSpreadsheet, recommended: true },
-  { id: 'csv', label: 'CSV', size: '1.2 MB', icon: FileSpreadsheet, recommended: false },
-  { id: 'pptx', label: 'PowerPoint', size: '8.3 MB', icon: Presentation, recommended: false },
-  { id: 'png', label: 'PNG', size: '3.5 MB', icon: Image, recommended: false },
+const FORMATS: Array<{ id: ExportFormat; label: string; hint: string; icon: typeof FileText; recommended?: boolean }> = [
+  { id: 'pdf', label: 'PDF', hint: 'Best for sharing & printing', icon: FileText, recommended: true },
+  { id: 'excel', label: 'Excel', hint: 'Editable multi-sheet workbook (.xlsx)', icon: FileSpreadsheet, recommended: true },
+  { id: 'csv', label: 'CSV', hint: 'Raw rows for BI tools', icon: FileSpreadsheet, recommended: false },
+  { id: 'png', label: 'PNG', hint: 'Visual snapshot with charts', icon: Image, recommended: false },
 ]
 
 const OPTIONS = [
@@ -21,7 +19,6 @@ const OPTIONS = [
   'Include Raw Data',
   'Include Summary',
   'Include AI Recommendations',
-  'Compress File',
 ]
 
 type ExportPhase = 'idle' | 'generating' | 'success'
@@ -48,28 +45,24 @@ export function ExportModal({
     'Include Raw Data': true,
     'Include Summary': true,
     'Include AI Recommendations': false,
-    'Compress File': false,
   })
   const [phase, setPhase] = useState<ExportPhase>('idle')
-  const [progress, setProgress] = useState(0)
-  const [autoDownloaded, setAutoDownloaded] = useState(false)
   const exportDataRef = useRef<ExportData | null>(null)
+  const [prevOpen, setPrevOpen] = useState(isOpen)
 
-  useEffect(() => {
+  if (prevOpen !== isOpen) {
+    setPrevOpen(isOpen)
     if (!isOpen) {
       setPhase('idle')
-      setProgress(0)
-      setAutoDownloaded(false)
-      exportDataRef.current = null
     }
-  }, [isOpen])
+  }
 
-  const handleDownload = useCallback(async () => {
-    const data = exportDataRef.current
-    if (!data) {
-      toast('Export data is not ready yet', 'error')
-      return
-    }
+  const requestClose = useCallback(() => {
+    exportDataRef.current = null
+    onClose()
+  }, [onClose])
+
+  const downloadData = useCallback(async (data: ExportData) => {
     toast('Downloading...', 'info')
     try {
       const { blob, extension } = await createExportBlob({
@@ -80,20 +73,14 @@ export function ExportModal({
         data,
       })
       downloadBlob(blob, fileName, extension)
-      setAutoDownloaded(true)
-      onClose()
+      requestClose()
     } catch {
       toast('Export failed. Please try again.', 'error')
     }
-  }, [fileName, format, onClose, options, toast])
+  }, [fileName, format, options, requestClose, toast])
 
   const handleExport = useCallback(async () => {
     setPhase('generating')
-    setProgress(0)
-    const tick = window.setInterval(() => {
-      setProgress((p) => Math.min(p + 10, 90))
-    }, 120)
-
     try {
       const data = resolveExportData
         ? await resolveExportData(options)
@@ -107,26 +94,17 @@ export function ExportModal({
       }
 
       exportDataRef.current = data
-      setProgress(100)
-      window.clearInterval(tick)
       setPhase('success')
+      void downloadData(data)
     } catch {
-      window.clearInterval(tick)
       toast('Failed to load report data from the server', 'error')
       setPhase('idle')
-      setProgress(0)
     }
-  }, [options, resolveExportData, title, toast])
-
-  useEffect(() => {
-    if (phase === 'success' && !autoDownloaded) {
-      void handleDownload()
-    }
-  }, [phase, autoDownloaded, handleDownload])
+  }, [options, resolveExportData, title, toast, downloadData])
 
   const handleClose = useCallback(() => {
-    if (phase !== 'generating') onClose()
-  }, [phase, onClose])
+    if (phase !== 'generating') requestClose()
+  }, [phase, requestClose])
 
   useEscapeKey(isOpen, handleClose)
 
@@ -171,7 +149,7 @@ export function ExportModal({
                     <Icon className="h-5 w-5 text-copper-light" />
                     <div className="flex-1">
                       <span className="text-sm font-medium text-on-glass">{f.label}</span>
-                      <span className="ml-2 text-xs text-on-glass-muted">{f.size}</span>
+                      <span className="ml-2 text-xs text-on-glass-muted">{f.hint}</span>
                     </div>
                     {f.recommended && (
                       <span className="rounded-full bg-copper/20 px-2 py-0.5 text-[10px] font-medium text-copper-light">
@@ -213,8 +191,6 @@ export function ExportModal({
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-copper-light" />
             <p className="mt-4 font-medium text-on-glass">Fetching live data...</p>
             <p className="mt-1 text-sm text-on-glass-muted">Preparing {format.toUpperCase()} export</p>
-            <ProgressBar value={progress} color="#B87333" className="mt-6" />
-            <p className="mt-2 text-xs text-on-glass-muted">{Math.min(progress, 100)}%</p>
           </div>
         )}
 
@@ -225,7 +201,10 @@ export function ExportModal({
             <p className="mt-1 text-sm text-on-glass-muted">Your {format.toUpperCase()} file has been generated with live data</p>
             <button
               type="button"
-              onClick={() => void handleDownload()}
+              onClick={() => {
+                const data = exportDataRef.current
+                if (data) void downloadData(data)
+              }}
               className="mt-6 inline-flex items-center gap-2 rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white hover:bg-copper-light"
             >
               <Download className="h-4 w-4" />

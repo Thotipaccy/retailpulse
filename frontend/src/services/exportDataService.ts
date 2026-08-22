@@ -10,6 +10,27 @@ import { salesApi } from './salesApi'
 
 type ExportOptions = Record<string, boolean>
 
+/** Filter context captured from the page the user is exporting. */
+export interface ExportFilters {
+  period?: string
+  startDate?: string
+  endDate?: string
+  category?: string
+}
+
+function filterSummary(filters: ExportFilters): string {
+  const parts: string[] = []
+  if (filters.startDate && filters.endDate) parts.push(`${filters.startDate} to ${filters.endDate}`)
+  else if (filters.period && filters.period !== 'custom') parts.push(`Period: ${filters.period}`)
+  if (filters.category) parts.push(`Category: ${filters.category}`)
+  return parts.length ? parts.join(' · ') : 'All data'
+}
+
+function matchesCategory(category: unknown, filters: ExportFilters): boolean {
+  if (!filters.category) return true
+  return String(category ?? '').toLowerCase() === filters.category.toLowerCase()
+}
+
 function includeSummary(options: ExportOptions) {
   return options['Include Summary'] !== false
 }
@@ -38,7 +59,7 @@ function chartTable(title: string, points: Array<{ name: string; value: number }
   }
 }
 
-export async function fetchInventoryExportData(options: ExportOptions): Promise<ExportData> {
+export async function fetchInventoryExportData(options: ExportOptions, filters: ExportFilters = {}): Promise<ExportData> {
   const [summaryRes, stockRes, risksRes, reorderRes, turnoverRes, velocityRes] = await Promise.allSettled([
     inventoryApi.getSummary(),
     inventoryApi.getStockLevels(),
@@ -94,59 +115,72 @@ export async function fetchInventoryExportData(options: ExportOptions): Promise<
   }
 
   if (includeRaw(options) && stockRes.status === 'fulfilled' && stockRes.value.length) {
-    sections.push(section('Stock Levels', undefined, {
-      title: 'Stock',
-      headers: ['Product', 'SKU', 'Category', 'Qty', 'Reorder', 'Status', 'Unit Price'],
-      rows: stockRes.value.map((s) => [
-        s.productName,
-        s.skuCode ?? '',
-        s.category,
-        s.quantityOnHand,
-        s.reorderPoint,
-        s.stockStatus,
-        formatRWF(Number(s.unitPrice)),
-      ]),
-    }))
-  }
-
-  if (includeAi(options)) {
-    if (risksRes.status === 'fulfilled' && risksRes.value.length) {
-      sections.push(section('AI Stockout Risks', undefined, {
-        title: 'Stockout Risks',
-        headers: ['Product', 'Category', 'Qty', 'Risk Score', 'Status'],
-        rows: risksRes.value.map((s) => [
+    const stock = stockRes.value.filter((s) => matchesCategory(s.category, filters))
+    if (stock.length) {
+      sections.push(section(`Stock Levels (${filterSummary(filters)})`, undefined, {
+        title: 'Stock',
+        headers: ['Product', 'SKU', 'Category', 'Qty', 'Reorder', 'Status', 'Unit Price'],
+        rows: stock.map((s) => [
           s.productName,
+          s.skuCode ?? '',
           s.category,
           s.quantityOnHand,
-          s.stockoutRisk != null ? `${Math.round(s.stockoutRisk * 100)}%` : 'N/A',
+          s.reorderPoint,
           s.stockStatus,
-        ]),
-      }))
-    }
-    if (reorderRes.status === 'fulfilled' && reorderRes.value.length) {
-      sections.push(section('Reorder Recommendations', undefined, {
-        title: 'Reorder',
-        headers: ['Product', 'Suggested Qty', 'Priority', 'Unit Price'],
-        rows: reorderRes.value.map((s) => [
-          s.productName,
-          s.suggestedOrder ?? s.reorderPoint,
-          s.priority ?? s.stockStatus,
           formatRWF(Number(s.unitPrice)),
         ]),
       }))
     }
   }
 
-  return { title: 'Inventory Status Report', subtitle: 'Live data from RetailPulse inventory APIs', sections }
+  if (includeAi(options)) {
+    if (risksRes.status === 'fulfilled' && risksRes.value.length) {
+      const risks = risksRes.value.filter((s) => matchesCategory(s.category, filters))
+      if (risks.length) {
+        sections.push(section('AI Stockout Risks', undefined, {
+          title: 'Stockout Risks',
+          headers: ['Product', 'Category', 'Qty', 'Risk Score', 'Status'],
+          rows: risks.map((s) => [
+            s.productName,
+            s.category,
+            s.quantityOnHand,
+            s.stockoutRisk != null ? `${Math.round(s.stockoutRisk * 100)}%` : 'N/A',
+            s.stockStatus,
+          ]),
+        }))
+      }
+    }
+    if (reorderRes.status === 'fulfilled' && reorderRes.value.length) {
+      const reorder = reorderRes.value.filter((s) => matchesCategory(s.category, filters))
+      if (reorder.length) {
+        sections.push(section('Reorder Recommendations', undefined, {
+          title: 'Reorder',
+          headers: ['Product', 'Suggested Qty', 'Priority', 'Unit Price'],
+          rows: reorder.map((s) => [
+            s.productName,
+            s.suggestedOrder ?? s.reorderPoint,
+            s.priority ?? s.stockStatus,
+            formatRWF(Number(s.unitPrice)),
+          ]),
+        }))
+      }
+    }
+  }
+
+  return { title: 'Inventory Status Report', subtitle: `Live data from RetailPulse inventory APIs · ${filterSummary(filters)}`, sections }
 }
 
-export async function fetchSalesExportData(options: ExportOptions): Promise<ExportData> {
+export async function fetchSalesExportData(options: ExportOptions, filters: ExportFilters = {}): Promise<ExportData> {
+  const period = filters.startDate && filters.endDate ? 'custom' : (filters.period || 'monthly')
+  const startDate = filters.startDate
+  const endDate = filters.endDate
+
   const [overviewRes, categoryRes, paymentRes, topRes, heatmapRes] = await Promise.allSettled([
-    salesApi.getOverview('monthly'),
-    salesApi.getByCategory(),
-    salesApi.getByPaymentMethod(),
-    salesApi.getTopProducts(20),
-    salesApi.getHeatmap(),
+    salesApi.getOverview(period, startDate, endDate),
+    salesApi.getByCategory(period, startDate, endDate),
+    salesApi.getByPaymentMethod(period, startDate, endDate),
+    salesApi.getTopProducts(20, period, startDate, endDate),
+    salesApi.getHeatmap(period, startDate, endDate),
   ])
 
   const sections: ExportSection[] = []
@@ -182,16 +216,19 @@ export async function fetchSalesExportData(options: ExportOptions): Promise<Expo
   }
 
   if (includeRaw(options) && topRes.status === 'fulfilled' && topRes.value.length) {
-    sections.push(section('Top Products', undefined, {
-      title: 'Top Products',
-      headers: ['Product', 'Category', 'Units', 'Revenue'],
-      rows: topRes.value.map((row, i) => [
-        String(row.productName ?? row.name ?? `Product ${i + 1}`),
-        String(row.category ?? ''),
-        Number(row.unitsSold ?? row.units ?? 0),
-        formatRWF(Number(row.revenue ?? row.totalRevenue ?? 0)),
-      ]),
-    }))
+    const top = topRes.value.filter((row) => matchesCategory(row.category, filters))
+    if (top.length) {
+      sections.push(section('Top Products', undefined, {
+        title: 'Top Products',
+        headers: ['Product', 'Category', 'Units', 'Revenue'],
+        rows: top.map((row, i) => [
+          String(row.productName ?? row.name ?? `Product ${i + 1}`),
+          String(row.category ?? ''),
+          Number(row.unitsSold ?? row.units ?? 0),
+          formatRWF(Number(row.revenue ?? row.totalRevenue ?? 0)),
+        ]),
+      }))
+    }
   }
 
   if (includeCharts(options) && heatmapRes.status === 'fulfilled' && heatmapRes.value.length) {
@@ -203,7 +240,7 @@ export async function fetchSalesExportData(options: ExportOptions): Promise<Expo
     }))
   }
 
-  return { title: 'Sales Summary Report', subtitle: 'Live data from RetailPulse sales APIs', sections }
+  return { title: 'Sales Summary Report', subtitle: `Live data from RetailPulse sales APIs · ${filterSummary(filters)}`, sections }
 }
 
 export async function fetchCustomerExportData(options: ExportOptions): Promise<ExportData> {
@@ -327,8 +364,9 @@ export async function fetchForecastExportData(options: ExportOptions): Promise<E
   return { title: 'Demand Forecast Report', subtitle: 'Live data from RetailPulse forecast APIs', sections }
 }
 
-export async function fetchProductsExportData(options: ExportOptions): Promise<ExportData> {
-  const products = await productApi.getAll()
+export async function fetchProductsExportData(options: ExportOptions, filters: ExportFilters = {}): Promise<ExportData> {
+  const all = await productApi.getAll()
+  const products = all.filter((p) => matchesCategory(p.category, filters))
   const sections: ExportSection[] = []
 
   if (includeSummary(options)) {
@@ -342,7 +380,7 @@ export async function fetchProductsExportData(options: ExportOptions): Promise<E
   }
 
   if (includeRaw(options) && products.length) {
-    sections.push(section('Product Catalog', undefined, {
+    sections.push(section(`Product Catalog (${filterSummary(filters)})`, undefined, {
       title: 'Products',
       headers: ['Name', 'SKU', 'Category', 'Stock', 'Reorder', 'Cost', 'Price', 'Status'],
       rows: products.map((p) => [
@@ -358,7 +396,7 @@ export async function fetchProductsExportData(options: ExportOptions): Promise<E
     }))
   }
 
-  return { title: 'Product Catalog Export', subtitle: 'Live data from RetailPulse product API', sections }
+  return { title: 'Product Catalog Export', subtitle: `Live data from RetailPulse product API · ${filterSummary(filters)}`, sections }
 }
 
 export async function fetchPlanningExportData(options: ExportOptions): Promise<ExportData> {
@@ -432,14 +470,14 @@ export async function fetchDashboardExportData(options: ExportOptions): Promise<
   return { title: 'Dashboard Report', subtitle: 'Live data from RetailPulse dashboard APIs', sections }
 }
 
-export async function fetchReportExportData(reportType: string, options: ExportOptions): Promise<ExportData> {
+export async function fetchReportExportData(reportType: string, options: ExportOptions, filters: ExportFilters = {}): Promise<ExportData> {
   const normalized = reportType.replace(/^Download\s+/i, '').trim().toLowerCase()
 
   switch (normalized) {
     case 'inventory-status':
-      return fetchInventoryExportData(options)
+      return fetchInventoryExportData(options, filters)
     case 'sales-summary':
-      return fetchSalesExportData(options)
+      return fetchSalesExportData(options, filters)
     case 'customer-analytics':
     case 'customer-insights':
       return fetchCustomerExportData(options)
@@ -451,8 +489,8 @@ export async function fetchReportExportData(reportType: string, options: ExportO
     case 'custom':
       return fetchDashboardExportData(options)
     default:
-      if (normalized.includes('inventory')) return fetchInventoryExportData(options)
-      if (normalized.includes('sales')) return fetchSalesExportData(options)
+      if (normalized.includes('inventory')) return fetchInventoryExportData(options, filters)
+      if (normalized.includes('sales')) return fetchSalesExportData(options, filters)
       if (normalized.includes('customer')) return fetchCustomerExportData(options)
       if (normalized.includes('forecast')) return fetchForecastExportData(options)
       return fetchDashboardExportData(options)

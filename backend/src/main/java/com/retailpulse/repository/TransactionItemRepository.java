@@ -171,5 +171,20 @@ public interface TransactionItemRepository extends JpaRepository<TransactionItem
         ORDER BY month_num, total_qty DESC
         """, nativeQuery = true)
     List<Object[]> findTopProductsByMonth(@Param("since") LocalDateTime since);
+
+    /** Row-level sales lines for exports, newest first. Category filter is optional. */
+    @Query("""
+        SELECT ti FROM TransactionItem ti
+        JOIN FETCH ti.transaction t
+        LEFT JOIN FETCH t.customer c
+        JOIN FETCH ti.product p
+        LEFT JOIN FETCH p.category cat
+        WHERE t.transactionDate >= :start AND t.transactionDate < :end
+        AND (:category IS NULL OR cat.categoryName = :category)
+        ORDER BY t.transactionDate DESC
+        """)
+    List<TransactionItem> findLineItemsBetween(@Param("start") LocalDateTime start,
+                                               @Param("end") LocalDateTime end,
+                                               @Param("category") String category);
 }
 

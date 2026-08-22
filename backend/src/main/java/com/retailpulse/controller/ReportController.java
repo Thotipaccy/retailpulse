@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @RestController
@@ -38,7 +38,7 @@ public class ReportController {
     }
 
     @GetMapping("/download/{id}")
-    public ApiResponse<?> download(@PathVariable String id) {
+    public ApiResponse<?> download(@PathVariable String id, Authentication auth) {
         return ApiResponse.ok(reportService.download(id));
     }
 
@@ -63,20 +63,26 @@ public class ReportController {
         return ApiResponse.ok(null, "Schedule deleted");
     }
 
+    /**
+     * Streams the generated artifact. Ownership is verified and the export is
+     * audited inside ReportService.prepareDownload; the stored (human-readable)
+     * file name is sent via Content-Disposition.
+     */
     @GetMapping("/download/{id}/file")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String id) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String id, Authentication auth) {
+        ReportService.FileDownload dl = reportService.prepareDownload(id, auth.getName());
         try {
-            Map<String, Object> metadata = reportService.download(id);
-            String filePath = (String) metadata.get("filePath");
-            Path path = Paths.get(filePath);
-            Resource resource = new UrlResource(path.toUri());
-
+            Resource resource = new UrlResource(dl.path().toUri());
+            String encoded = java.net.URLEncoder.encode(dl.fileName(), StandardCharsets.UTF_8)
+                    .replace("+", "%20");
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + path.getFileName().toString() + "\"")
-                    .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + dl.fileName() + "\"; filename*=UTF-8''" + encoded)
+                    .contentType(MediaType.parseMediaType(dl.contentType()))
+                    .contentLength(dl.path().toFile().length())
                     .body(resource);
         } catch (MalformedURLException e) {
-            throw new RuntimeException("Error accessing file", e);
+            throw new RuntimeException("Error accessing report file", e);
         }
     }
 }
