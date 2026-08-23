@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://retailpulse-api.onrender.com/api/:path*"
+      "destination": "https://retailpulse-api-wmtb.onrender.com/api/:path*"
     },
     {
       "source": "/((?!.*\\.).*)",
