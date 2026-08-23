@@ -1,9 +1,5 @@
 # Production profile — no demo seed data (DataInitializer is dev-only).
 # AdminBootstrap still creates the default admin when the users table is empty.
-spring:
-  profiles:
-    active: prod
-
 retailpulse:
   seed:
     import-90day-sample: false
