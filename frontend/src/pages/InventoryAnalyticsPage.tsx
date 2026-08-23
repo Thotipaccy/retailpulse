@@ -138,6 +138,7 @@ export function InventoryAnalyticsPage() {
   const [reorders, setReorders] = useState<ReorderRow[]>([])
   const [velocity, setVelocity] = useState<Array<{ category: string; unitsSold: number; type: string }>>([])
   const [stockSearch, setStockSearch] = useState('')
+  const [stockCategoryFilter, setStockCategoryFilter] = useState('all')
   const [riskSearch, setRiskSearch] = useState('')
   const [riskLevelFilter, setRiskLevelFilter] = useState<'all' | 'CRITICAL' | 'HIGH'>('all')
   const [reorderSearch, setReorderSearch] = useState('')
@@ -276,15 +277,21 @@ export function InventoryAnalyticsPage() {
     return result
   }, [reorders, reorderStatusFilter, reorderPriorityFilter, reorderSearch])
 
+  const stockCategories = useMemo(
+    () => Array.from(new Set(stockCards.map((c) => c.category).filter(Boolean))).sort(),
+    [stockCards],
+  )
+
   const filteredStockCards = useMemo(() => {
     const q = stockSearch.trim().toLowerCase()
-    if (!q) return stockCards
-    return stockCards.filter((c) =>
-      c.productName.toLowerCase().includes(q)
-      || c.category.toLowerCase().includes(q)
-      || (c.skuCode ?? '').toLowerCase().includes(q),
-    )
-  }, [stockCards, stockSearch])
+    return stockCards.filter((c) => {
+      if (stockCategoryFilter !== 'all' && c.category !== stockCategoryFilter) return false
+      if (!q) return true
+      return c.productName.toLowerCase().includes(q)
+        || c.category.toLowerCase().includes(q)
+        || (c.skuCode ?? '').toLowerCase().includes(q)
+    })
+  }, [stockCards, stockSearch, stockCategoryFilter])
 
   if (loading) return <LoadingSkeleton rows={5} />
   if (error) return <ErrorState message={error} onRetry={load} />
@@ -420,6 +427,15 @@ export function InventoryAnalyticsPage() {
                 className="glass-input w-full rounded-lg py-2 pl-9 pr-3 text-sm sm:w-56"
               />
             </div>
+            <select
+              value={stockCategoryFilter}
+              onChange={(e) => { setStockCategoryFilter(e.target.value); setStockPage(1) }}
+              title="Filter by category"
+              className="glass-input rounded-lg px-3 py-2 text-sm"
+            >
+              <option value="all">All Categories</option>
+              {stockCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
           </div>
         </div>
         {filteredStockCards.length === 0 ? (
@@ -819,7 +835,7 @@ export function InventoryAnalyticsPage() {
         onClose={() => setExportOpen(false)}
         title="Export Inventory Analytics"
         fileName="inventory-analytics"
-        resolveExportData={fetchInventoryExportData}
+        resolveExportData={(opts) => fetchInventoryExportData(opts, stockCategoryFilter !== 'all' ? { category: stockCategoryFilter } : {})}
       />
       <PurchaseOrderModal open={poDialogOpen} onClose={() => setPoDialogOpen(false)} initialItems={poItems} />
       <RecordPurchaseModal

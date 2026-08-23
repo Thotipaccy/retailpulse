@@ -35,9 +35,12 @@ public class AlertService {
     }
 
     @Transactional
-    public Map<String, Object> markAsRead(String alertId) {
+    public Map<String, Object> markAsRead(String userId, String alertId) {
         Alert alert = alertRepository.findById(alertId)
                 .orElseThrow(() -> new ResourceNotFoundException("Alert not found"));
+        if (!alert.getUser().getUserId().equals(userId)) {
+            throw new ResourceNotFoundException("Alert not found");
+        }
         alert.setIsRead(true);
         alertRepository.save(alert);
         return Map.of("alertId", alertId, "isRead", true);
@@ -45,18 +48,18 @@ public class AlertService {
 
     @Transactional
     public Map<String, Object> markAllRead(String userId) {
-        List<Alert> alerts = alertRepository.findByUserUserIdAndIsReadFalseOrderByCreatedAtDesc(userId);
-        alerts.forEach(a -> a.setIsRead(true));
-        alertRepository.saveAll(alerts);
-        return Map.of("markedRead", alerts.size());
+        int updated = alertRepository.markAllReadForUser(userId);
+        return Map.of("markedRead", updated);
     }
 
     @Transactional
-    public Map<String, Object> deleteAlert(String alertId) {
-        if (!alertRepository.existsById(alertId)) {
+    public Map<String, Object> deleteAlert(String userId, String alertId) {
+        Alert alert = alertRepository.findById(alertId).orElse(null);
+        // Same response for missing and foreign alerts — never leak existence.
+        if (alert == null || !alert.getUser().getUserId().equals(userId)) {
             throw new ResourceNotFoundException("Alert not found");
         }
-        alertRepository.deleteById(alertId);
+        alertRepository.delete(alert);
         return Map.of("alertId", alertId, "deleted", true);
     }
 

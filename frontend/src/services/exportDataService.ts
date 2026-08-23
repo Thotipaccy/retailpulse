@@ -31,6 +31,13 @@ function matchesCategory(category: unknown, filters: ExportFilters): boolean {
   return String(category ?? '').toLowerCase() === filters.category.toLowerCase()
 }
 
+/** Raw enum-ish status values become presentable labels in exports. */
+function humanizeStatus(status: unknown): string {
+  const s = String(status ?? '')
+  if (!s) return ''
+  return s.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
 function includeSummary(options: ExportOptions) {
   return options['Include Summary'] !== false
 }
@@ -117,18 +124,23 @@ export async function fetchInventoryExportData(options: ExportOptions, filters: 
   if (includeRaw(options) && stockRes.status === 'fulfilled' && stockRes.value.length) {
     const stock = stockRes.value.filter((s) => matchesCategory(s.category, filters))
     if (stock.length) {
+      const stockValue = stock.reduce((sum, s) => sum + s.quantityOnHand * Number(s.unitPrice), 0)
       sections.push(section(`Stock Levels (${filterSummary(filters)})`, undefined, {
         title: 'Stock',
-        headers: ['Product', 'SKU', 'Category', 'Qty', 'Reorder', 'Status', 'Unit Price'],
-        rows: stock.map((s) => [
-          s.productName,
-          s.skuCode ?? '',
-          s.category,
-          s.quantityOnHand,
-          s.reorderPoint,
-          s.stockStatus,
-          formatRWF(Number(s.unitPrice)),
-        ]),
+        headers: ['Product', 'SKU', 'Category', 'Qty On Hand', 'Reorder Point', 'Status', 'Unit Price (RWF)', 'Stock Value (RWF)'],
+        rows: [
+          ...stock.map((s) => [
+            s.productName,
+            s.skuCode ?? '',
+            s.category,
+            s.quantityOnHand,
+            s.reorderPoint,
+            humanizeStatus(s.stockStatus),
+            formatRWF(Number(s.unitPrice)),
+            formatRWF(s.quantityOnHand * Number(s.unitPrice)),
+          ]),
+          ['TOTAL', '', '', stock.reduce((n, s) => n + s.quantityOnHand, 0), '', '', '', formatRWF(stockValue)],
+        ],
       }))
     }
   }
@@ -145,7 +157,7 @@ export async function fetchInventoryExportData(options: ExportOptions, filters: 
             s.category,
             s.quantityOnHand,
             s.stockoutRisk != null ? `${Math.round(s.stockoutRisk * 100)}%` : 'N/A',
-            s.stockStatus,
+            humanizeStatus(s.stockStatus),
           ]),
         }))
       }
@@ -159,7 +171,7 @@ export async function fetchInventoryExportData(options: ExportOptions, filters: 
           rows: reorder.map((s) => [
             s.productName,
             s.suggestedOrder ?? s.reorderPoint,
-            s.priority ?? s.stockStatus,
+            humanizeStatus(s.priority ?? s.stockStatus),
             formatRWF(Number(s.unitPrice)),
           ]),
         }))
@@ -372,27 +384,40 @@ export async function fetchProductsExportData(options: ExportOptions, filters: E
   if (includeSummary(options)) {
     const active = products.filter((p) => p.isActive).length
     const low = products.filter((p) => p.status === 'low' || p.status === 'critical').length
+    const stockValue = products.reduce((sum, p) => sum + p.stock * p.costPrice, 0)
+    const retailValue = products.reduce((sum, p) => sum + p.stock * p.sellingPrice, 0)
     sections.push(section('Catalog Summary', [
       `Total products: ${products.length}`,
       `Active: ${active}`,
       `Low or critical stock: ${low}`,
+      `Total stock value (cost): ${formatRWF(stockValue)}`,
+      `Total retail value: ${formatRWF(retailValue)}`,
     ]))
   }
 
   if (includeRaw(options) && products.length) {
+    const stockValue = products.reduce((sum, p) => sum + p.stock * p.costPrice, 0)
     sections.push(section(`Product Catalog (${filterSummary(filters)})`, undefined, {
       title: 'Products',
-      headers: ['Name', 'SKU', 'Category', 'Stock', 'Reorder', 'Cost', 'Price', 'Status'],
-      rows: products.map((p) => [
-        p.name,
-        p.sku,
-        p.category,
-        p.stock,
-        p.reorderPoint,
-        formatRWF(p.costPrice),
-        formatRWF(p.sellingPrice),
-        p.status,
-      ]),
+      headers: ['Product Name', 'SKU', 'Category', 'Qty On Hand', 'Reorder Point', 'Unit Cost (RWF)', 'Selling Price (RWF)', 'Margin %', 'Stock Value (RWF)', 'Status'],
+      rows: [
+        ...products.map((p) => {
+          const margin = p.sellingPrice > 0 ? Math.round(((p.sellingPrice - p.costPrice) / p.sellingPrice) * 100) : 0
+          return [
+            p.name,
+            p.sku,
+            p.category,
+            p.stock,
+            p.reorderPoint,
+            formatRWF(p.costPrice),
+            formatRWF(p.sellingPrice),
+            `${margin}%`,
+            formatRWF(p.stock * p.costPrice),
+            humanizeStatus(p.status),
+          ]
+        }),
+        ['TOTAL', '', '', products.reduce((n, p) => n + p.stock, 0), '', '', '', '', formatRWF(stockValue), ''],
+      ],
     }))
   }
 

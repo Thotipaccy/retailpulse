@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FileText, Package, Search, Users, X } from 'lucide-react'
 import { productApi } from '../../services/productApi'
@@ -87,19 +87,23 @@ export function GlobalSearch() {
     const items: SearchResult[] = []
 
     products.filter((p) => p.isActive && (p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q))).slice(0, 5).forEach((p) => {
-      items.push({ id: `p-${p.id}`, type: 'product', name: p.name, subtitle: p.sku, path: ROUTES.PRODUCTS, icon: Package })
+      items.push({ id: `p-${p.id}`, type: 'product', name: p.name, subtitle: p.sku, path: ROUTES.PRODUCT(p.id), icon: Package })
     })
 
     customers.filter((c) => c.isActive && (c.name.toLowerCase().includes(q) || c.phone.includes(q))).slice(0, 5).forEach((c) => {
       items.push({ id: `c-${c.id}`, type: 'customer', name: c.name, subtitle: c.phone, path: ROUTES.CUSTOMER(c.id), icon: Users })
     })
 
-    NAV_ITEMS.filter((n) => n.roles.includes(user?.role ?? 'viewer') && n.label.toLowerCase().includes(q)).slice(0, 4).forEach((n) => {
-      items.push({ id: `nav-${n.path}`, type: 'page', name: n.label, subtitle: 'Navigation', path: n.path, icon: Search })
-    })
+    // Navigation entries only surface when no concrete entity matches — keeps
+    // product/customer lookups uncluttered.
+    if (!items.length) {
+      NAV_ITEMS.filter((n) => n.roles.includes(user?.role ?? 'viewer') && n.label.toLowerCase().includes(q)).slice(0, 4).forEach((n) => {
+        items.push({ id: `nav-${n.path}`, type: 'page', name: n.label, subtitle: 'Navigation', path: n.path, icon: Search })
+      })
 
-    if ('sales summary'.includes(q) || 'report'.includes(q)) {
-      items.push({ id: 'r-reports', type: 'report', name: 'Reports', subtitle: 'Reporting', path: ROUTES.REPORTS, icon: FileText })
+      if ('sales summary'.includes(q) || 'report'.includes(q)) {
+        items.push({ id: 'r-reports', type: 'report', name: 'Reports', subtitle: 'Reporting', path: ROUTES.REPORTS, icon: FileText })
+      }
     }
 
     return items
@@ -112,12 +116,24 @@ export function GlobalSearch() {
     report: results.filter((r) => r.type === 'report'),
   }), [results])
 
-  const go = (path: string) => {
+  const go = useCallback((path: string) => {
     navigate(path)
     setQuery('')
     setOpen(false)
     setMobileExpanded(false)
-  }
+  }, [navigate])
+
+  // A single unambiguous match navigates directly — no extra click needed.
+  const autoNavigatedRef = useRef('')
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 2 || results.length !== 1) return
+    const target = results[0]
+    if (autoNavigatedRef.current === `${q}::${target.id}`) return
+    autoNavigatedRef.current = `${q}::${target.id}`
+    const timer = window.setTimeout(() => go(target.path), 350)
+    return () => window.clearTimeout(timer)
+  }, [query, results, go])
 
   const showDropdown = open && query.trim().length > 0
 

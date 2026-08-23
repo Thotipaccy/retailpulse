@@ -60,41 +60,41 @@ function getDataAvailabilityInfo(days: number): {
 } {
   if (days === 0) {
     return {
-      label: 'No data available yet',
+      label: 'No sales history available. Forecasts become available once transactions are recorded.',
       className: 'text-on-glass-muted',
       icon: 'none',
     }
   }
   if (days >= 365) {
     return {
-      label: `✨ ${days} days of history — Outstanding! Multi-season patterns fully captured`,
+      label: `${days} days of sales history. Multi-season patterns are fully captured — maximum forecast confidence.`,
       className: 'text-forest-light font-bold',
       icon: 'check',
     }
   }
   if (days >= 180) {
     return {
-      label: `✅ ${days} days of history — Excellent depth for trend and quarterly seasonality detection`,
+      label: `${days} days of sales history. Trend and quarterly seasonality detection is reliable.`,
       className: 'text-forest-light font-semibold',
       icon: 'check',
     }
   }
   if (days >= 90) {
     return {
-      label: `✅ ${days} days of history — Sufficient data depth for mid-term trend estimation`,
+      label: `${days} days of sales history. Sufficient for dependable mid-term trend estimates.`,
       className: 'text-forest-light',
       icon: 'check',
     }
   }
   if (days >= 30) {
     return {
-      label: `⚠️ ${days} days of history — Moderate depth; short-term trends only (90+ recommended)`,
+      label: `${days} days of sales history. Confidence is moderate — short-term trends only. 90+ days is recommended.`,
       className: 'text-ochre',
       icon: 'warning',
     }
   }
   return {
-    label: `⚠️ Only ${days} days of history — Low confidence; critical data shortage`,
+    label: `${days} days of sales history. Low forecast confidence — accumulate more transaction data.`,
     className: 'text-rust-light',
     icon: 'warning',
   }
@@ -322,13 +322,13 @@ export function AIPredictivePage() {
                 ) : (
                   <AlertTriangle className={`h-4 w-4 ${historicalDays < 30 ? 'text-rust-light' : 'text-ochre'}`} />
                 )}
-                <span>System Health & Diagnostics</span>
+                <span>Forecast Engine Status</span>
               </div>
 
               {/* Popover Content */}
               <div className="pointer-events-none absolute left-0 top-full mt-2 w-72 translate-y-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 z-[100]">
                 <div className="rounded-xl border border-white/20 bg-[#1a1917] p-4 text-xs shadow-2xl backdrop-blur-xl">
-                  <p className="font-semibold text-on-glass mb-3 border-b border-white/10 pb-2">Diagnostic Information</p>
+                  <p className="font-semibold text-on-glass mb-3 border-b border-white/10 pb-2">Engine Diagnostics</p>
 
                   <div className="space-y-4">
                     <div>
@@ -361,7 +361,7 @@ export function AIPredictivePage() {
                     <div>
                       <p className="text-on-glass-muted mb-1.5 flex items-center gap-1.5 font-medium">
                         <Lightbulb className="h-3.5 w-3.5" />
-                        Data Depth
+                        Sales History
                       </p>
                       <div className="rounded-lg bg-white/5 p-2.5">
                         <p className={`leading-relaxed ${dataAvailability.className}`}>
@@ -377,7 +377,7 @@ export function AIPredictivePage() {
 
           {!status?.aiServiceHealthy && historicalDays > 0 && (
             <div className="rounded-lg border border-steel/30 bg-steel/10 px-4 py-3 text-sm text-steel-light">
-              AI service unavailable. Forecasts will use database fallback when generated.
+              The forecasting service is currently unreachable. New forecasts cannot be generated until the connection is restored — previously generated results remain available.
             </div>
           )}
           {generateError && (
@@ -468,6 +468,11 @@ export function AIPredictivePage() {
               </div>
             )}
             <div data-export-chart data-export-chart-title="7-Day Demand Forecast">
+              {!forecast.chart.some((p) => p.actual != null) && (
+                <p className="mb-3 text-xs text-on-glass-muted">
+                  Historical sales are not available yet — the chart shows forecasted demand only.
+                </p>
+              )}
               <ResponsiveContainer width="100%" height={400}>
                 <ComposedChart data={forecast.chart}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} />

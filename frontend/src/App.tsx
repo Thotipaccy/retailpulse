@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import type { LazyExoticComponent, ComponentType } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { AppLayout } from './components/layout/AppLayout'
@@ -7,23 +8,69 @@ import { LEGACY_REDIRECTS, ROUTES } from './config/routes'
 import { LoginPage } from './pages/LoginPage'
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage'
 
-const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
-const RecordSalePage = lazy(() => import('./pages/RecordSalePage').then((m) => ({ default: m.RecordSalePage })))
-const OutstandingPaymentsPage = lazy(() => import('./pages/OutstandingPaymentsPage').then((m) => ({ default: m.OutstandingPaymentsPage })))
-const DataCollectionPage = lazy(() => import('./pages/DataCollectionPage').then((m) => ({ default: m.DataCollectionPage })))
-const SalesAnalyticsPage = lazy(() => import('./pages/SalesAnalyticsPage').then((m) => ({ default: m.SalesAnalyticsPage })))
-const InventoryAnalyticsPage = lazy(() => import('./pages/InventoryAnalyticsPage').then((m) => ({ default: m.InventoryAnalyticsPage })))
-const ProductManagementPage = lazy(() => import('./pages/ProductManagementPage').then((m) => ({ default: m.ProductManagementPage })))
-const CustomerAnalyticsPage = lazy(() => import('./pages/CustomerAnalyticsPage').then((m) => ({ default: m.CustomerAnalyticsPage })))
-const CustomerManagementPage = lazy(() => import('./pages/CustomerManagementPage').then((m) => ({ default: m.CustomerManagementPage })))
-const CustomerProfilePage = lazy(() => import('./pages/CustomerProfilePage').then((m) => ({ default: m.CustomerProfilePage })))
-const AIPredictivePage = lazy(() => import('./pages/AIPredictivePage').then((m) => ({ default: m.AIPredictivePage })))
-const ProductRecommendationsPage = lazy(() => import('./pages/ProductRecommendationsPage').then((m) => ({ default: m.ProductRecommendationsPage })))
-const ReportingPage = lazy(() => import('./pages/ReportingPage').then((m) => ({ default: m.ReportingPage })))
-const AlertsPage = lazy(() => import('./pages/AlertsPage').then((m) => ({ default: m.AlertsPage })))
-const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })))
-const ProfilePage = lazy(() => import('./pages/ProfilePage').then((m) => ({ default: m.ProfilePage })))
-const TransactionHistoryPage = lazy(() => import('./pages/TransactionHistoryPage').then((m) => ({ default: m.TransactionHistoryPage })))
+/**
+ * Route-level code splitting with named loaders so frequently visited pages
+ * can be prefetched during browser idle time, making navigation effectively
+ * instant after first load.
+ */
+const loaders = {
+  DashboardPage: () => import('./pages/DashboardPage'),
+  RecordSalePage: () => import('./pages/RecordSalePage'),
+  OutstandingPaymentsPage: () => import('./pages/OutstandingPaymentsPage'),
+  DataCollectionPage: () => import('./pages/DataCollectionPage'),
+  SalesAnalyticsPage: () => import('./pages/SalesAnalyticsPage'),
+  InventoryAnalyticsPage: () => import('./pages/InventoryAnalyticsPage'),
+  ProductManagementPage: () => import('./pages/ProductManagementPage'),
+  ProductProfilePage: () => import('./pages/ProductProfilePage'),
+  CustomerAnalyticsPage: () => import('./pages/CustomerAnalyticsPage'),
+  CustomerManagementPage: () => import('./pages/CustomerManagementPage'),
+  CustomerProfilePage: () => import('./pages/CustomerProfilePage'),
+  AIPredictivePage: () => import('./pages/AIPredictivePage'),
+  ProductRecommendationsPage: () => import('./pages/ProductRecommendationsPage'),
+  ReportingPage: () => import('./pages/ReportingPage'),
+  AlertsPage: () => import('./pages/AlertsPage'),
+  AdminPage: () => import('./pages/AdminPage'),
+  ProfilePage: () => import('./pages/ProfilePage'),
+  TransactionHistoryPage: () => import('./pages/TransactionHistoryPage'),
+} as const
+
+type LoaderKey = keyof typeof loaders
+
+function page(key: LoaderKey): LazyExoticComponent<ComponentType> {
+  return lazy(() => loaders[key]().then((m) => ({ default: (m as unknown as Record<LoaderKey, ComponentType>)[key] })))
+}
+
+const DashboardPage = page('DashboardPage')
+const RecordSalePage = page('RecordSalePage')
+const OutstandingPaymentsPage = page('OutstandingPaymentsPage')
+const DataCollectionPage = page('DataCollectionPage')
+const SalesAnalyticsPage = page('SalesAnalyticsPage')
+const InventoryAnalyticsPage = page('InventoryAnalyticsPage')
+const ProductManagementPage = page('ProductManagementPage')
+const ProductProfilePage = page('ProductProfilePage')
+const CustomerAnalyticsPage = page('CustomerAnalyticsPage')
+const CustomerManagementPage = page('CustomerManagementPage')
+const CustomerProfilePage = page('CustomerProfilePage')
+const AIPredictivePage = page('AIPredictivePage')
+const ProductRecommendationsPage = page('ProductRecommendationsPage')
+const ReportingPage = page('ReportingPage')
+const AlertsPage = page('AlertsPage')
+const AdminPage = page('AdminPage')
+const ProfilePage = page('ProfilePage')
+const TransactionHistoryPage = page('TransactionHistoryPage')
+
+/** Pages staff open constantly — warmed during idle so first click renders instantly. */
+const PREFETCH_KEYS: LoaderKey[] = [
+  'DashboardPage',
+  'RecordSalePage',
+  'ProductManagementPage',
+  'ProductProfilePage',
+  'CustomerAnalyticsPage',
+  'SalesAnalyticsPage',
+  'InventoryAnalyticsPage',
+  'TransactionHistoryPage',
+  'AlertsPage',
+]
 
 function PageLoader() {
   return (
@@ -37,9 +84,31 @@ function LegacyRedirect({ to }: { to: string }) {
   return <Navigate to={to} replace />
 }
 
+function RoutePrefetcher() {
+  useEffect(() => {
+    const warm = () => {
+      PREFETCH_KEYS.forEach((key) => {
+        void loaders[key]().catch(() => undefined)
+      })
+    }
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }
+    let scheduled: number | undefined
+    if (typeof w.requestIdleCallback === 'function') {
+      w.requestIdleCallback(warm, { timeout: 3000 })
+    } else {
+      scheduled = window.setTimeout(warm, 1200)
+    }
+    return () => {
+      if (scheduled !== undefined) window.clearTimeout(scheduled)
+    }
+  }, [])
+  return null
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <RoutePrefetcher />
       <Routes>
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
@@ -59,6 +128,7 @@ export default function App() {
           <Route path="sales" element={<Suspense fallback={<PageLoader />}><SalesAnalyticsPage /></Suspense>} />
           <Route path="inventory" element={<Suspense fallback={<PageLoader />}><InventoryAnalyticsPage /></Suspense>} />
           <Route path="products" element={<Suspense fallback={<PageLoader />}><ProductManagementPage /></Suspense>} />
+          <Route path="products/:id" element={<Suspense fallback={<PageLoader />}><ProductProfilePage /></Suspense>} />
           <Route path="customers" element={<Suspense fallback={<PageLoader />}><CustomerAnalyticsPage /></Suspense>} />
           <Route path="customers/all" element={<Suspense fallback={<PageLoader />}><CustomerManagementPage /></Suspense>} />
           <Route path="customers/:id" element={<Suspense fallback={<PageLoader />}><CustomerProfilePage /></Suspense>} />

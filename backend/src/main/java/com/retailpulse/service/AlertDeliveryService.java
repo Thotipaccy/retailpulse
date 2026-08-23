@@ -1,4 +1,4 @@
-package com.retailpulse.service;
+﻿package com.retailpulse.service;
 
 import com.retailpulse.model.Alert;
 import com.retailpulse.model.AlertDigestQueue;
@@ -36,14 +36,14 @@ public class AlertDeliveryService {
         Map<String, Object> prefs = preferenceService.getPreferences(userId);
         String category = preferenceService.categorizeAlertType(alertType);
         if (!preferenceService.isAlertTypeEnabled(prefs, category)) {
-            log.debug("Skipping alert {} — type {} disabled for user {}", alertType, category, userId);
+            log.debug("Skipping alert {} â€” type {} disabled for user {}", alertType, category, userId);
             return false;
         }
 
         LocalDateTime now = LocalDateTime.now();
         boolean inDnd = preferenceService.isInDoNotDisturb(prefs, now);
         if (inDnd) {
-            log.debug("Skipping alert {} for user {} — do not disturb active", alertType, userId);
+            log.debug("Skipping alert {} for user {} â€” do not disturb active", alertType, userId);
             return false;
         }
 
@@ -51,7 +51,7 @@ public class AlertDeliveryService {
 
         if (preferenceService.isChannelEnabled(prefs, "inApp")) {
             alertRepository.save(Alert.builder()
-                    .alertId("alert-" + UUID.randomUUID().toString().substring(0, 8))
+                    .alertId(UUID.randomUUID().toString())
                     .user(user)
                     .alertType(alertType)
                     .severity(severity)
@@ -65,7 +65,7 @@ public class AlertDeliveryService {
         return true;
     }
 
-    /** Saves alert to database only — no email, SMS, or digest queue. */
+    /** Saves alert to database only â€” no email, SMS, or digest queue. */
     @Transactional
     public boolean deliverInAppOnly(String userId, String alertType, AlertSeverity severity, String message) {
         Map<String, Object> prefs = preferenceService.getPreferences(userId);
@@ -75,7 +75,7 @@ public class AlertDeliveryService {
         }
         User user = userDetailsService.loadEntityById(userId);
         alertRepository.save(Alert.builder()
-                .alertId("alert-" + UUID.randomUUID().toString().substring(0, 8))
+                .alertId(UUID.randomUUID().toString())
                 .user(user)
                 .alertType(alertType)
                 .severity(severity)
@@ -83,7 +83,7 @@ public class AlertDeliveryService {
                 .isRead(false)
                 .createdAt(LocalDateTime.now())
                 .build());
-        log.info("In-app alert stored (no email): {} — {}", alertType, message);
+        log.info("In-app alert stored (no email): {} â€” {}", alertType, message);
         return true;
     }
 

@@ -398,6 +398,10 @@ class DemandForecastModel:
 
         today = pd.Timestamp.now().normalize()
 
+        # Without usable history, real past actuals cannot be computed — omit
+        # those buckets entirely instead of plotting fabricated zeros.
+        include_history = len(daily) > 0
+
         if horizon == "weekly":
             past_weeks, future_weeks = 4, 4
         elif horizon == "monthly":
@@ -409,14 +413,11 @@ class DemandForecastModel:
 
         if horizon == "weekly":
             for i in range(past_weeks - 1, -1, -1):
+                if not include_history:
+                    break
                 end_day = today - pd.Timedelta(weeks=i)
                 start_day = end_day - pd.Timedelta(days=6)
-                actual = 0.0
-                if len(daily):
-                    for d in pd.date_range(start_day, end_day):
-                        actual += float(daily.get(d, 0.0))
-                else:
-                    actual = float(daily.mean()) * 7 if len(daily) else 0.0
+                actual = sum(float(daily.get(d, 0.0)) for d in pd.date_range(start_day, end_day))
                 chart.append({
                     "date": f"Wk -{i}" if i > 0 else "This Wk",
                     "actual": round(actual, 1),
@@ -434,14 +435,11 @@ class DemandForecastModel:
 
         elif horizon == "monthly":
             for i in range(past_weeks - 1, -1, -1):
+                if not include_history:
+                    break
                 month_start = (today - pd.DateOffset(months=i)).replace(day=1)
                 month_end = (today - pd.DateOffset(months=i - 1)).replace(day=1) - pd.Timedelta(days=1)
-                actual = 0.0
-                if len(daily):
-                    for d in pd.date_range(month_start, month_end):
-                        actual += float(daily.get(d, 0.0))
-                else:
-                    actual = float(daily.mean()) * 30 if len(daily) else 0.0
+                actual = sum(float(daily.get(d, 0.0)) for d in pd.date_range(month_start, month_end))
                 chart.append({
                     "date": month_start.strftime("%B"),
                     "actual": round(actual, 1),
@@ -463,8 +461,10 @@ class DemandForecastModel:
 
         else:  # daily
             for i in range(past_weeks - 1, -1, -1):
+                if not include_history:
+                    break
                 day = (today - pd.Timedelta(days=i)).date()
-                actual = float(daily.get(day, 0.0)) if len(daily) else 0.0
+                actual = float(daily.get(day, 0.0))
                 chart.append({
                     "date": day.strftime("%Y-%m-%d"),
                     "actual": round(actual, 1),

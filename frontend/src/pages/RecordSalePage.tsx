@@ -180,7 +180,13 @@ export function RecordSalePage() {
     if (isCredit) {
       text += `⚠️ *CREDIT — PAYMENT PENDING*\n\n`
     } else {
-      text += `✅ *PAID — ${paymentMethod.toUpperCase()}*\n\n`
+      const methodLabel: Record<string, string> = {
+        cash: 'Cash',
+        mobile_money: 'MTN Mobile Money',
+        airtel: 'Airtel Money',
+        bank_transfer: 'Bank Transfer',
+      }
+      text += `✅ *PAID — ${methodLabel[paymentMethod] ?? paymentMethod}*\n\n`
     }
 
     if (customerName) text += `Customer: ${customerName}\n`
@@ -239,6 +245,7 @@ export function RecordSalePage() {
       bank_transfer: 'Bank Transfer',
       credit: 'Credit',
     }
+    const paidMethodLabel = paymentLabel[confirmation.paymentMethod] ?? confirmation.paymentMethod
 
     return (
       <div className="space-y-6 min-h-screen pb-10">
@@ -316,7 +323,7 @@ export function RecordSalePage() {
                   <p className="text-xs font-semibold uppercase tracking-widest text-on-glass-muted flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5" /> Payment</p>
                   <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${isCredit ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'}`}>
                     {isCredit ? <AlertTriangle className="w-3.5 h-3.5" /> : <CheckCircle className="w-3.5 h-3.5" />}
-                    {isCredit ? 'CREDIT — PENDING' : `PAID · ${paymentLabel[confirmation.paymentMethod] ?? confirmation.paymentMethod}`}
+                    {isCredit ? 'CREDIT — PENDING' : `PAID · ${paidMethodLabel}`}
                   </div>
                   {confirmation.dueDate && isCredit && (
                     <p className="text-sm text-on-glass-muted flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-amber-400" /> Due: <span className="text-on-glass font-medium">{confirmation.dueDate}</span></p>

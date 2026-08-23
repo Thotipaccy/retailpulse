@@ -234,24 +234,23 @@ public class ForecastService {
 
     private long countHistoricalDays() {
         try {
+            // Distinct calendar dates with recorded transactions — the honest
+            // measure of how much history actually feeds the models.
+            long distinctDays = transactionRepository.countDistinctTransactionDates();
+            return Math.max(distinctDays, 0L);
+        } catch (Exception ex) {
+            log.warn("Could not compute historical day count: {}", ex.getMessage());
             Object[] range = transactionRepository.findTransactionDateRange();
             if (range == null || range.length < 2 || range[0] == null || range[1] == null) {
-                return fallbackHistoricalDays();
+                return 0L;
             }
             LocalDateTime min = toLocalDateTime(range[0]);
             LocalDateTime max = toLocalDateTime(range[1]);
             if (min == null || max == null) {
-                return fallbackHistoricalDays();
+                return 0L;
             }
             return ChronoUnit.DAYS.between(min.toLocalDate(), max.toLocalDate()) + 1;
-        } catch (Exception ex) {
-            log.warn("Could not compute historical day count: {}", ex.getMessage());
-            return fallbackHistoricalDays();
         }
-    }
-
-    private long fallbackHistoricalDays() {
-        return transactionRepository.count() > 0 ? 145L : 0L;
     }
 
     private LocalDateTime toLocalDateTime(Object value) {

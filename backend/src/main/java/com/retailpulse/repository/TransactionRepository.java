@@ -28,6 +28,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     @Query("SELECT MIN(t.transactionDate), MAX(t.transactionDate) FROM Transaction t")
     Object[] findTransactionDateRange();
 
+    @Query("SELECT COUNT(DISTINCT CAST(t.transactionDate AS LocalDate)) FROM Transaction t")
+    long countDistinctTransactionDates();
+
     @Query("SELECT COALESCE(SUM(t.totalAmount), 0) FROM Transaction t WHERE t.transactionDate BETWEEN :start AND :end")
     BigDecimal sumTotalAmountByTransactionDateBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 

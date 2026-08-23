@@ -34,17 +34,36 @@ interface Transaction {
 const PM_LABELS: Record<string, string> = {
   cash: 'Cash',
   mobile_money: 'MTN MoMo',
+  momo: 'MTN MoMo',
+  mtn: 'MTN MoMo',
   airtel: 'Airtel Money',
+  airtel_money: 'Airtel Money',
   bank_transfer: 'Bank Transfer',
+  bank: 'Bank Transfer',
   credit: 'Credit',
+  credit_sale: 'Credit',
 }
 
 const PM_EMOJIS: Record<string, string> = {
   cash: '💵',
   mobile_money: '📱',
+  momo: '📱',
+  mtn: '📱',
   airtel: '📲',
+  airtel_money: '📲',
   bank_transfer: '🏦',
+  bank: '🏦',
   credit: '📋',
+  credit_sale: '📋',
+}
+
+/** Legacy rows stored raw client strings — match them all per method group. */
+const PM_MATCHERS: Record<string, string[]> = {
+  cash: ['cash'],
+  mobile_money: ['mobile_money', 'momo', 'mtn', 'mobilemoney', 'mobile money'],
+  airtel: ['airtel', 'airtel_money', 'airtel money'],
+  bank_transfer: ['bank_transfer', 'bank', 'bank transfer'],
+  credit: ['credit', 'credit_sale', 'credit sale'],
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -97,7 +116,11 @@ export function TransactionHistoryPage() {
   const refreshInBackground = async () => {
     setLoadingMore(true)
     try {
-      const data = await salesApi.getHistory({ startDate: startDate || undefined, endDate: endDate || undefined })
+      const data = await salesApi.getHistory({
+        startDate: startDate || undefined,
+        endDate: endDate || undefined,
+        paymentMethod: pmFilter !== 'all' ? pmFilter : undefined,
+      })
       setTransactions(data as unknown as Transaction[])
     } catch (err) {
       console.error('Failed to refresh', err)
@@ -113,7 +136,8 @@ export function TransactionHistoryPage() {
         || (tx.customerName ?? '').toLowerCase().includes(search.toLowerCase())
         || (tx.customerPhone ?? '').includes(search)
       const matchStatus = statusFilter === 'all' || tx.paymentStatus === statusFilter
-      const matchPm = pmFilter === 'all' || tx.paymentMethod === pmFilter
+      const matchPm = pmFilter === 'all'
+        || (PM_MATCHERS[pmFilter]?.includes(tx.paymentMethod.toLowerCase()) ?? tx.paymentMethod === pmFilter)
       return matchSearch && matchStatus && matchPm
     })
   }, [transactions, search, statusFilter, pmFilter])

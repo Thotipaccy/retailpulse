@@ -77,6 +77,15 @@ export function RecommendationsConfigModal({
             className="w-full accent-copper"
           />
           <p className="mt-1 text-xs text-copper-light">{config.minConfidence}%</p>
+          {config.minConfidence >= 90 ? (
+            <p className="mt-1 text-xs text-ochre">
+              Very strict — most association rules score 60–90%, so few or no products may qualify. 70–85% is recommended.
+            </p>
+          ) : (
+            <p className="mt-1 text-xs text-on-glass-muted">
+              Products must score at least this confidence to appear. Most associations score 60–90%.
+            </p>
+          )}
         </div>
 
         <div>

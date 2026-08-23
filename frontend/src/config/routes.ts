@@ -8,6 +8,7 @@ export const ROUTES = {
   SALES: '/dashboard/sales',
   INVENTORY: '/dashboard/inventory',
   PRODUCTS: '/dashboard/products',
+  PRODUCT: (id: string) => `/dashboard/products/${id}`,
   CUSTOMERS: '/dashboard/customers',
   CUSTOMERS_ALL: '/dashboard/customers/all',
   CUSTOMER: (id: string) => `/dashboard/customers/${id}`,

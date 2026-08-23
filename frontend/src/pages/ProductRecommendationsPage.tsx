@@ -360,6 +360,11 @@ export function ProductRecommendationsPage() {
               <p className="text-xs text-on-glass-muted mt-0.5">Top products per season · min confidence {config.minConfidence}%</p>
             </div>
           </div>
+          {seasonal.length > 0 && seasonCards.every((c) => c.rows.length === 0) && (
+            <p className="mb-4 rounded-lg border border-ochre/30 bg-ochre/10 px-3 py-2 text-xs text-ochre">
+              No recommendations meet the {config.minConfidence}% confidence threshold. Lower it in Configure (70–85% works best with your data volume).
+            </p>
+          )}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {seasonCards.map((card) => {
               const isCurrent = card.season === activeSeason

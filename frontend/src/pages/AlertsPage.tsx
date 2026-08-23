@@ -113,14 +113,21 @@ export function AlertsPage() {
       .finally(() => setRulesLoading(false))
   }
 
-  // Initial alerts load — no synchronous setState inside body
+  // Initial alerts load + 30s polling so the page stays in sync with the header bell
   useEffect(() => {
     let cancelled = false
-    alertApi.getAlerts('all')
-      .then((data) => { if (!cancelled) { setAlerts(data); setError(null) } })
-      .catch((err) => { if (!cancelled) setError(getErrorMessage(err)) })
-      .finally(() => { if (!cancelled) setLoading(false) })
-    return () => { cancelled = true }
+    const load = () => {
+      alertApi.getAlerts('all')
+        .then((data) => { if (!cancelled) { setAlerts(data); setError(null) } })
+        .catch((err) => { if (!cancelled) setError(getErrorMessage(err)) })
+        .finally(() => { if (!cancelled) setLoading(false) })
+    }
+    load()
+    const interval = window.setInterval(load, 30_000)
+    return () => {
+      cancelled = true
+      window.clearInterval(interval)
+    }
   }, [])
 
   // Load rules when the rules tab is opened

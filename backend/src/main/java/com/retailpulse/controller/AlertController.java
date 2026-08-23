@@ -23,13 +23,13 @@ public class AlertController {
     }
 
     @PutMapping("/{id}/read")
-    public ApiResponse<?> markAsRead(@PathVariable String id) {
-        return ApiResponse.ok(alertService.markAsRead(id), "Alert marked as read");
+    public ApiResponse<?> markAsRead(@PathVariable String id, Authentication auth) {
+        return ApiResponse.ok(alertService.markAsRead(resolveUserId(auth), id), "Alert marked as read");
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<?> deleteAlert(@PathVariable String id) {
-        return ApiResponse.ok(alertService.deleteAlert(id), "Alert deleted");
+    public ApiResponse<?> deleteAlert(@PathVariable String id, Authentication auth) {
+        return ApiResponse.ok(alertService.deleteAlert(resolveUserId(auth), id), "Alert deleted");
     }
 
     @DeleteMapping("/clear-all")

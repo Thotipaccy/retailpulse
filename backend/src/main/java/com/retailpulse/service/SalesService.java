@@ -45,7 +45,35 @@ public class SalesService {
                 return endOfDay ? date.atTime(23, 59, 59) : date.atStartOfDay();
             }
         } catch (Exception e) {
-            return null;
+            // A malformed date must not silently widen the query to all history.
+            throw new BadRequestException("Invalid date value: '" + dateStr + "'. Expected format: YYYY-MM-DD");
+        }
+    }
+
+    /**
+     * Accepts common client spellings and returns the canonical enum.
+     * Unknown values are rejected instead of being quietly recorded as CASH,
+     * which previously corrupted payment-method analytics.
+     */
+    static PaymentMethod normalizePaymentMethod(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return PaymentMethod.CASH;
+        }
+        switch (raw.trim().toUpperCase().replace('-', '_').replace(' ', '_')) {
+            case "CASH": return PaymentMethod.CASH;
+            case "MOMO":
+            case "MOBILE_MONEY":
+            case "MTN": return PaymentMethod.MOBILE_MONEY;
+            case "AIRTEL":
+            case "AIRTEL_MONEY": return PaymentMethod.AIRTEL_MONEY;
+            case "BANK":
+            case "BANK_TRANSFER":
+            case "BANK_TRANSFERT": return PaymentMethod.BANK_TRANSFER;
+            case "CREDIT":
+            case "CREDIT_SALE": return PaymentMethod.CREDIT;
+            default:
+                throw new BadRequestException(
+                        "Unknown payment method '" + raw + "'. Allowed: CASH, MOBILE_MONEY, AIRTEL_MONEY, BANK_TRANSFER, CREDIT");
         }
     }
 
@@ -372,12 +400,7 @@ public class SalesService {
                     });
         }
 
-        PaymentMethod paymentMethod;
-        try {
-            paymentMethod = PaymentMethod.valueOf(request.getPaymentMethod().toUpperCase());
-        } catch (Exception e) {
-            paymentMethod = PaymentMethod.CASH;
-        }
+        PaymentMethod paymentMethod = normalizePaymentMethod(request.getPaymentMethod());
 
         String paymentStatus = "PAID";
         if (paymentMethod == PaymentMethod.CREDIT) {
@@ -487,14 +510,14 @@ public class SalesService {
         }
 
         User user = userDetailsService.loadEntityById(userId);
-        
+
         PaymentHistory payment = PaymentHistory.builder()
                 .paymentId("pay-" + UUID.randomUUID().toString().substring(0, 8))
                 .transaction(transaction)
                 .user(user)
                 .paymentDate(LocalDateTime.now())
                 .amount(amount)
-                .paymentMethod(paymentMethodStr != null ? paymentMethodStr : "CASH")
+                .paymentMethod(normalizePaymentMethod(paymentMethodStr).name())
                 .build();
                 
         paymentHistoryRepository.save(payment);
@@ -556,7 +579,7 @@ public class SalesService {
 
         PaymentMethod pm = null;
         if (paymentMethod != null && !paymentMethod.isBlank()) {
-            try { pm = PaymentMethod.valueOf(paymentMethod.toUpperCase()); } catch (Exception ignored) {}
+            pm = normalizePaymentMethod(paymentMethod);
         }
         String cn = (customerName != null && !customerName.isBlank()) ? customerName.toLowerCase() : null;
 

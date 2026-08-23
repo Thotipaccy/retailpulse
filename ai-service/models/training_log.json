@@ -222,5 +222,177 @@
       "seasonal_score": 6.4,
       "overall": 26.9
     }
+  },
+  {
+    "session_id": 8,
+    "reason": "record_threshold_1349",
+    "status": "completed",
+    "started_at": "2026-08-22T23:14:42.001560Z",
+    "completed_at": "2026-08-22T23:14:43.971404Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 7.84,
+        "wape": 7.84,
+        "daily_wape": 43.55,
+        "smape": 51.9,
+        "accuracy": 92.2,
+        "weekly_precision": 73.1,
+        "seasonal_score": 22.7,
+        "seasonal_reliable": true,
+        "data_days": 45,
+        "lstm_trained": false,
+        "replaced_champion": true,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "wape": 7.84,
+      "smape": 51.9,
+      "accuracy": 92.2,
+      "mape": 7.84,
+      "weekly_precision": 73.1,
+      "seasonal_score": 22.7,
+      "overall": 92.2
+    }
+  },
+  {
+    "session_id": 9,
+    "reason": "record_threshold_74",
+    "status": "completed",
+    "started_at": "2026-08-22T23:27:22.421573Z",
+    "completed_at": "2026-08-22T23:27:25.640065Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 19.12,
+        "wape": 7.84,
+        "daily_wape": 43.55,
+        "smape": 51.9,
+        "accuracy": 92.2,
+        "weekly_precision": 73.1,
+        "seasonal_score": 22.7,
+        "seasonal_reliable": true,
+        "data_days": 45,
+        "lstm_trained": false,
+        "replaced_champion": false,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "wape": 7.84,
+      "smape": 51.9,
+      "accuracy": 92.2,
+      "mape": 7.84,
+      "weekly_precision": 73.1,
+      "seasonal_score": 22.7,
+      "overall": 92.2
+    }
+  },
+  {
+    "session_id": 10,
+    "reason": "record_threshold_1085",
+    "status": "completed",
+    "started_at": "2026-08-22T23:30:10.970501Z",
+    "completed_at": "2026-08-22T23:30:14.525837Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 45.34,
+        "wape": 7.84,
+        "daily_wape": 43.55,
+        "smape": 51.9,
+        "accuracy": 92.2,
+        "weekly_precision": 73.1,
+        "seasonal_score": 22.7,
+        "seasonal_reliable": true,
+        "data_days": 45,
+        "lstm_trained": false,
+        "replaced_champion": false,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "wape": 7.84,
+      "smape": 51.9,
+      "accuracy": 92.2,
+      "mape": 7.84,
+      "weekly_precision": 73.1,
+      "seasonal_score": 22.7,
+      "overall": 92.2
+    }
+  },
+  {
+    "session_id": 11,
+    "reason": "daily_schedule",
+    "status": "completed",
+    "started_at": "2026-08-23T00:00:00.209327Z",
+    "completed_at": "2026-08-23T00:00:02.101680Z",
+    "error": null,
+    "metrics": {
+      "demand": {
+        "mape": 45.34,
+        "wape": 7.84,
+        "daily_wape": 43.55,
+        "smape": 51.9,
+        "accuracy": 92.2,
+        "weekly_precision": 73.1,
+        "seasonal_score": 22.7,
+        "seasonal_reliable": true,
+        "data_days": 45,
+        "lstm_trained": false,
+        "replaced_champion": false,
+        "trained": true
+      },
+      "churn": {
+        "accuracy": 1.0,
+        "trained": true
+      },
+      "recommendations": {
+        "rules": 0,
+        "trained": true
+      },
+      "stockout": {
+        "accuracy": 0.88,
+        "trained": true
+      },
+      "wape": 7.84,
+      "smape": 51.9,
+      "accuracy": 92.2,
+      "mape": 7.84,
+      "weekly_precision": 73.1,
+      "seasonal_score": 22.7,
+      "overall": 92.2
+    }
   }
 ]
