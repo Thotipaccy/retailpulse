@@ -1,4 +1,4 @@
-﻿package com.retailpulse.service;
+package com.retailpulse.service;
 
 import com.retailpulse.model.Alert;
 import com.retailpulse.model.AlertDigestQueue;
