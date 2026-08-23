@@ -28,7 +28,8 @@ public class EmailService {
 
     public boolean sendOtpEmail(String to, String code) {
         if (logOtpToConsole) {
-            log.info("OTP for {}: {}", to, code);
+            log.info("OTP for {}: {} (console mode — SMTP skipped)", to, code);
+            return true;
         }
         if (!rateLimitService.canSend()) {
             log.warn("Daily email limit reached — OTP for {} logged above (not sent via SMTP)", to);
