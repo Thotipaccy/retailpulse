@@ -9,6 +9,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -20,11 +25,16 @@ public class EmailService {
     @Value("${retailpulse.email.from:retailpulse@localhost}")
     private String fromEmail;
 
+    @Value("${retailpulse.email.brevo-api-key:}")
+    private String brevoApiKey;
+
     @Value("${retailpulse.email.auto-alerts-enabled:false}")
     private boolean autoAlertsEnabled;
 
     @Value("${retailpulse.email.log-otp-to-console:true}")
     private boolean logOtpToConsole;
+
+    // ─── public API ──────────────────────────────────────────────────────────
 
     public boolean sendOtpEmail(String to, String code) {
         if (logOtpToConsole) {
@@ -32,25 +42,162 @@ public class EmailService {
             return true;
         }
         if (!rateLimitService.canSend()) {
-            log.warn("Daily email limit reached — OTP for {} logged above (not sent via SMTP)", to);
+            log.warn("Daily email limit reached — OTP for {} not sent", to);
             return false;
         }
+        String subject = "RetailPulse - Your Verification Code";
+        String html    = buildOtpHtml(code);
+        boolean sent   = sendEmail(to, subject, html);
+        if (sent) rateLimitService.recordSent();
+        return sent;
+    }
+
+    public boolean sendAlertEmail(String to, String subject, String body) {
+        if (!autoAlertsEnabled) {
+            log.info("Alert email skipped (auto-alerts disabled): {} — {}", subject, body);
+            return false;
+        }
+        if (!rateLimitService.canSend()) {
+            log.info("Alert email skipped (daily limit): {} — {}", subject, body);
+            return false;
+        }
+        boolean sent = sendEmail(to, subject, "<pre>" + body + "</pre>");
+        if (sent) rateLimitService.recordSent();
+        return sent;
+    }
+
+    public boolean sendDigestEmail(String to, String subject, String body) {
+        if (!autoAlertsEnabled) {
+            log.info("Digest email skipped (auto-alerts disabled) for {}", to);
+            return false;
+        }
+        if (!rateLimitService.canSend()) {
+            log.info("Digest email skipped (daily limit) for {}", to);
+            return false;
+        }
+        String html  = body.replace("\n", "<br/>");
+        boolean sent = sendEmail(to, subject, html);
+        if (sent) rateLimitService.recordSent();
+        return sent;
+    }
+
+    public void sendPasswordReset(String toEmail, String resetLink) {
+        sendEmail(toEmail, "RetailPulse — Password Reset",
+                "<p>Reset your password: <a href=\"" + resetLink + "\">" + resetLink + "</a></p>");
+    }
+
+    public boolean sendWelcomeEmail(String to, String fullName, String role, String temporaryPassword) {
+        if (!rateLimitService.canSend()) {
+            log.warn("Welcome email skipped (daily limit) for {}. Temporary password: {}", to, temporaryPassword);
+            return false;
+        }
+        String text = """
+                Hello %s,
+
+                Your RetailPulse account has been created.
+
+                Email: %s
+                Role: %s
+                Temporary password: %s
+
+                This is your system password. Change it at first login.
+
+                — RetailPulse Administration
+                """.formatted(fullName, to, role, temporaryPassword);
+        boolean sent = sendEmail(to, "RetailPulse — Your Account Has Been Created",
+                "<pre>" + text + "</pre>");
+        if (sent) rateLimitService.recordSent();
+        return sent;
+    }
+
+    // ─── routing: Brevo HTTP API or SMTP ─────────────────────────────────────
+
+    private boolean sendEmail(String to, String subject, String htmlBody) {
+        if (brevoApiKey != null && !brevoApiKey.isBlank()) {
+            return sendViaBrevoApi(to, subject, htmlBody);
+        }
+        return sendViaSmtp(to, subject, htmlBody);
+    }
+
+    // ─── Brevo HTTP API (works on Render free tier) ──────────────────────────
+
+    private boolean sendViaBrevoApi(String to, String subject, String htmlBody) {
+        try {
+            String senderName = "RetailPulse";
+            String payload = """
+                    {
+                      "sender":  { "name": "%s", "email": "%s" },
+                      "to":      [{ "email": "%s" }],
+                      "subject": "%s",
+                      "htmlContent": %s
+                    }
+                    """.formatted(
+                    senderName,
+                    fromEmail,
+                    to,
+                    subject,
+                    toJsonString(htmlBody)
+            );
+
+            URL url = new URL("https://api.brevo.com/v3/smtp/email");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(10_000);
+            conn.setReadTimeout(10_000);
+            conn.setRequestProperty("accept",       "application/json");
+            conn.setRequestProperty("content-type", "application/json");
+            conn.setRequestProperty("api-key",      brevoApiKey);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(payload.getBytes(StandardCharsets.UTF_8));
+            }
+
+            int status = conn.getResponseCode();
+            if (status == 201 || status == 200) {
+                log.info("Email sent via Brevo API to {}", to);
+                return true;
+            } else {
+                String err = new String(conn.getErrorStream().readAllBytes(), StandardCharsets.UTF_8);
+                log.warn("Brevo API returned {} for {}: {}", status, to, err);
+                return false;
+            }
+        } catch (Exception e) {
+            log.warn("Could not send email via Brevo API to {}: {}", to, e.getMessage());
+            return false;
+        }
+    }
+
+    /** Converts a raw string into a JSON string literal (escapes quotes and newlines). */
+    private String toJsonString(String value) {
+        return "\"" + value
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "")
+                + "\"";
+    }
+
+    // ─── SMTP fallback ────────────────────────────────────────────────────────
+
+    private boolean sendViaSmtp(String to, String subject, String htmlBody) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(fromEmail);
             helper.setTo(to);
-            helper.setSubject("RetailPulse - Your Verification Code");
-            helper.setText(buildOtpHtml(code), true);
+            helper.setSubject(subject);
+            helper.setText(htmlBody, true);
             mailSender.send(message);
-            rateLimitService.recordSent();
-            log.info("OTP email sent to {}", to);
+            log.info("Email sent via SMTP to {}", to);
             return true;
         } catch (Exception e) {
-            log.warn("Could not send OTP email to {} ({}). Use OTP logged above.", to, e.getMessage());
+            log.warn("Could not send email via SMTP to {} ({})", to, e.getMessage());
             return false;
         }
     }
+
+    // ─── HTML builders ───────────────────────────────────────────────────────
 
     private String buildOtpHtml(String code) {
         String digits = buildDigitCells(code);
@@ -114,105 +261,5 @@ public class EmailService {
         }
         cells.append("</tr></table>");
         return cells.toString();
-    }
-
-    public boolean sendAlertEmail(String to, String subject, String body) {
-        if (!autoAlertsEnabled) {
-            log.info("Alert email skipped (auto-alerts disabled): {} — {}", subject, body);
-            return false;
-        }
-        if (!rateLimitService.canSend()) {
-            log.info("Alert email skipped (daily limit): {} — {}", subject, body);
-            return false;
-        }
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
-            helper.setFrom(fromEmail);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body);
-            mailSender.send(message);
-            rateLimitService.recordSent();
-            log.info("Alert email sent to {}", to);
-            return true;
-        } catch (MessagingException e) {
-            log.warn("Could not send alert email to {}: {}", to, e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean sendDigestEmail(String to, String subject, String body) {
-        if (!autoAlertsEnabled) {
-            log.info("Digest email skipped (auto-alerts disabled) for {}", to);
-            return false;
-        }
-        if (!rateLimitService.canSend()) {
-            log.info("Digest email skipped (daily limit) for {}", to);
-            return false;
-        }
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setFrom(fromEmail);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body.replace("\n", "<br/>"), body);
-            mailSender.send(message);
-            rateLimitService.recordSent();
-            log.info("Digest email sent to {}", to);
-            return true;
-        } catch (MessagingException e) {
-            log.warn("Could not send digest email to {}", to);
-            return false;
-        }
-    }
-
-    public void sendPasswordReset(String toEmail, String resetLink) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
-            helper.setFrom(fromEmail);
-            helper.setTo(toEmail);
-            helper.setSubject("RetailPulse — Password Reset");
-            helper.setText("Reset your password: " + resetLink);
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            log.warn("Could not send password reset email to {}", toEmail);
-        }
-    }
-
-    public boolean sendWelcomeEmail(String to, String fullName, String role, String temporaryPassword) {
-        if (!rateLimitService.canSend()) {
-            log.warn("Welcome email skipped (daily limit) for {}. Temporary password: {}", to, temporaryPassword);
-            return false;
-        }
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
-            helper.setFrom(fromEmail);
-            helper.setTo(to);
-            helper.setSubject("RetailPulse — Your Account Has Been Created");
-            helper.setText("""
-                    Hello %s,
-
-                    Your RetailPulse account has been created.
-
-                    Email: %s
-                    Role: %s
-                    Temporary password: %s
-
-                    This is your system password. Change it at first login.
-
-                    — RetailPulse Administration
-                    """.formatted(fullName, to, role, temporaryPassword));
-            mailSender.send(message);
-            rateLimitService.recordSent();
-            log.info("Welcome email sent to {}", to);
-            return true;
-        } catch (Exception e) {
-            log.warn("Could not send welcome email to {} ({}). Temporary password: {}", to, e.getMessage(), temporaryPassword);
-            return false;
-        }
     }
 }

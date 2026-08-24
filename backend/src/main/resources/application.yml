@@ -69,6 +69,7 @@ retailpulse:
     recipient: ${ALERT_EMAIL:}
   email:
     from: ${MAIL_FROM:${MAIL_USERNAME:}}
+    brevo-api-key: ${BREVO_API_KEY:}
     daily-limit: 50
     auto-alerts-enabled: false
     log-otp-to-console: ${LOG_OTP_TO_CONSOLE:false}
