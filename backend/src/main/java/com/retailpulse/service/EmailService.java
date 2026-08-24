@@ -17,7 +17,7 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final EmailRateLimitService rateLimitService;
 
-    @Value("${spring.mail.username:retailpulse@localhost}")
+    @Value("${retailpulse.email.from:retailpulse@localhost}")
     private String fromEmail;
 
     @Value("${retailpulse.email.auto-alerts-enabled:false}")

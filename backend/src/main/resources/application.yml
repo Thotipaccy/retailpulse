@@ -68,6 +68,7 @@ retailpulse:
   alerts:
     recipient: ${ALERT_EMAIL:}
   email:
+    from: ${MAIL_FROM:${MAIL_USERNAME:}}
     daily-limit: 50
     auto-alerts-enabled: false
     log-otp-to-console: ${LOG_OTP_TO_CONSOLE:false}
