@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       LSTM_EPOCHS: "3"
-      MODELS_DIR: ${{ runner.temp }}/rp-ci-models
+      MODELS_DIR: /tmp/rp-ci-models
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
