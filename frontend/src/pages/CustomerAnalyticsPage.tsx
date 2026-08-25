@@ -89,8 +89,8 @@ export function CustomerAnalyticsPage() {
 
   const load = useCallback(() => {
     let cancelled = false
-    setError(null)
-    setLoading(true)
+    setError((prev) => prev !== null ? null : prev)
+    setLoading((prev) => prev !== true ? true : prev)
     Promise.allSettled([
       customerApi.getSummary(),
       customerApi.getSegments(),
