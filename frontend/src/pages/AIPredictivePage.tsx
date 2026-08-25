@@ -314,9 +314,9 @@ export function AIPredictivePage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm">
-            {/* Clean UI: Subtle system health indicator that reveals technical details on hover */}
-            <div className="group relative flex cursor-help items-center text-on-glass-muted hover:text-on-glass z-50">
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-white/10 hover:border-white/20">
+            {/* Clean UI: Subtle system health indicator that reveals technical details on hover or tap */}
+            <div tabIndex={0} className="group relative flex cursor-pointer items-center text-on-glass-muted hover:text-on-glass focus:text-on-glass focus:outline-none z-50">
+              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-white/10 hover:border-white/20 group-focus:bg-white/10 group-focus:border-white/20">
                 {status?.modelsReady && historicalDays >= 90 ? (
                   <CheckCircle2 className="h-4 w-4 text-forest-light" />
                 ) : (
@@ -326,7 +326,7 @@ export function AIPredictivePage() {
               </div>
 
               {/* Popover Content */}
-              <div className="pointer-events-none absolute left-0 top-full mt-2 w-72 translate-y-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 z-[100]">
+              <div className="pointer-events-none absolute left-0 top-full mt-2 w-72 translate-y-2 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus:pointer-events-auto group-focus:translate-y-0 group-focus:opacity-100 z-[100]">
                 <div className="rounded-xl border border-white/20 bg-[#1a1917] p-4 text-xs shadow-2xl backdrop-blur-xl">
                   <p className="font-semibold text-on-glass mb-3 border-b border-white/10 pb-2">Engine Diagnostics</p>
 
