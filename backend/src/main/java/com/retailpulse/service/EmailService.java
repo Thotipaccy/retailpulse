@@ -124,10 +124,6 @@ public class EmailService {
     private boolean sendViaBrevoApi(String to, String subject, String htmlBody) {
         try {
             String senderName = "RetailPulse";
-            // DEBUG: log key prefix so we can verify Render env var is set correctly
-            String keyPreview = (brevoApiKey != null && brevoApiKey.length() > 10)
-                    ? brevoApiKey.substring(0, 10) + "..." : "[SHORT/EMPTY]";
-            log.info("Sending via Brevo API — key starts with: {}, from: {}", keyPreview, fromEmail);
             String payload = """
                     {
                       "sender":  { "name": "%s", "email": "%s" },
