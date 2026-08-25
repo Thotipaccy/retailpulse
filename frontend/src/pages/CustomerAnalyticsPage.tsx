@@ -128,44 +128,7 @@ export function CustomerAnalyticsPage() {
     return () => { cancelled = true }
   }, [])
 
-  useEffect(() => {
-    let cancelled = false
-    Promise.allSettled([
-      customerApi.getSummary(),
-      customerApi.getSegments(),
-      customerApi.getTop(10),
-      customerApi.getFrequency(),
-      customerApi.getLtvTrend(),
-    ])
-      .then(([summaryRes, segRes, topRes, freqRes, ltvRes]) => {
-        if (cancelled) return
-        const failed = [summaryRes, segRes, topRes, freqRes, ltvRes].filter((r) => r.status === 'rejected')
-        if (failed.length === 5) {
-          setError(getErrorMessage((failed[0] as PromiseRejectedResult).reason))
-          return
-        }
-        if (summaryRes.status === 'fulfilled') setSummary(summaryRes.value)
-        if (segRes.status === 'fulfilled') {
-          const mapped = segRes.value.map((p, i) => ({
-            name: mapSegmentName(p.name),
-            value: Number(p.value),
-            fill: String(p.fill ?? SEGMENT_COLORS[mapSegmentName(p.name)] ?? Object.values(SEGMENT_COLORS)[i % 4]),
-          }))
-          setSegments(aggregateSegments(mapped))
-        }
-        if (topRes.status === 'fulfilled') {
-          setTopCustomers(topRes.value.map(toTopCustomer))
-        }
-        if (freqRes.status === 'fulfilled') {
-          setFrequencyData(freqRes.value.map((p) => ({ name: p.name, count: Number(p.value) })))
-        }
-        if (ltvRes.status === 'fulfilled') {
-          setLtvTrend(ltvRes.value)
-        }
-      })
-      .finally(() => { if (!cancelled) setLoading(false) })
-    return () => { cancelled = true }
-  }, [])
+  useEffect(() => load(), [load])
 
   const loyaltyTiers = useMemo(
     () => segments.map((seg) => ({
@@ -212,7 +175,7 @@ export function CustomerAnalyticsPage() {
           <TintedKPICard label="Total Customers" value={summary.totalCustomers.toLocaleString()} tint="copper" trend={<p className={`mt-1 text-xs ${summary.customerGrowth?.startsWith('-') ? 'text-rust-light' : 'text-forest-light'}`}>{summary.customerGrowth || '+0.0% from last month'}</p>} />
           <TintedKPICard label="Avg Customer LTV" value={formatRWF(Number(summary.avgLifetimeValue))} tint="steel" trend={<p className={`mt-1 text-xs ${summary.ltvGrowth?.startsWith('-') ? 'text-rust-light' : 'text-forest-light'}`}>{summary.ltvGrowth || '+0.0% from last month'}</p>} />
           <TintedKPICard label="Repeat Purchase Rate" value={repeatRate != null ? `${repeatRate}%` : '—'} tint="forest" trend={<p className={`mt-1 text-xs ${summary.repeatRateGrowth?.startsWith('-') ? 'text-rust-light' : 'text-forest-light'}`}>{summary.repeatRateGrowth || '+0.0% from last month'}</p>} />
-          <TintedKPICard label="Churn Risk" value={summary.highChurnRisk} tint="red" trend={<p className="mt-1 text-xs text-rust-light">{churnPct != null ? `${churnPct}% of customer base` : '5% of customer base'}</p>} />
+          <TintedKPICard label="Churn Risk" value={summary.highChurnRisk} tint="red" trend={<p className="mt-1 text-xs text-rust-light">{churnPct != null ? `${churnPct}% of customer base` : summary.totalCustomers === 0 ? 'No customers yet' : '—'}</p>} />
         </div>
       ) : (
         <EmptyState icon={<Users className="h-6 w-6" />} title="No customer summary" description="Customer summary data is not available." />
