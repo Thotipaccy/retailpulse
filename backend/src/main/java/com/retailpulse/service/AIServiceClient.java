@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -48,6 +49,25 @@ public class AIServiceClient {
         } catch (RestClientException ex) {
             log.debug("AI service health check failed: {}", ex.getMessage());
             return false;
+        }
+    }
+
+    /**
+     * Periodically pings the AI service every 10 minutes to keep it awake on Render's free tier.
+     * Starts 30 seconds after application startup.
+     */
+    @Scheduled(fixedRate = 600_000, initialDelay = 30_000)
+    public void keepAlivePing() {
+        if (!enabled) return;
+        try {
+            boolean up = isHealthy();
+            if (up) {
+                log.info("AI service keep-alive ping succeeded: {}", healthUrl);
+            } else {
+                log.debug("AI service keep-alive ping attempted (service is currently unavailable)");
+            }
+        } catch (Exception ex) {
+            log.debug("AI service keep-alive ping encountered an error: {}", ex.getMessage());
         }
     }
 
