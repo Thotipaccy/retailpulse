@@ -1,10 +1,8 @@
 import logging
 from collections import Counter, defaultdict
 from itertools import combinations
-from pathlib import Path
 
 import joblib
-import numpy as np
 import pandas as pd
 
 from config import APRIORI_MIN_CONFIDENCE, APRIORI_MIN_SUPPORT, MODELS_DIR
