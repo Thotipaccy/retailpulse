@@ -108,38 +108,7 @@ public class RecommendationService {
         boolean hasData = seasonProductQty.values().stream()
                 .anyMatch(m -> !m.isEmpty());
         if (!hasData) {
-            List<Object[]> topProducts = transactionItemRepository.findTopSellingProducts();
-            if (topProducts.isEmpty()) {
-                List<Product> allProducts = productRepository.findAll();
-                if (allProducts.isEmpty()) {
-                    return List.of();
-                }
-                List<Map<String, Object>> baseline = new ArrayList<>();
-                String[] seasons = {"Spring", "Summer", "Autumn", "Winter"};
-                for (int i = 0; i < Math.min(16, allProducts.size()); i++) {
-                    Product p = allProducts.get(i);
-                    Map<String, Object> m = new LinkedHashMap<>();
-                    m.put("season", seasons[i % 4]);
-                    m.put("recommendedProduct", p.getProductName());
-                    m.put("category", p.getCategory() != null ? p.getCategory().getCategoryName() : "General");
-                    m.put("confidenceScore", 0.85 - ((i / 4) * 0.05));
-                    baseline.add(m);
-                }
-                return baseline;
-            }
-            int curMonth = java.time.LocalDate.now().getMonthValue();
-            String curSeason = MONTH_TO_SEASON.getOrDefault(curMonth, "Summer");
-            List<Map<String, Object>> fallback = new ArrayList<>();
-            for (int i = 0; i < Math.min(4, topProducts.size()); i++) {
-                Object[] row = topProducts.get(i);
-                Map<String, Object> m = new LinkedHashMap<>();
-                m.put("season", curSeason);
-                m.put("recommendedProduct", row[1]);
-                m.put("category", row[4]);
-                m.put("confidenceScore", 0.75 - i * 0.05);
-                fallback.add(m);
-            }
-            return fallback;
+            return List.of();
         }
 
         // Build one entry per top product per season (up to 5 per season)

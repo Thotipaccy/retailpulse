@@ -15,24 +15,27 @@ class RecommendationService:
         if rec_type == "seasonal" and self.demand_model:
             return self._dynamic_seasonal(payload, limit)
 
-        transactions = payload.get("transactions") or self._default_transactions()
-        baskets = [t["products"] for t in transactions if "products" in t]
+        transactions = payload.get("transactions") or []
+        baskets = [t["products"] for t in transactions if isinstance(t, dict) and "products" in t and t["products"]]
+
+        product_names = payload.get("product_names") or {}
 
         # Use request baskets for cross-sell when provided (on-the-fly association rules).
-        if payload.get("transactions") and baskets:
+        if baskets:
             inline = ProductRecommendationModel()
             inline.train(baskets)
             model = inline
         else:
-            if not self.model.is_trained and baskets:
-                self.model.train(baskets)
+            if not self.model.is_trained:
+                return {"recommendations": [], "data": []}
             model = self.model
 
         recs = model.recommend(
             transactions=transactions,
-            product_id=payload.get("product_id", 1),
+            product_id=payload.get("product_id"),
             rec_type=rec_type,
             limit=limit,
+            product_names=product_names,
         )
 
         return {
@@ -64,7 +67,6 @@ class RecommendationService:
             except (ValueError, TypeError):
                 continue
         if not seasonal_qty:
-            # Default to current season
             return RecommendationService._month_to_season(datetime.now().month)
         return max(seasonal_qty, key=lambda s: seasonal_qty[s])
 
@@ -121,11 +123,9 @@ class RecommendationService:
         per_season_limit = max(5, limit // 4)  # top N products per season
 
         if not product_histories:
-            recs = self.model._seasonal_recommendations(limit)
-            return {"recommendations": recs, "data": recs}
+            return {"recommendations": [], "data": []}
 
         # ── Cap to top 30 products by total historical sales volume ──────
-        # This keeps response times fast even with large catalogs
         MAX_PRODUCTS = 30
         ranked_by_volume = sorted(
             ((pid, hist) for pid, hist in product_histories.items() if hist),
@@ -134,8 +134,7 @@ class RecommendationService:
         )[:MAX_PRODUCTS]
 
         if not ranked_by_volume:
-            recs = self.model._seasonal_recommendations(limit)
-            return {"recommendations": recs, "data": recs}
+            return {"recommendations": [], "data": []}
 
         # ── Run ML predictions in parallel ───────────────────────────────
         def forecast_product(pid_hist):
@@ -158,9 +157,7 @@ class RecommendationService:
 
                 # 3. Seasonal concentration score: if a product clearly peaks in
                 #    one season (high share), that seasonal recommendation is reliable.
-                #    A flat distribution (0.25 per season) → low score.
                 max_season_share = max(breakdown.values(), default=0.0) / total_qty
-                # Scale: 0.25 (uniform) → 0.0, 1.0 (all in one season) → 1.0
                 concentration_score = max(0.0, (max_season_share - 0.25) / 0.75)
 
                 # Weighted combination (model 40%, data quality 30%, seasonality 30%)
@@ -169,7 +166,6 @@ class RecommendationService:
                     + 0.30 * data_score
                     + 0.30 * concentration_score
                 )
-                # Clamp to [0.10, 0.95] — never claim perfection or zero knowledge
                 confidence = max(0.10, min(0.95, confidence))
                 # ─────────────────────────────────────────────────────────────
                 product_name = product_names.get(str(pid), f"Product {pid}")
@@ -178,6 +174,8 @@ class RecommendationService:
                 for season in ("Spring", "Summer", "Autumn", "Winter"):
                     share = breakdown.get(season, 0) / total_qty
                     score = share * overall_predicted * trend
+                    if score <= 0:
+                        continue
                     results.append({
                         "product_id": pid,
                         "product_name": product_name,
@@ -195,7 +193,6 @@ class RecommendationService:
                 return []
 
         all_entries: list[dict] = []
-        # Use up to 8 workers — enough to parallelize without overloading
         with ThreadPoolExecutor(max_workers=min(8, len(ranked_by_volume))) as executor:
             futures = {executor.submit(forecast_product, item): item[0] for item in ranked_by_volume}
             for future in as_completed(futures):
@@ -214,16 +211,3 @@ class RecommendationService:
                 all_recs.append(item)
 
         return {"recommendations": all_recs, "data": all_recs}
-
-    @staticmethod
-    def _default_transactions() -> list[dict]:
-        return [
-            {"transaction_id": 1, "products": [1, 5, 12]},
-            {"transaction_id": 2, "products": [1, 8]},
-            {"transaction_id": 3, "products": [2, 7]},
-            {"transaction_id": 4, "products": [1, 2, 7]},
-            {"transaction_id": 5, "products": [3, 6]},
-            {"transaction_id": 6, "products": [4, 6]},
-            {"transaction_id": 7, "products": [1, 4, 5]},
-            {"transaction_id": 8, "products": [8, 12]},
-        ]
